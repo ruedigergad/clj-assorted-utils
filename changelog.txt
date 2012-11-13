@@ -1,0 +1,4 @@
+master
+
+1.0.0
+  - First release under new name clj-assorted-utils.
