@@ -285,3 +285,13 @@
   (binding [*out* *err*]
     (apply println s)))
 
+
+
+
+;;;
+;;; Functions for serializing objects.
+;;;
+(defn object-to-byte-array
+  [obj])
+
+

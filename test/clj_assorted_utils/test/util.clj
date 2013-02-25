@@ -183,3 +183,15 @@
 
 
 
+;;;
+;;; Tests for object serialization.
+;;;
+(deftest test-object-to-byte-array
+  (let [obj-int 1
+        obj-string "a"
+        ba-int (object-to-byte-array obj-int)
+        ba-string (object-to-byte-array obj-string)]
+    (is (not (nil? ba-int)))
+    (is (not (nil? ba-string)))))
+
+
