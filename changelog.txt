@@ -1,4 +1,7 @@
 master
 
+1.1.0
+  - Add functions for serializing and compressing objects to byte arrays.
+
 1.0.0
   - First release under new name clj-assorted-utils.
