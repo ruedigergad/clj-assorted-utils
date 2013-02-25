@@ -14,7 +14,9 @@
   (:use clojure.walk)
   (:use clojure.xml)
   (:require (clojure [string :as str]))
-  (:import (java.util.concurrent Executors TimeUnit)))
+  (:import (java.io ByteArrayOutputStream ObjectOutputStream)
+           (java.util.concurrent Executors TimeUnit)
+           (java.util.zip GZIPOutputStream ZipOutputStream)))
 
 
 (defn sleep [ms]
@@ -291,7 +293,21 @@
 ;;;
 ;;; Functions for serializing objects.
 ;;;
-(defn object-to-byte-array
-  [obj])
+(defn object-to-byte-array [obj]
+  (let [byte-out (ByteArrayOutputStream.)
+        obj-out (ObjectOutputStream. byte-out)]
+    (doto obj-out (.writeObject obj) .flush .close)
+    (.toByteArray byte-out)))
 
+(defn compress-object-to-byte-array 
+  ([obj]
+    (compress-object-to-byte-array obj :gzip))
+  ([obj alg]
+    (let [byte-out (ByteArrayOutputStream.)
+          compress-out (cond
+                         (= :zip alg) (ZipOutputStream. byte-out)
+                         :default (GZIPOutputStream. byte-out))
+          obj-out (ObjectOutputStream. compress-out)]
+      (doto obj-out (.writeObject obj) .flush .close)
+      (.toByteArray byte-out))))
 

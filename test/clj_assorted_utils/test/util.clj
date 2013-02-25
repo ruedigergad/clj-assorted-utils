@@ -187,11 +187,18 @@
 ;;; Tests for object serialization.
 ;;;
 (deftest test-object-to-byte-array
-  (let [obj-int 1
-        obj-string "a"
+  (let [obj-int (int 123)
+        obj-string "abc"
         ba-int (object-to-byte-array obj-int)
         ba-string (object-to-byte-array obj-string)]
     (is (not (nil? ba-int)))
     (is (not (nil? ba-string)))))
 
+(deftest test-compress-object-to-byte-array
+  (let [obj-int (int 123)
+        obj-string "abc"
+        ba-int (compress-object-to-byte-array obj-int :gzip)
+        ba-string (compress-object-to-byte-array obj-string :gzip)]
+    (is (not (nil? ba-int)))
+    (is (not (nil? ba-string)))))
 
