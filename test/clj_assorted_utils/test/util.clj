@@ -103,6 +103,21 @@
     (dotimes [_ 1000] (inc-counter my-counter))
     (is (= 2000 @my-counter))))
 
+(deftest counter-convenience-test
+  (let [my-counter (counter)]
+    (dotimes [_ 1000] (my-counter inc))
+    (is (= 1000 (my-counter)))))
+
+(deftest counter-convenience-test-custom-fn
+  (let [my-counter (counter)]
+    (dotimes [_ 1000] (my-counter #(+ 2 %)))
+    (is (= 2000 (my-counter)))))
+
+(deftest counter-convenience-test-init-value-decrementing
+  (let [my-counter (counter 1000)]
+    (dotimes [_ 1000] (my-counter dec))
+    (is (= 0 (my-counter)))))
+
 
 
 ;;;

@@ -170,6 +170,20 @@
   "Increment the given counter c."
   (dosync (alter c inc)))
 
+(defn counter
+  "Convenience function for creating a more powerful counter.
+   The created counter allows to have arbitrary functions passed for manipulating the internal value.
+   When the created counter is called with no argument the current value is returned."
+  ([] (counter 0))
+  ([init] 
+   (let [cntr (ref init)]
+     (fn 
+       ([] @cntr)
+       ([op]
+         (cond
+           (fn? op) (dosync (alter cntr op))
+           :default (println "No function passed:" op)))))))
+
 
 
 ;;;
