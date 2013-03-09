@@ -98,6 +98,11 @@
     (dotimes [_ 1000] (inc-counter my-counter))
     (is (= 1000 @my-counter))))
 
+(deftest counter-with-initial-value-test
+  (let [my-counter (prepare-counter 1000)]
+    (dotimes [_ 1000] (inc-counter my-counter))
+    (is (= 2000 @my-counter))))
+
 
 
 ;;;

@@ -161,9 +161,10 @@
   "Test if flag had been set."
   (:flag @f))
 
-(defn prepare-counter []
+(defn prepare-counter 
   "Prepare a simple counter. Use @ to access the value."
-  (ref 0))
+  ([] (prepare-counter 0))
+  ([init] (ref init)))
 
 (defn inc-counter [c]
   "Increment the given counter c."
