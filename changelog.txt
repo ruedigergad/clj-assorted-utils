@@ -1,5 +1,9 @@
 master
 
+1.2.9
+  - Add more powerful and convenient to use counter.
+  - Add convenience function for processing input line-by-line.
+
 1.1.0
   - Add functions for serializing and compressing objects to byte arrays.
 
