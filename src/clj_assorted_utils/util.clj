@@ -326,3 +326,14 @@
       (doto obj-out (.writeObject obj) .flush .close)
       (.toByteArray byte-out))))
 
+
+
+
+;;;
+;;; Functions for processing input.
+;;;
+(defn process-line-by-line [location f]
+  (with-open [rdr (clojure.java.io/reader location)]
+    (doseq [line (line-seq rdr)]
+      (f line))))
+

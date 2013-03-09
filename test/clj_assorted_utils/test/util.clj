@@ -222,3 +222,20 @@
     (is (not (nil? ba-int)))
     (is (not (nil? ba-string)))))
 
+
+
+;;;
+;;; Tests for reading input line-by-line
+;;;
+(deftest process-line-by-line-test
+  (let [cntr (counter)]
+    (is (= 0 (cntr)))
+    (process-line-by-line "test-file.txt" (fn [_] (cntr inc)))
+    (is (= 10 (cntr)))))
+
+(deftest process-line-by-line-test2
+  (let [cntr (counter)]
+    (is (= 0 (cntr)))
+    (process-line-by-line "test-file.txt" (fn [x] (cntr #(+ % (read-string x)))))
+    (is (= 55 (cntr)))))
+
