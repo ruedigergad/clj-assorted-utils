@@ -1,0 +1,5 @@
+*.swp
+/lib/dev
+/lib/autodoc
+/pom.xml
+/.lein-*

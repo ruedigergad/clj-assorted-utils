@@ -19,15 +19,27 @@
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
 
-(defn sleep [ms]
+(defn sleep
+  "Sleep for the given number of milliseconds."
+  [ms]
   (Thread/sleep ms))
 
-(defn exec [cmd]
+(defn exec
+  "Execute the given command."
+  [cmd]
   (-> (Runtime/getRuntime) (.exec cmd)))
-(defn exec-blocking [cmd]
+
+(defn exec-blocking
+  "Execute the given command and block until execution has finished."
+  [cmd]
   (-> (exec cmd) (.waitFor)))
 
-(defn exec-with-out [cmd stdout-fn]
+(defn exec-with-out
+  "Execute the given command and process the output written to stdout with stdout-fn.
+   stdout-fn is run in an own thread.
+   The data written to stdout is passed to stdout-fn line-by-line.
+   When a value of nil is read processing stops and the process in which cmd was executed is destroyed."
+  [cmd stdout-fn]
   (let [proc (exec cmd)
         stdout-reader (reader (.getInputStream proc))
         stdout-thread (Thread. (fn []
@@ -56,69 +68,82 @@
 ;;; Strings or URI (Essentially everything clojure.java.io/file can handle.).
 ;;; Well actually these had only been tested using Strings... o_X
 ;;;
-(defn exists? [f]
+(defn exists?
   "Returns true if f exists in the filesystem."
+  [f]
   (.exists (file f)))
 
-(defn is-file? [f]
+(defn is-file?
   "Returns true if f is a file."
+  [f]
   (.isFile (file f)))
 
-(defn file-exists? [f]
+(defn file-exists?
   "Returns true if f exists and is a file."
+  [f]
   (and 
     (exists? f)
     (is-file? f)))
 
-(defn is-dir? [d]
+(defn is-dir?
   "Returns true if f is a directory."
+  [d]
   (.isDirectory (file d)))
 
-(defn dir-exists? [d]
+(defn dir-exists?
   "Returns true if f exists and is a directory."
+  [d]
   (and
     (exists? d)
     (is-dir? d)))
 
-(defn mkdir [d]
+(defn mkdir
   "Create directory d and if required all parent directories.
    This is equivalent to 'mkdir -p d' on Linux systems."
+  [d]
   (.mkdirs (file d)))
 
-(defn rm [f]
+(defn rm
   "Delete file f."
+  [f]
   (delete-file (file f)))
 
-(defn rmdir [d]
+(defn rmdir
   "Delete d if d is an empty directory."
+  [d]
   (if (is-dir? d) (rm d)))
 
-(defn touch [f]
+(defn touch
   "If f does not exist, create it."
+  [f]
   (.createNewFile (file f)))
 
 
 ;;;
 ;;; Delayed and repeated evaluation.
 ;;;
-(defmacro delay-eval [d & body]
+(defmacro delay-eval
   "Evaluates the supplied body with the given delay 'd' ([ms])."
+  [d & body]
   `(doto (Thread. 
            #(do
               (Thread/sleep ~d)
               ~@body))
      (.start)))
 
-(defn executor []
+(defn executor
   "Create an executor for executing fns in an own thread."
+  []
   (Executors/newSingleThreadScheduledExecutor))
 
-(defn shutdown [exec]
+(defn shutdown
   "Shut executor down."
+  [exec]
   (.shutdown exec))
 
-(defn shutdown-now [exec]
+(defn shutdown-now
   "Force executor shut down."
+  [exec]
   (.shutdownNow exec))
 
 (defn run-once
@@ -148,17 +173,21 @@
 ;;; Flags and a simple counter.
 ;;; I use these primarily for unit testing to check if something happened or not.
 ;;;
-(defn prepare-flag []
+(defn prepare-flag
   "Prepare a flag with default value false."
+  []
   (ref {:flag false}))
 
-(defn set-flag [f]
+(defn set-flag
   "Set flag to true."
+  [f]
   (dosync
     (alter f assoc :flag true)))
 
-(defn flag-set? [f]
-  "Test if flag had been set."
+(defn flag-set?
+  "Test if flag had been set.
+   Returns true if flag was set and false otherwise."
+  [f]
   (:flag @f))
 
 (defn prepare-counter 
@@ -166,14 +195,23 @@
   ([] (prepare-counter 0))
   ([init] (ref init)))
 
-(defn inc-counter [c]
-  "Increment the given counter c."
+(defn inc-counter
+  "Increment the given simple counter c."
+  [c]
   (dosync (alter c inc)))
 
 (defn counter
   "Convenience function for creating a more powerful counter.
-   The created counter allows to have arbitrary functions passed for manipulating the internal value.
-   When the created counter is called with no argument the current value is returned."
+   The created counter allows to have arbitrary single-argument functions passed for manipulating the internal value.
+   When the created counter is called with no argument the current value is returned.
+   Example:
+   (use 'clj-assorted-utils.util)
+   (let [cntr (counter 123)]
+     (println (cntr))
+     (cntr inc)
+     (cntr dec)
+     (cntr #(- % 123))
+     (cntr))"
   ([] (counter 0))
   ([init] 
    (let [cntr (ref init)]
@@ -189,13 +227,15 @@
 ;;;
 ;;; Convenience functions for getting class and fn names.
 ;;;
-(defn classname [o]
+(defn classname
   "Get classname without leading package names of the given object o."
+  [o]
   (-> (type o) (str) (str/split #"\.") (last)))
 
 
-(defn fn-name [f]
+(defn fn-name
   "Get the name of the given fn f."
+  [f]
   (-> 
     (.getClass f) 
     (.getName) 
@@ -208,8 +248,9 @@
 ;;;
 ;;; Byte to Int
 ;;;
-(defn byte-seq-to-int [byte-seq]
+(defn byte-seq-to-int
   "Convert the byte sequence byte-seq to an integer."
+  [byte-seq]
   (loop [s byte-seq acc 0 shift 0]
     (if (empty? s)
       acc
@@ -225,14 +266,16 @@
 ;;;
 ;;; Functions for messing with byte vectors.
 ;;;
-(defn get-int-from-byte-vector [v n] 
+(defn get-int-from-byte-vector
   "From given vector of bytes v get the integer starting at offset n.
    Starting at offset n the next 4 bytes will be converted to an integer."
+  [v n]
   (byte-seq-to-int 
     (subvec v n (+ n 4))))
 
-(defn int-to-byte-vector [val]
+(defn int-to-byte-vector
   "Convert the given integer val to a vector of 4 bytes."
+  [val]
   (loop [acc [] shift 0] 
     (if (= 8 shift)
       acc
@@ -240,15 +283,17 @@
         (conj acc (bit-and (bit-shift-right val (* 8 shift)) 0xff))
         (inc shift)))))
 
-(defn vec-replace [v n delta]
+(defn vec-replace
   "In given vector v replace the content of v starting at index n with delta."
+  [v n delta]
   (loop [i 0 acc v]
     (if (= i (count delta))
       acc
       (recur (inc i) (assoc acc (+ n i) (delta i))))))
 
-(defn change-int-in-byte-vector [v n f]
+(defn change-int-in-byte-vector
   "In the given vector v, change the byte representation of an integer by applying function f."
+  [v n f]
   (let [int-val (get-int-from-byte-vector v n)
         new-int (f int-val)
         byte-vec (subvec (int-to-byte-vector new-int) 0 4)]
@@ -259,23 +304,26 @@
 ;;;
 ;;; Functions for messing with XML data.
 ;;;
-(defn xml-string-to-map [xml-str]
+(defn xml-string-to-map
   "Takes an XML definition in form of a string and outputs the corresponding map."
+  [xml-str]
   (with-open [xml-in (clojure.java.io/input-stream 
                        (.getBytes xml-str "UTF-8"))] 
     (clojure.xml/parse xml-in)))
 
-(defn stringify-keyword [k]
+(defn stringify-keyword
   "If a keyword is passed returns the name of the keyword.
    Else the input is left unchanged."
+  [k]
   (if (keyword? k)
     (name k)
     k))
 
-(defn stringify-map [m]
+(defn stringify-map
   "Convert _all_ keywords in a map to their respective names.
    This, essentially, is an extended version of clojure.walk/stringify-keys,
    which only converts the keys to strings."
+  [m]
   (let [map-fn (fn [[k v]] [(stringify-keyword k) (stringify-keyword v)])
         walk-fn (fn [m] 
                   (if (map? m)
@@ -283,38 +331,49 @@
                     m))]
   (clojure.walk/postwalk walk-fn m)))
 
-(defn xml-string-to-map-stringified [xml-str]
+(defn xml-string-to-map-stringified
   "Convert the XML string xml-str to a map with all keywords converted to strings."
+  [xml-str]
   (let [xml-map (xml-string-to-map xml-str)]
     (stringify-map xml-map)))
+
 
 
 ;;;
 ;;; Print to stderr.
 ;;;
-(defn print-err [& s]
+(defn print-err
   "print to stderr."
+  [& s]
   (binding [*out* *err*]
     (apply print s)))
 
-(defn print-err-ln [& s]
+(defn print-err-ln
   "println to stderr."
+  [& s]
   (binding [*out* *err*]
     (apply println s)))
-
 
 
 
 ;;;
 ;;; Functions for serializing objects.
 ;;;
-(defn object-to-byte-array [obj]
+(defn object-to-byte-array
+  "Write the given object into a byte array.
+   A newly allocated byte arry with the serialized object is returned."
+  [obj]
   (let [byte-out (ByteArrayOutputStream.)
         obj-out (ObjectOutputStream. byte-out)]
     (doto obj-out (.writeObject obj) .flush .close)
     (.toByteArray byte-out)))
 
 (defn compress-object-to-byte-array 
+  "Write an object into a byte array and compress it.
+   A newly allocated byte array with the serialized and compressed object is returned.
+   The compression algorithm can be specified via the second parameter.
+   Currently GZIP (:gzip) and ZIP (:zip) are supported.
+   The default is GZIP."
   ([obj]
     (compress-object-to-byte-array obj :gzip))
   ([obj alg]
@@ -328,11 +387,15 @@
 
 
 
-
 ;;;
 ;;; Functions for processing input.
 ;;;
-(defn process-line-by-line [location f]
+(defn process-line-by-line
+  "Process input from location line-by-line.
+   Each line is passed to f.
+   The processing is done with a clojure reader.
+   So all locations supported by reader are automatically supported as well."
+  [location f]
   (with-open [rdr (clojure.java.io/reader location)]
     (doseq [line (line-seq rdr)]
       (f line))))
