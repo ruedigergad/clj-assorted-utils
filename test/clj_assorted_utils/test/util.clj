@@ -1,5 +1,5 @@
 ;;;
-;;;   Copyright 2012, Ruediger Gad
+;;;   Copyright 2012, 2013, Ruediger Gad
 ;;;
 ;;;   This software is released under the terms of the Eclipse Public License 
 ;;;   (EPL) 1.0. You can find a copy of the EPL at: 
@@ -11,7 +11,17 @@
     :doc "Unit tests for utility and helper functions"}
   clj-assorted-utils.test.util
   (:use clojure.test
+        clojure.test.junit
+        clojure.java.io
         clj-assorted-utils.util))
+
+
+;(defn junit-output-fixture [f]
+;  (with-open [wrtr (writer (str *ns* ".xml"))]
+;    (binding [*test-out* wrtr]
+;      (with-junit-output
+;        (f)))))
+;(use-fixtures :once junit-output-fixture)
 
 
 ;;;
