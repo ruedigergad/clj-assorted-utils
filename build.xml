@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="run_tests" name="clj-assorted-utils">
-    <target name="run_tests">
-        <junitreport todir="test2junit/tmp">
-            <fileset dir="test2junit/xml" />
-            <report todir="test2junit/html" />
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project basedir="." default="create_html_report" name="test2junit-html-report-generator">
+    <target name="create_html_report">
+        <junitreport todir="ghpages/test-results/tmp">
+            <fileset dir="ghpages/test-results/xml" />
+            <report todir="ghpages/test-results/html" />
         </junitreport>
     </target>
 </project>
