@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="1" id="0" name="util" package="clj-assorted-utils.test" tests="32" time="0.6481" timestamp="2013-03-30_00:56:54+0100">
+        <testcase classname="clj-assorted-utils.test.util" name="get-classname" time="0.0024">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-exists" time="0.0007">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-byte-seq-to-int" time="0.0004">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="counter-with-initial-value-test" time="0.0238">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-vec-replace" time="0.0004">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="counter-test" time="0.0066">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-xml-string-to-map" time="0.0259">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-get-int-from-byte-vector" time="0.0003">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-file-exists" time="0.0012">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-stringify-map" time="0.0025">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-dir-exists" time="0.0014">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-change-int-in-byte-vector" time="0.0006">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="counter-convenience-test-init-value-decrementing" time="0.0029">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="touch-rm" time="0.0014">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-xml-string-to-map-stringified" time="0.0022">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-fn-name" time="0.0005">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-exec-with-out" time="0.1205">
+          <failure>expected: (not (flag-set? stdout-run))
+  actual: (not (not true))
+      at: AFn.java:18</failure>
+
+        </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-int-to-byte-vector" time="0.0002">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="counter-convenience-test-custom-fn" time="0.0026">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="process-line-by-line-test" time="0.0037">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-object-to-byte-array" time="0.0092">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="counter-convenience-test" time="0.0020">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-stringify-keyword" time="0.0001">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="flag-set" time="0.0002">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="mkdir-rmdir" time="0.0011">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="process-line-by-line-test2" time="0.0012">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-compress-object-to-byte-array" time="0.0015">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="flag-not-set" time="0.0002">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-simple-executor" time="0.3030">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-exec-with-out-process-output" time="0.1030">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-is-file" time="0.0015">
+    </testcase>
+
+        <testcase classname="clj-assorted-utils.test.util" name="test-is-dir" time="0.0013">
+    </testcase>
+
+  </testsuite>
+</testsuites>
