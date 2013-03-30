@@ -46,7 +46,8 @@
                                  (try 
                                    (while (not (nil? (stdout-fn (.readLine stdout-reader))))))
                                  (.destroy proc)))]
-    (.start stdout-thread)))
+    (.start stdout-thread)
+    proc))
 
 
 ;;;
