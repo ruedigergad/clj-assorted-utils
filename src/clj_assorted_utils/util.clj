@@ -40,13 +40,14 @@
    The function is executed in an own thread."
   [input-stream function]
   (let [rdr (reader input-stream)
+        running (ref true)
         thread (Thread. (fn []
                           (try 
-                            ; FIXME: Detect when streams were closed and terminate thread then.
-                            (while true 
+                            (while running
                               (let [line (.readLine rdr)]
                                 (if (not (nil? line))
-                                  (function line)))))))]
+                                  (function line)
+                                  (dosync (ref-set running false))))))))]
     (.start thread)
     thread))
 

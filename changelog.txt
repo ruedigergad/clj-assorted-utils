@@ -1,5 +1,8 @@
 master
 
+1.2.3
+  - Assure that output threads terminate.
+
 1.2.2
   - Do not kill the process in exit-with-out when there are no more lines
   available.
