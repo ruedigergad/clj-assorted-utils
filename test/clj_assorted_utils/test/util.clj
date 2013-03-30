@@ -33,7 +33,7 @@
         stdout-fn (fn [_] (set-flag stdout-run) nil)]
     (exec-with-out command stdout-fn)
     (sleep 100)
-    (is (not (flag-set? stdout-run)))))
+    (is (flag-set? stdout-run))))
     
 (deftest test-exec-with-out-process-output
   (let [command "ls /etc/passwd"
