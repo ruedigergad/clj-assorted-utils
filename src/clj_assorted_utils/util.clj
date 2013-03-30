@@ -34,21 +34,36 @@
   [cmd]
   (-> (exec cmd) (.waitFor)))
 
+(defn process-input-stream-line-by-line
+  "Process the given input stream line-by-line.
+   The data read from the stream is passed to the given function.
+   The function is executed in an own thread."
+  [input-stream function]
+  (let [rdr (reader input-stream)
+        thread (Thread. (fn []
+                          (try 
+                            ; FIXME: Detect when streams were closed and terminate thread then.
+                            (while true 
+                              (let [line (.readLine rdr)]
+                                (if (not (nil? line))
+                                  (function line)))))))]
+    (.start thread)
+    thread))
+
 (defn exec-with-out
   "Execute the given command and process the output written to stdout with stdout-fn.
    stdout-fn is run in an own thread.
    The data written to stdout is passed to stdout-fn line-by-line.
    When a value of nil is read processing stops and the process in which cmd was executed is destroyed."
-  [cmd stdout-fn]
-  (let [proc (exec cmd)
-        stdout-reader (reader (.getInputStream proc))
-        stdout-thread (Thread. (fn []
-                                 (try 
-                                   (while (not (nil? (stdout-fn (.readLine stdout-reader))))))
-                                 (.destroy proc)))]
-    (.start stdout-thread)
-    proc))
-
+  ([cmd stdout-fn]
+    (let [proc (exec cmd)
+          stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)]
+      proc))
+  ([cmd stdout-fn stderr-fn]
+    (let [proc (exec cmd)
+          stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)
+          stderr-thread (process-input-stream-line-by-line (.getErrorStream proc) stdout-fn)]
+      proc)))
 
 ;;;
 ;;; Helper functions for handling system properties.

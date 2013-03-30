@@ -1,5 +1,10 @@
 master
 
+1.2.2
+  - Do not kill the process in exit-with-out when there are no more lines
+  available.
+  - Refactor exec-with-out such that it is also possible to read from stderr.
+
 1.2.1
   - Return process from exit-with-out.
 
