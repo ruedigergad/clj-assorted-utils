@@ -1,5 +1,8 @@
 master
 
+1.2.4
+  - Increment version number to make a clean release.
+
 1.2.3
   - Assure that output threads terminate.
 
