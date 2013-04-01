@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="clj-assorted-utils.test.util" errors="0" failures="0" tests="32" time="1.1850" timestamp="2013-03-30_12:28:10+0100">
-    <testcase name="get-classname" classname="clj-assorted-utils.test.util" time="0.0140">
+<testsuite name="clj-assorted-utils.test.util" errors="0" failures="0" tests="32" time="0.9915" timestamp="2013-04-01_23:55:20+0200">
+    <testcase name="get-classname" classname="clj-assorted-utils.test.util" time="0.0099">
     </testcase>
-    <testcase name="test-exists" classname="clj-assorted-utils.test.util" time="0.0040">
+    <testcase name="test-exists" classname="clj-assorted-utils.test.util" time="0.0044">
     </testcase>
     <testcase name="test-byte-seq-to-int" classname="clj-assorted-utils.test.util" time="0.0015">
     </testcase>
-    <testcase name="counter-with-initial-value-test" classname="clj-assorted-utils.test.util" time="0.1333">
+    <testcase name="counter-with-initial-value-test" classname="clj-assorted-utils.test.util" time="0.0897">
     </testcase>
-    <testcase name="test-vec-replace" classname="clj-assorted-utils.test.util" time="0.0018">
+    <testcase name="test-vec-replace" classname="clj-assorted-utils.test.util" time="0.0011">
     </testcase>
-    <testcase name="counter-test" classname="clj-assorted-utils.test.util" time="0.0357">
+    <testcase name="counter-test" classname="clj-assorted-utils.test.util" time="0.0249">
     </testcase>
-    <testcase name="test-xml-string-to-map" classname="clj-assorted-utils.test.util" time="0.0912">
+    <testcase name="test-xml-string-to-map" classname="clj-assorted-utils.test.util" time="0.0834">
     </testcase>
-    <testcase name="test-get-int-from-byte-vector" classname="clj-assorted-utils.test.util" time="0.0014">
+    <testcase name="test-get-int-from-byte-vector" classname="clj-assorted-utils.test.util" time="0.0009">
     </testcase>
-    <testcase name="test-file-exists" classname="clj-assorted-utils.test.util" time="0.0051">
+    <testcase name="test-file-exists" classname="clj-assorted-utils.test.util" time="0.0041">
     </testcase>
-    <testcase name="test-stringify-map" classname="clj-assorted-utils.test.util" time="0.0072">
+    <testcase name="test-stringify-map" classname="clj-assorted-utils.test.util" time="0.0066">
     </testcase>
-    <testcase name="test-dir-exists" classname="clj-assorted-utils.test.util" time="0.0047">
+    <testcase name="test-dir-exists" classname="clj-assorted-utils.test.util" time="0.0041">
     </testcase>
-    <testcase name="test-change-int-in-byte-vector" classname="clj-assorted-utils.test.util" time="0.0024">
+    <testcase name="test-change-int-in-byte-vector" classname="clj-assorted-utils.test.util" time="0.0017">
     </testcase>
-    <testcase name="counter-convenience-test-init-value-decrementing" classname="clj-assorted-utils.test.util" time="0.0154">
+    <testcase name="counter-convenience-test-init-value-decrementing" classname="clj-assorted-utils.test.util" time="0.0122">
     </testcase>
-    <testcase name="touch-rm" classname="clj-assorted-utils.test.util" time="0.0078">
+    <testcase name="touch-rm" classname="clj-assorted-utils.test.util" time="0.0057">
     </testcase>
-    <testcase name="test-xml-string-to-map-stringified" classname="clj-assorted-utils.test.util" time="0.0112">
+    <testcase name="test-xml-string-to-map-stringified" classname="clj-assorted-utils.test.util" time="0.0082">
     </testcase>
-    <testcase name="test-fn-name" classname="clj-assorted-utils.test.util" time="0.0025">
+    <testcase name="test-fn-name" classname="clj-assorted-utils.test.util" time="0.0015">
     </testcase>
-    <testcase name="test-exec-with-out" classname="clj-assorted-utils.test.util" time="0.1299">
+    <testcase name="test-exec-with-out" classname="clj-assorted-utils.test.util" time="0.1242">
     </testcase>
-    <testcase name="test-int-to-byte-vector" classname="clj-assorted-utils.test.util" time="0.0012">
+    <testcase name="test-int-to-byte-vector" classname="clj-assorted-utils.test.util" time="0.0011">
     </testcase>
-    <testcase name="counter-convenience-test-custom-fn" classname="clj-assorted-utils.test.util" time="0.0356">
+    <testcase name="counter-convenience-test-custom-fn" classname="clj-assorted-utils.test.util" time="0.0178">
     </testcase>
-    <testcase name="process-line-by-line-test" classname="clj-assorted-utils.test.util" time="0.0317">
+    <testcase name="process-line-by-line-test" classname="clj-assorted-utils.test.util" time="0.0229">
     </testcase>
-    <testcase name="test-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0591">
+    <testcase name="test-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0348">
     </testcase>
-    <testcase name="counter-convenience-test" classname="clj-assorted-utils.test.util" time="0.0149">
+    <testcase name="counter-convenience-test" classname="clj-assorted-utils.test.util" time="0.0087">
     </testcase>
-    <testcase name="test-stringify-keyword" classname="clj-assorted-utils.test.util" time="0.0009">
+    <testcase name="test-stringify-keyword" classname="clj-assorted-utils.test.util" time="0.0006">
     </testcase>
-    <testcase name="flag-set" classname="clj-assorted-utils.test.util" time="0.0010">
+    <testcase name="flag-set" classname="clj-assorted-utils.test.util" time="0.0007">
     </testcase>
-    <testcase name="mkdir-rmdir" classname="clj-assorted-utils.test.util" time="0.0067">
+    <testcase name="mkdir-rmdir" classname="clj-assorted-utils.test.util" time="0.0048">
     </testcase>
-    <testcase name="process-line-by-line-test2" classname="clj-assorted-utils.test.util" time="0.0066">
+    <testcase name="process-line-by-line-test2" classname="clj-assorted-utils.test.util" time="0.0049">
     </testcase>
-    <testcase name="test-compress-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0181">
+    <testcase name="test-compress-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0083">
     </testcase>
-    <testcase name="flag-not-set" classname="clj-assorted-utils.test.util" time="0.0010">
+    <testcase name="flag-not-set" classname="clj-assorted-utils.test.util" time="0.0009">
     </testcase>
-    <testcase name="test-simple-executor" classname="clj-assorted-utils.test.util" time="0.3166">
+    <testcase name="test-simple-executor" classname="clj-assorted-utils.test.util" time="0.3110">
     </testcase>
-    <testcase name="test-exec-with-out-process-output" classname="clj-assorted-utils.test.util" time="0.1047">
+    <testcase name="test-exec-with-out-process-output" classname="clj-assorted-utils.test.util" time="0.1038">
     </testcase>
-    <testcase name="test-is-file" classname="clj-assorted-utils.test.util" time="0.0032">
+    <testcase name="test-is-file" classname="clj-assorted-utils.test.util" time="0.0033">
     </testcase>
-    <testcase name="test-is-dir" classname="clj-assorted-utils.test.util" time="0.0031">
+    <testcase name="test-is-dir" classname="clj-assorted-utils.test.util" time="0.0035">
     </testcase>
 </testsuite>
