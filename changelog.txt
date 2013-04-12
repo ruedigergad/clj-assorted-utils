@@ -1,5 +1,7 @@
 master
 
+1.3.0
+  - Add convenience function for adding shutdown hooks.
 1.2.4
   - Increment version number to make a clean release.
 

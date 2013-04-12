@@ -417,3 +417,16 @@
     (doseq [line (line-seq rdr)]
       (f line))))
 
+
+;;;
+;;; Shutdown hook convenience
+;;;
+(defn add-shutdown-hook
+  "Adds a shutdown hook that will be executed when the JVM is shutdown.
+   The supplied function f will be called when the JVM shuts down.
+   Please note: when using multiple hooks, there is no guarantee with
+   respect to the order in which the hooks will be executed."
+  [f]
+  (let [hook (.Thread f)]
+    (-> (Runtime/getRuntime) (.addShutdownHook hook))))
+
