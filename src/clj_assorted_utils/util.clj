@@ -427,6 +427,6 @@
    Please note: when using multiple hooks, there is no guarantee with
    respect to the order in which the hooks will be executed."
   [f]
-  (let [hook (.Thread f)]
+  (let [hook (Thread. f)]
     (-> (Runtime/getRuntime) (.addShutdownHook hook))))
 
