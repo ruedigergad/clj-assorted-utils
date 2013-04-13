@@ -365,11 +365,16 @@
   (binding [*out* *err*]
     (apply print s)))
 
-(defn print-err-ln
+(defn println-err
   "println to stderr."
   [& s]
   (binding [*out* *err*]
     (apply println s)))
+
+(defn print-err-ln
+  "Deprecated! Use println-err instead."
+  [& s]
+  (apply println-err s))
 
 
 
