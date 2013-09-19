@@ -15,7 +15,7 @@ Generated documentation is available here for online browsing: http://ruedigerga
 
 ## CI
 
-https://travis-ci.org/ruedigergad/clj-assorted-utils
+[![Build Status](https://travis-ci.org/ruedigergad/clj-assorted-utils.png?branch=master)](https://travis-ci.org/ruedigergad/clj-assorted-utils)
 
 ## Test Results
 
