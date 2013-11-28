@@ -3,3 +3,4 @@
 /lib/autodoc
 /pom.xml
 /.lein-*
+/target
