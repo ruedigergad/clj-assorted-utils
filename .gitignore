@@ -4,3 +4,4 @@
 /pom.xml
 /.lein-*
 /target
+/bin
