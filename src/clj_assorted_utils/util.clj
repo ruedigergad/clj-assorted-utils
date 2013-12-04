@@ -43,11 +43,13 @@
         running (ref true)
         thread (Thread. (fn []
                           (try 
-                            (while running
+                            (while @running
                               (let [line (.readLine rdr)]
                                 (if (not (nil? line))
                                   (function line)
-                                  (dosync (ref-set running false))))))))]
+                                  (dosync (ref-set running false)))))
+                            (catch Exception e
+                              (println "Cought exception:" e)))))]
     (.start thread)
     thread))
 
