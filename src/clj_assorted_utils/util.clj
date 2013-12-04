@@ -14,7 +14,7 @@
   (:use clojure.walk)
   (:use clojure.xml)
   (:require (clojure [string :as str]))
-  (:import (java.io ByteArrayOutputStream ObjectOutputStream)
+  (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
            (java.util.concurrent Executors TimeUnit)
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
@@ -39,7 +39,7 @@
    The data read from the stream is passed to the given function.
    The function is executed in an own thread."
   [input-stream function]
-  (let [rdr (reader input-stream)
+  (let [^BufferedReader rdr (reader input-stream)
         running (ref true)
         thread (Thread. (fn []
                           (try 
@@ -59,11 +59,11 @@
    The data written to stdout is passed to stdout-fn line-by-line.
    When a value of nil is read processing stops and the process in which cmd was executed is destroyed."
   ([cmd stdout-fn]
-    (let [proc (exec cmd)
+    (let [^Process proc (exec cmd)
           stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)]
       proc))
   ([cmd stdout-fn stderr-fn]
-    (let [proc (exec cmd)
+    (let [^Process proc (exec cmd)
           stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)
           stderr-thread (process-input-stream-line-by-line (.getErrorStream proc) stdout-fn)]
       proc)))
@@ -77,7 +77,7 @@
 (def get-arch (partial get-system-property "os.arch"))
 (def get-os (partial get-system-property "os.name"))
 
-(defn is-os? [os]
+(defn is-os? [^String os]
   (-> (get-os) (.toLowerCase) (.startsWith os)))
 
 
@@ -325,7 +325,7 @@
 ;;;
 (defn xml-string-to-map
   "Takes an XML definition in form of a string and outputs the corresponding map."
-  [xml-str]
+  [^String xml-str]
   (with-open [xml-in (clojure.java.io/input-stream 
                        (.getBytes xml-str "UTF-8"))] 
     (clojure.xml/parse xml-in)))
