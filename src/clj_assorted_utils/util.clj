@@ -15,7 +15,7 @@
   (:use clojure.xml)
   (:require (clojure [string :as str]))
   (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
-           (java.util.concurrent Executors TimeUnit)
+           (java.util.concurrent CountDownLatch Executors TimeUnit)
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
 
@@ -195,19 +195,31 @@
 (defn prepare-flag
   "Prepare a flag with default value false."
   []
-  (ref {:flag false}))
+  (let [flag (ref {:flag false})
+        latch (CountDownLatch. 1)]
+    (fn [arg]
+      (cond
+        (= arg :set) (dosync
+                       (alter flag assoc :flag true)
+                       (.countDown latch))
+        (= arg :is-set?) (:flag @flag)
+        (= arg :await) (.await latch)))))
 
 (defn set-flag
   "Set flag to true."
   [f]
-  (dosync
-    (alter f assoc :flag true)))
+  (f :set))
 
 (defn flag-set?
   "Test if flag had been set.
    Returns true if flag was set and false otherwise."
   [f]
-  (:flag @f))
+  (f :is-set?))
+
+(defn flag-await
+  "Block the current thread until the flat was set."
+  [f]
+  (f :await))
 
 (defn prepare-counter 
   "Prepare a simple counter. Use @ to access the value."
