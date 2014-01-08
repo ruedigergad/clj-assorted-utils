@@ -216,7 +216,7 @@
   [f]
   (f :is-set?))
 
-(defn flag-await
+(defn await-flag
   "Block the current thread until the flat was set."
   [f]
   (f :await))
