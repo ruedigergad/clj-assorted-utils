@@ -253,7 +253,33 @@
            (fn? op) (dosync (alter cntr op))
            :default (println "No function passed:" op)))))))
 
-
+(defn delta-counter
+  "Creates a counter for calculating deltas.
+   The returned delta counter function expects two arguments, a keyword and a numerical value.
+   When called for the first time the initial value will be associated to an internal counter and zero is returned.
+   When called subsequently with the same keyword, the difference between the current value
+   and the stored value is calculated and this delta is returned.
+   The internal counter is then set to the new value.
+   Example:
+   (let [cntr (counter)
+         delta-cntr (delta-counter)]
+     (= 0 (delta-cntr :cntr (cntr)))
+     (cntr inc)
+     (cntr inc)
+     (cntr inc)
+     (= 3 (delta-cntr :cntr (cntr)))
+     (= 0 (delta-cntr :cntr (cntr))))"
+  []
+  (let [counters (ref {})]
+    (fn [k v]
+      (let [cntr (k @counters)]
+        (if cntr
+          (let [delta (- v (cntr))]
+            (cntr (fn [_] v))
+            delta)
+          (let [new-cntr (counter)]
+            (dosync (alter counters assoc k new-cntr))
+            (new-cntr)))))))
 
 ;;;
 ;;; Convenience functions for getting class and fn names.

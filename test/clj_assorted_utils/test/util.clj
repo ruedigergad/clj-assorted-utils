@@ -128,6 +128,28 @@
     (dotimes [_ 1000] (my-counter dec))
     (is (= 0 (my-counter)))))
 
+(deftest simple-delta-counter-test
+  (let [cntr (counter)
+        delta-cntr (delta-counter)]
+    (is (= 0 (delta-cntr :cntr (cntr))))
+    (cntr inc)
+    (cntr inc)
+    (cntr inc)
+    (is (= 3 (delta-cntr :cntr (cntr))))
+    (is (= 0 (delta-cntr :cntr (cntr))))))
+
+(deftest two-counters-delta-counter-test
+  (let [cntr-a (counter)
+        cntr-b (counter)
+        delta-cntr (delta-counter)]
+    (is (= 0 (delta-cntr :cntr-a (cntr-a))))
+    (is (= 0 (delta-cntr :cntr-b (cntr-b))))
+    (cntr-a inc)
+    (cntr-a inc)
+    (cntr-a inc)
+    (is (= 0 (delta-cntr :cntr-b (cntr-b))))
+    (is (= 3 (delta-cntr :cntr-a (cntr-a))))
+    (is (= 0 (delta-cntr :cntr-a (cntr-a))))))
 
 
 ;;;
