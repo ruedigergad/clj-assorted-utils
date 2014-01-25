@@ -15,7 +15,7 @@
   (:use clojure.xml)
   (:require (clojure [string :as str]))
   (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
-           (java.util.concurrent CountDownLatch Executors TimeUnit)
+           (java.util.concurrent CountDownLatch Executors ThreadFactory TimeUnit)
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
 
@@ -153,7 +153,8 @@
 (defn executor
   "Create an executor for executing fns in an own thread."
   []
-  (Executors/newSingleThreadScheduledExecutor))
+  (Executors/newSingleThreadScheduledExecutor (proxy [ThreadFactory] []
+                                                (newThread [r] (doto (Thread. r) (.setDaemon true))))))
 
 (defn shutdown
   "Shut executor down."
