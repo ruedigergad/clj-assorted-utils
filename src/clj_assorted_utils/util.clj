@@ -476,3 +476,31 @@
   (let [hook (Thread. f)]
     (-> (Runtime/getRuntime) (.addShutdownHook hook))))
 
+;;;
+;;; Primitive data types array types
+;;;
+
+(def boolean-array-type
+  (type (boolean-array 0)))
+
+(def byte-array-type
+  (type (byte-array 0)))
+
+(def short-array-type
+  (type (short-array 0)))
+
+(def char-array-type
+  (type (char-array 0)))
+
+(def int-array-type
+  (type (int-array 0)))
+
+(def long-array-type
+  (type (long-array 0)))
+
+(def float-array-type
+  (type (float-array 0)))
+
+(def double-array-type
+  (type (double-array 0)))
+
