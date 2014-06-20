@@ -8,4 +8,5 @@
   :html5-docs-repository-url "https://github.com/ruedigergad/clj-assorted-utils/blob/master"
   :test2junit-output-dir "ghpages/test-results"
   :test2junit-run-ant true
+  :aot [clj-assorted-utils.JavaUtils]
 )
