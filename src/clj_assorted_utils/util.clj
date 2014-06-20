@@ -15,6 +15,7 @@
   (:use clojure.xml)
   (:require (clojure [string :as str]))
   (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
+           (java.util ArrayList HashMap HashSet)
            (java.util.concurrent CountDownLatch Executors ThreadFactory TimeUnit)
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
@@ -503,4 +504,34 @@
 
 (def double-array-type
   (type (double-array 0)))
+
+;;;
+;;; Helpers for converting Clojure specific data structures to theire "pure" Java equivalents.
+;;;
+(defn convert-from-clojure-to-java
+  "Converts the given Clojure specific data structure (list, map, set, vector) into the equivalent \"pure\" Java data structure.
+   The mapping is as follows: list and vector -> ArrayList, map -> HashMap, set -> HashSet.
+   Nested data structures will be converted recursively."
+  [input]
+  (cond
+    (or
+      (list? input)
+      (vector? input)) (let [out (ArrayList.)]
+                         (doseq [in-element input]
+                           (if (coll? in-element)
+                             (.add out (convert-from-clojure-to-java in-element))
+                             (.add out in-element)))
+                         out)
+    (map? input) (let [out (HashMap.)]
+                   (doseq [in-element input]
+                     (if (coll? (val in-element))
+                       (.put out (key in-element) (convert-from-clojure-to-java (val in-element)))
+                       (.put out (key in-element) (val in-element))))
+                   out)
+    (set? input) (let [out (HashSet.)]
+                   (doseq [in-element input]
+                     (if (coll? in-element)
+                       (.add out (convert-from-clojure-to-java in-element))
+                       (.add out in-element)))
+                   out)))
 

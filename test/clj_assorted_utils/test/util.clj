@@ -13,7 +13,8 @@
   (:use clojure.test
         clojure.test.junit
         clojure.java.io
-        clj-assorted-utils.util))
+        clj-assorted-utils.util)
+  (:import (java.util ArrayList HashMap HashSet)))
 
 
 ;(defn junit-output-fixture [f]
@@ -270,4 +271,63 @@
     (is (= 0 (cntr)))
     (process-line-by-line "test-file.txt" (fn [x] (cntr #(+ % (read-string x)))))
     (is (= 55 (cntr)))))
+
+;;;
+;;; Tests for converting Clojure specific data structures to their "pure" Java equivalents.
+;;;
+(deftest convert-from-clojure-to-java-list-test
+  (let [in '("a" 1 1.23)
+        expected (doto (ArrayList.) (.add "a") (.add 1) (.add 1.23))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.ArrayList (type out)))))
+
+(deftest convert-from-clojure-to-java-map-test
+  (let [in {"a" 1 "b" 1.23}
+        expected (doto (HashMap.) (.put "a" 1) (.put "b" 1.23))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.HashMap (type out)))))
+
+(deftest convert-from-clojure-to-java-set-test
+  (let [in #{"a" 1 1.23}
+        expected (doto (HashSet.) (.add "a") (.add 1) (.add 1.23))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.HashSet (type out)))))
+
+(deftest convert-from-clojure-to-java-vector-test
+  (let [in ["a" 1 1.23]
+        expected (doto (ArrayList.) (.add "a") (.add 1) (.add 1.23))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.ArrayList (type out)))))
+
+(deftest convert-from-clojure-to-java-nested-map-test
+  (let [in {"a" {"b" 1}}
+        expected-nested (doto (HashMap.) (.put "b" 1))
+        expected (doto (HashMap.) (.put "a" expected-nested))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.HashMap (type out)))
+    (is (= expected-nested (.get out "a")))
+    (is (= java.util.HashMap (type (.get out "a"))))))
+
+(deftest convert-from-clojure-to-java-nested-set-test
+  (let [in #{"a" #{1 1.23}}
+        expected-nested (doto (HashSet.) (.add 1) (.add 1.23))
+        expected (doto (HashSet.) (.add "a") (.add expected-nested))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.HashSet (type out)))))
+
+(deftest convert-from-clojure-to-java-nested-vector-test
+  (let [in ["a" [1 1.23]]
+        expected-nested (doto (ArrayList.) (.add 1) (.add 1.23))
+        expected (doto (ArrayList.) (.add "a") (.add expected-nested))
+        out (convert-from-clojure-to-java in)]
+    (is (= expected out))
+    (is (= java.util.ArrayList (type out)))
+    (is (= expected-nested (.get out 1)))
+    (is (= java.util.ArrayList (type (.get out 1))))))
 
