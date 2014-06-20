@@ -93,3 +93,19 @@
         out (JavaUtils/readListFromClojureString in-string)]
     (is (= nil out))))
 
+(deftest check-for-non-eval-on-read-object
+  (let [in-string "#=(+ 1 2 3)"]
+    (is (thrown? RuntimeException (JavaUtils/readObjectFromClojureString in-string)))))
+
+(deftest check-for-non-eval-on-read-list
+  (let [in-string "#=(+ 1 2 3)"]
+    (is (thrown? RuntimeException (JavaUtils/readListFromClojureString in-string)))))
+
+(deftest check-for-non-eval-on-read-map
+  (let [in-string "#=(+ 1 2 3)"]
+    (is (thrown? RuntimeException (JavaUtils/readMapFromClojureString in-string)))))
+
+(deftest check-for-non-eval-on-read-set
+  (let [in-string "#=(+ 1 2 3)"]
+    (is (thrown? RuntimeException (JavaUtils/readSetFromClojureString in-string)))))
+
