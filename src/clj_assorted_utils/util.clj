@@ -539,3 +539,13 @@
                        (.add out in-element)))
                    out)))
 
+
+
+;;;
+;;; Accumulate selected map entries.
+;;;
+(defn reduce-selected-map-entries
+  "Reduce the values of all selected keys of a map m by applying the function f."
+  [m f selected-keys]
+  (reduce f (vals (select-keys m (reverse selected-keys)))))
+

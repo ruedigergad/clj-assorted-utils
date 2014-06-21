@@ -333,3 +333,24 @@
     (is (= expected-nested (.get out 1)))
     (is (= java.util.ArrayList (type (.get out 1))))))
 
+
+
+;;;
+;;; Tests for selectively accumulating map entries.
+;;;
+(deftest reduce-selected-map-entries-sum-test
+  (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
+    (is (= 6 (reduce-selected-map-entries in + ["a" "b" "c"])))))
+
+(deftest reduce-selected-map-entries-sum-nil-test
+  (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
+    (is (= 7 (reduce-selected-map-entries in + ["c" "xyz" "d"])))))
+
+(deftest reduce-selected-map-entries-concat-string-test
+  (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
+    (is (= "234" (reduce-selected-map-entries in str ["b" "c" "d"])))))
+
+(deftest reduce-selected-map-entries-concat-string-nil-test
+  (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
+    (is (= "23" (reduce-selected-map-entries in str ["b" "abc" "c"])))))
+
