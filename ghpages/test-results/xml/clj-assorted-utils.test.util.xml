@@ -1,85 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="clj-assorted-utils.test.util" errors="0" failures="0" tests="41" time="1.7410" timestamp="2014-06-20_22:22:32+0200">
-    <testcase name="convert-from-clojure-to-java-nested-vector-test" classname="clj-assorted-utils.test.util" time="0.0092">
+<testsuite name="clj-assorted-utils.test.util" errors="0" failures="0" tests="45" time="1.2761" timestamp="2014-06-21_11:51:28+0200">
+    <testcase name="convert-from-clojure-to-java-nested-vector-test" classname="clj-assorted-utils.test.util" time="0.0053">
     </testcase>
-    <testcase name="test-exec-with-out" classname="clj-assorted-utils.test.util" time="0.1501">
+    <testcase name="test-exec-with-out" classname="clj-assorted-utils.test.util" time="0.1289">
     </testcase>
-    <testcase name="test-int-to-byte-vector" classname="clj-assorted-utils.test.util" time="0.0035">
+    <testcase name="test-int-to-byte-vector" classname="clj-assorted-utils.test.util" time="0.0012">
     </testcase>
-    <testcase name="test-compress-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0643">
+    <testcase name="test-compress-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0559">
     </testcase>
-    <testcase name="test-fn-name" classname="clj-assorted-utils.test.util" time="0.0023">
+    <testcase name="test-fn-name" classname="clj-assorted-utils.test.util" time="0.0071">
     </testcase>
-    <testcase name="test-file-exists" classname="clj-assorted-utils.test.util" time="0.0034">
+    <testcase name="reduce-selected-map-entries-sum-test" classname="clj-assorted-utils.test.util" time="0.0012">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-map-test" classname="clj-assorted-utils.test.util" time="0.0019">
+    <testcase name="reduce-selected-map-entries-concat-string-test" classname="clj-assorted-utils.test.util" time="0.0012">
     </testcase>
-    <testcase name="test-xml-string-to-map-stringified" classname="clj-assorted-utils.test.util" time="0.2017">
+    <testcase name="test-file-exists" classname="clj-assorted-utils.test.util" time="0.0045">
     </testcase>
-    <testcase name="test-stringify-map" classname="clj-assorted-utils.test.util" time="0.0053">
+    <testcase name="convert-from-clojure-to-java-map-test" classname="clj-assorted-utils.test.util" time="0.0021">
     </testcase>
-    <testcase name="flag-set" classname="clj-assorted-utils.test.util" time="0.0039">
+    <testcase name="test-xml-string-to-map-stringified" classname="clj-assorted-utils.test.util" time="0.1637">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-nested-set-test" classname="clj-assorted-utils.test.util" time="0.0068">
+    <testcase name="test-stringify-map" classname="clj-assorted-utils.test.util" time="0.0054">
     </testcase>
-    <testcase name="counter-convenience-test-custom-fn" classname="clj-assorted-utils.test.util" time="0.2553">
+    <testcase name="flag-set" classname="clj-assorted-utils.test.util" time="0.0025">
     </testcase>
-    <testcase name="test-exists" classname="clj-assorted-utils.test.util" time="0.0037">
+    <testcase name="convert-from-clojure-to-java-nested-set-test" classname="clj-assorted-utils.test.util" time="0.0057">
     </testcase>
-    <testcase name="two-counters-delta-counter-test" classname="clj-assorted-utils.test.util" time="0.0417">
+    <testcase name="counter-convenience-test-custom-fn" classname="clj-assorted-utils.test.util" time="0.1180">
     </testcase>
-    <testcase name="test-byte-seq-to-int" classname="clj-assorted-utils.test.util" time="0.0007">
+    <testcase name="test-exists" classname="clj-assorted-utils.test.util" time="0.0013">
     </testcase>
-    <testcase name="process-line-by-line-test2" classname="clj-assorted-utils.test.util" time="0.0405">
+    <testcase name="two-counters-delta-counter-test" classname="clj-assorted-utils.test.util" time="0.0052">
     </testcase>
-    <testcase name="test-get-int-from-byte-vector" classname="clj-assorted-utils.test.util" time="0.0028">
+    <testcase name="test-byte-seq-to-int" classname="clj-assorted-utils.test.util" time="0.0006">
     </testcase>
-    <testcase name="get-classname" classname="clj-assorted-utils.test.util" time="0.0024">
+    <testcase name="process-line-by-line-test2" classname="clj-assorted-utils.test.util" time="0.0202">
+    </testcase>
+    <testcase name="test-get-int-from-byte-vector" classname="clj-assorted-utils.test.util" time="0.0025">
+    </testcase>
+    <testcase name="get-classname" classname="clj-assorted-utils.test.util" time="0.0023">
     </testcase>
     <testcase name="flag-not-set" classname="clj-assorted-utils.test.util" time="0.0012">
     </testcase>
-    <testcase name="test-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0024">
+    <testcase name="test-object-to-byte-array" classname="clj-assorted-utils.test.util" time="0.0027">
     </testcase>
-    <testcase name="counter-convenience-test" classname="clj-assorted-utils.test.util" time="0.1244">
+    <testcase name="counter-convenience-test" classname="clj-assorted-utils.test.util" time="0.0398">
     </testcase>
-    <testcase name="counter-with-initial-value-test" classname="clj-assorted-utils.test.util" time="0.0715">
+    <testcase name="counter-with-initial-value-test" classname="clj-assorted-utils.test.util" time="0.0440">
     </testcase>
-    <testcase name="test-exec-with-out-process-output" classname="clj-assorted-utils.test.util" time="0.1062">
+    <testcase name="test-exec-with-out-process-output" classname="clj-assorted-utils.test.util" time="0.1046">
     </testcase>
-    <testcase name="test-dir-exists" classname="clj-assorted-utils.test.util" time="0.0034">
+    <testcase name="test-dir-exists" classname="clj-assorted-utils.test.util" time="0.0092">
     </testcase>
-    <testcase name="process-line-by-line-test" classname="clj-assorted-utils.test.util" time="0.0054">
+    <testcase name="process-line-by-line-test" classname="clj-assorted-utils.test.util" time="0.0056">
     </testcase>
-    <testcase name="mkdir-rmdir" classname="clj-assorted-utils.test.util" time="0.0337">
+    <testcase name="mkdir-rmdir" classname="clj-assorted-utils.test.util" time="0.0127">
     </testcase>
-    <testcase name="counter-convenience-test-init-value-decrementing" classname="clj-assorted-utils.test.util" time="0.0638">
+    <testcase name="counter-convenience-test-init-value-decrementing" classname="clj-assorted-utils.test.util" time="0.0442">
     </testcase>
-    <testcase name="touch-rm" classname="clj-assorted-utils.test.util" time="0.0030">
+    <testcase name="touch-rm" classname="clj-assorted-utils.test.util" time="0.0079">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-set-test" classname="clj-assorted-utils.test.util" time="0.0028">
+    <testcase name="convert-from-clojure-to-java-set-test" classname="clj-assorted-utils.test.util" time="0.0027">
     </testcase>
-    <testcase name="test-is-dir" classname="clj-assorted-utils.test.util" time="0.0030">
+    <testcase name="test-is-dir" classname="clj-assorted-utils.test.util" time="0.0011">
     </testcase>
-    <testcase name="test-simple-executor" classname="clj-assorted-utils.test.util" time="0.3375">
+    <testcase name="reduce-selected-map-entries-sum-nil-test" classname="clj-assorted-utils.test.util" time="0.0004">
     </testcase>
-    <testcase name="test-xml-string-to-map" classname="clj-assorted-utils.test.util" time="0.0051">
+    <testcase name="test-simple-executor" classname="clj-assorted-utils.test.util" time="0.3084">
     </testcase>
-    <testcase name="counter-test" classname="clj-assorted-utils.test.util" time="0.0568">
+    <testcase name="test-xml-string-to-map" classname="clj-assorted-utils.test.util" time="0.0090">
     </testcase>
-    <testcase name="test-vec-replace" classname="clj-assorted-utils.test.util" time="0.0009">
+    <testcase name="reduce-selected-map-entries-concat-string-nil-test" classname="clj-assorted-utils.test.util" time="0.0009">
     </testcase>
-    <testcase name="simple-delta-counter-test" classname="clj-assorted-utils.test.util" time="0.0048">
+    <testcase name="counter-test" classname="clj-assorted-utils.test.util" time="0.0405">
     </testcase>
-    <testcase name="test-stringify-keyword" classname="clj-assorted-utils.test.util" time="0.0006">
+    <testcase name="test-vec-replace" classname="clj-assorted-utils.test.util" time="0.0019">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-nested-map-test" classname="clj-assorted-utils.test.util" time="0.0096">
+    <testcase name="simple-delta-counter-test" classname="clj-assorted-utils.test.util" time="0.0093">
     </testcase>
-    <testcase name="test-is-file" classname="clj-assorted-utils.test.util" time="0.0061">
+    <testcase name="test-stringify-keyword" classname="clj-assorted-utils.test.util" time="0.0012">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-list-test" classname="clj-assorted-utils.test.util" time="0.0064">
+    <testcase name="convert-from-clojure-to-java-nested-map-test" classname="clj-assorted-utils.test.util" time="0.0115">
     </testcase>
-    <testcase name="test-change-int-in-byte-vector" classname="clj-assorted-utils.test.util" time="0.0034">
+    <testcase name="test-is-file" classname="clj-assorted-utils.test.util" time="0.0025">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-vector-test" classname="clj-assorted-utils.test.util" time="0.0054">
+    <testcase name="convert-from-clojure-to-java-list-test" classname="clj-assorted-utils.test.util" time="0.0011">
+    </testcase>
+    <testcase name="test-change-int-in-byte-vector" classname="clj-assorted-utils.test.util" time="0.0008">
+    </testcase>
+    <testcase name="convert-from-clojure-to-java-vector-test" classname="clj-assorted-utils.test.util" time="0.0011">
     </testcase>
 </testsuite>

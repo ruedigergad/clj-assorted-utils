@@ -28,7 +28,7 @@
          margin-right: auto;
          overflow: hidden;
          background-color: #FFFFFF;
-         border: 3px solid DarkGray; }</style></head><body><div id="top"><header><h1>Namspace clj-assorted-utils.util</h1><h4></h4></header><section id="ns-toc"><h2>Other Namespaces</h2><table><tr><td><a href="clj-assorted-utils.JavaUtils.html">clj-assorted-utils.JavaUtils</a></td><td><div>Java utility and helper functions</div></td></tr><tr><td><a href="index.html">Back to Index</a></td><td></td></tr></table></section><section id="pubvars-toc"><h2>Public Vars</h2><nav><a href="#IDadd-shutdown-hook">add-shutdown-hook</a>, <a href="#IDawait-flag">await-flag</a>, <a href="#IDboolean-array-type">boolean-array-type</a>, <a href="#IDbyte-array-type">byte-array-type</a>, <a href="#IDbyte-seq-to-int">byte-seq-to-int</a>, <a href="#IDchange-int-in-byte-vector">change-int-in-byte-vector</a>, <a href="#IDchar-array-type">char-array-type</a>, <a href="#IDclassname">classname</a>, <a href="#IDcompress-object-to-byte-array">compress-object-to-byte-array</a>, <a href="#IDconvert-from-clojure-to-java">convert-from-clojure-to-java</a>, <a href="#IDcounter">counter</a>, <a href="#IDdelay-eval">delay-eval</a>, <a href="#IDdelta-counter">delta-counter</a>, <a href="#IDdir-existsQMARK">dir-exists?</a>, <a href="#IDdouble-array-type">double-array-type</a>, <a href="#IDexec">exec</a>, <a href="#IDexec-blocking">exec-blocking</a>, <a href="#IDexec-with-out">exec-with-out</a>, <a href="#IDexecutor">executor</a>, <a href="#IDexistsQMARK">exists?</a>, <a href="#IDfile-existsQMARK">file-exists?</a>, <a href="#IDflag-setQMARK">flag-set?</a>, <a href="#IDfloat-array-type">float-array-type</a>, <a href="#IDfn-name">fn-name</a>, <a href="#IDget-arch">get-arch</a>, <a href="#IDget-int-from-byte-vector">get-int-from-byte-vector</a>, <a href="#IDget-os">get-os</a>, <a href="#IDget-system-property">get-system-property</a>, <a href="#IDinc-counter">inc-counter</a>, <a href="#IDint-array-type">int-array-type</a>, <a href="#IDint-to-byte-vector">int-to-byte-vector</a>, <a href="#IDis-dirQMARK">is-dir?</a>, <a href="#IDis-fileQMARK">is-file?</a>, <a href="#IDis-osQMARK">is-os?</a>, <a href="#IDlong-array-type">long-array-type</a>, <a href="#IDmkdir">mkdir</a>, <a href="#IDobject-to-byte-array">object-to-byte-array</a>, <a href="#IDprepare-counter">prepare-counter</a>, <a href="#IDprepare-flag">prepare-flag</a>, <a href="#IDprint-err">print-err</a>, <a href="#IDprint-err-ln">print-err-ln</a>, <a href="#IDprintln-err">println-err</a>, <a href="#IDprocess-input-stream-line-by-line">process-input-stream-line-by-line</a>, <a href="#IDprocess-line-by-line">process-line-by-line</a>, <a href="#IDrm">rm</a>, <a href="#IDrmdir">rmdir</a>, <a href="#IDrun-once">run-once</a>, <a href="#IDrun-repeat">run-repeat</a>, <a href="#IDset-flag">set-flag</a>, <a href="#IDshort-array-type">short-array-type</a>, <a href="#IDshutdown">shutdown</a>, <a href="#IDshutdown-now">shutdown-now</a>, <a href="#IDsleep">sleep</a>, <a href="#IDstringify-keyword">stringify-keyword</a>, <a href="#IDstringify-map">stringify-map</a>, <a href="#IDtouch">touch</a>, <a href="#IDvec-replace">vec-replace</a>, <a href="#IDxml-string-to-map">xml-string-to-map</a>, <a href="#IDxml-string-to-map-stringified">xml-string-to-map-stringified</a></nav></section><section id="details"><h2>Details of Public Vars</h2><div id="IDadd-shutdown-hook"><div><h3>Function: add-shutdown-hook</h3><pre>Arglists:
+         border: 3px solid DarkGray; }</style></head><body><div id="top"><header><h1>Namspace clj-assorted-utils.util</h1><h4>Utility and helper functions</h4></header><section id="ns-toc"><h2>Other Namespaces</h2><table><tr><td><a href="clj-assorted-utils.JavaUtils.html">clj-assorted-utils.JavaUtils</a></td><td><div>Java utility and helper functions</div></td></tr><tr><td><a href="index.html">Back to Index</a></td><td></td></tr></table></section><section id="pubvars-toc"><h2>Public Vars</h2><nav><a href="#IDadd-shutdown-hook">add-shutdown-hook</a>, <a href="#IDawait-flag">await-flag</a>, <a href="#IDboolean-array-type">boolean-array-type</a>, <a href="#IDbyte-array-type">byte-array-type</a>, <a href="#IDbyte-seq-to-int">byte-seq-to-int</a>, <a href="#IDchange-int-in-byte-vector">change-int-in-byte-vector</a>, <a href="#IDchar-array-type">char-array-type</a>, <a href="#IDclassname">classname</a>, <a href="#IDcompress-object-to-byte-array">compress-object-to-byte-array</a>, <a href="#IDconvert-from-clojure-to-java">convert-from-clojure-to-java</a>, <a href="#IDcounter">counter</a>, <a href="#IDdelay-eval">delay-eval</a>, <a href="#IDdelta-counter">delta-counter</a>, <a href="#IDdir-existsQMARK">dir-exists?</a>, <a href="#IDdouble-array-type">double-array-type</a>, <a href="#IDexec">exec</a>, <a href="#IDexec-blocking">exec-blocking</a>, <a href="#IDexec-with-out">exec-with-out</a>, <a href="#IDexecutor">executor</a>, <a href="#IDexistsQMARK">exists?</a>, <a href="#IDfile-existsQMARK">file-exists?</a>, <a href="#IDflag-setQMARK">flag-set?</a>, <a href="#IDfloat-array-type">float-array-type</a>, <a href="#IDfn-name">fn-name</a>, <a href="#IDget-arch">get-arch</a>, <a href="#IDget-int-from-byte-vector">get-int-from-byte-vector</a>, <a href="#IDget-os">get-os</a>, <a href="#IDget-system-property">get-system-property</a>, <a href="#IDinc-counter">inc-counter</a>, <a href="#IDint-array-type">int-array-type</a>, <a href="#IDint-to-byte-vector">int-to-byte-vector</a>, <a href="#IDis-dirQMARK">is-dir?</a>, <a href="#IDis-fileQMARK">is-file?</a>, <a href="#IDis-osQMARK">is-os?</a>, <a href="#IDlong-array-type">long-array-type</a>, <a href="#IDmkdir">mkdir</a>, <a href="#IDobject-to-byte-array">object-to-byte-array</a>, <a href="#IDprepare-counter">prepare-counter</a>, <a href="#IDprepare-flag">prepare-flag</a>, <a href="#IDprint-err">print-err</a>, <a href="#IDprint-err-ln">print-err-ln</a>, <a href="#IDprintln-err">println-err</a>, <a href="#IDprocess-input-stream-line-by-line">process-input-stream-line-by-line</a>, <a href="#IDprocess-line-by-line">process-line-by-line</a>, <a href="#IDreduce-selected-map-entries">reduce-selected-map-entries</a>, <a href="#IDrm">rm</a>, <a href="#IDrmdir">rmdir</a>, <a href="#IDrun-once">run-once</a>, <a href="#IDrun-repeat">run-repeat</a>, <a href="#IDset-flag">set-flag</a>, <a href="#IDshort-array-type">short-array-type</a>, <a href="#IDshutdown">shutdown</a>, <a href="#IDshutdown-now">shutdown-now</a>, <a href="#IDsleep">sleep</a>, <a href="#IDstringify-keyword">stringify-keyword</a>, <a href="#IDstringify-map">stringify-map</a>, <a href="#IDtouch">touch</a>, <a href="#IDvec-replace">vec-replace</a>, <a href="#IDxml-string-to-map">xml-string-to-map</a>, <a href="#IDxml-string-to-map-stringified">xml-string-to-map-stringified</a></nav></section><section><h2>Usage Documentation</h2><details open="open"><summary>Show/Hide</summary><pre>Utility and helper functions</pre></details><a href="#top">Back to top</a></section><section id="details"><h2>Details of Public Vars</h2><div id="IDadd-shutdown-hook"><div><h3>Function: add-shutdown-hook</h3><pre>Arglists:
 =========
 
   (add-shutdown-hook f)
@@ -39,7 +39,7 @@ Docstring:
   Adds a shutdown hook that will be executed when the JVM is shutdown.
    The supplied function f will be called when the JVM shuts down.
    Please note: when using multiple hooks, there is no guarantee with
-   respect to the order in which the hooks will be executed.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L471">View Source</a></div><div id="IDawait-flag"><div><h3>Function: await-flag</h3><pre>Arglists:
+   respect to the order in which the hooks will be executed.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L472">View Source</a></div><div id="IDawait-flag"><div><h3>Function: await-flag</h3><pre>Arglists:
 =========
 
   (await-flag f)
@@ -47,7 +47,7 @@ Docstring:
 Docstring:
 ==========
 
-  Block the current thread until the flat was set.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L221">View Source</a></div><div id="IDboolean-array-type"><div><h3>Var: boolean-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L484">View Source</a></div><div id="IDbyte-array-type"><div><h3>Var: byte-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L487">View Source</a></div><div id="IDbyte-seq-to-int"><div><h3>Function: byte-seq-to-int</h3><pre>Arglists:
+  Block the current thread until the flat was set.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L221">View Source</a></div><div id="IDboolean-array-type"><div><h3>Var: boolean-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L486">View Source</a></div><div id="IDbyte-array-type"><div><h3>Var: byte-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L489">View Source</a></div><div id="IDbyte-seq-to-int"><div><h3>Function: byte-seq-to-int</h3><pre>Arglists:
 =========
 
   (byte-seq-to-int byte-seq)
@@ -63,7 +63,7 @@ Docstring:
 Docstring:
 ==========
 
-  In the given vector v, change the byte representation of an integer by applying function f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L353">View Source</a></div><div id="IDchar-array-type"><div><h3>Var: char-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L493">View Source</a></div><div id="IDclassname"><div><h3>Function: classname</h3><pre>Arglists:
+  In the given vector v, change the byte representation of an integer by applying function f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L353">View Source</a></div><div id="IDchar-array-type"><div><h3>Var: char-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L495">View Source</a></div><div id="IDclassname"><div><h3>Function: classname</h3><pre>Arglists:
 =========
 
   (classname o)
@@ -94,7 +94,7 @@ Docstring:
 
   Converts the given Clojure specific data structure (list, map, set, vector) into the equivalent &quot;pure&quot; Java data structure.
    The mapping is as follows: list and vector -&gt; ArrayList, map -&gt; HashMap, set -&gt; HashSet.
-   Nested data structures will be converted recursively.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L511">View Source</a></div><div id="IDcounter"><div><h3>Function: counter</h3><pre>Arglists:
+   Nested data structures will be converted recursively.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L515">View Source</a></div><div id="IDcounter"><div><h3>Function: counter</h3><pre>Arglists:
 =========
 
   (counter)
@@ -151,7 +151,7 @@ Docstring:
 Docstring:
 ==========
 
-  Returns true if f exists and is a directory.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L113">View Source</a></div><div id="IDdouble-array-type"><div><h3>Var: double-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L505">View Source</a></div><div id="IDexec"><div><h3>Function: exec</h3><pre>Arglists:
+  Returns true if f exists and is a directory.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L113">View Source</a></div><div id="IDdouble-array-type"><div><h3>Var: double-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L507">View Source</a></div><div id="IDexec"><div><h3>Function: exec</h3><pre>Arglists:
 =========
 
   (exec cmd)
@@ -212,7 +212,7 @@ Docstring:
 ==========
 
   Test if flag had been set.
-   Returns true if flag was set and false otherwise.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L215">View Source</a></div><div id="IDfloat-array-type"><div><h3>Var: float-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L502">View Source</a></div><div id="IDfn-name"><div><h3>Function: fn-name</h3><pre>Arglists:
+   Returns true if flag was set and false otherwise.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L215">View Source</a></div><div id="IDfloat-array-type"><div><h3>Var: float-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L504">View Source</a></div><div id="IDfn-name"><div><h3>Function: fn-name</h3><pre>Arglists:
 =========
 
   (fn-name f)
@@ -259,7 +259,7 @@ Docstring:
 Docstring:
 ==========
 
-  Increment the given simple counter c.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L231">View Source</a></div><div id="IDint-array-type"><div><h3>Var: int-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L496">View Source</a></div><div id="IDint-to-byte-vector"><div><h3>Function: int-to-byte-vector</h3><pre>Arglists:
+  Increment the given simple counter c.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L231">View Source</a></div><div id="IDint-array-type"><div><h3>Var: int-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L498">View Source</a></div><div id="IDint-to-byte-vector"><div><h3>Function: int-to-byte-vector</h3><pre>Arglists:
 =========
 
   (int-to-byte-vector val)
@@ -291,7 +291,7 @@ Docstring:
 Docstring:
 ==========
 
-  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L81">View Source</a></div><div id="IDlong-array-type"><div><h3>Var: long-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L499">View Source</a></div><div id="IDmkdir"><div><h3>Function: mkdir</h3><pre>Arglists:
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L81">View Source</a></div><div id="IDlong-array-type"><div><h3>Var: long-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L501">View Source</a></div><div id="IDmkdir"><div><h3>Function: mkdir</h3><pre>Arglists:
 =========
 
   (mkdir d)
@@ -371,7 +371,15 @@ Docstring:
   Process input from location line-by-line.
    Each line is passed to f.
    The processing is done with a clojure reader.
-   So all locations supported by reader are automatically supported as well.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L457">View Source</a></div><div id="IDrm"><div><h3>Function: rm</h3><pre>Arglists:
+   So all locations supported by reader are automatically supported as well.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L457">View Source</a></div><div id="IDreduce-selected-map-entries"><div><h3>Function: reduce-selected-map-entries</h3><pre>Arglists:
+=========
+
+  (reduce-selected-map-entries m f selected-keys)
+
+Docstring:
+==========
+
+  Reduce the values of all selected keys of a map m by applying the function f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L547">View Source</a></div><div id="IDrm"><div><h3>Function: rm</h3><pre>Arglists:
 =========
 
   (rm f)
@@ -419,7 +427,7 @@ Docstring:
 Docstring:
 ==========
 
-  Set flag to true.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L210">View Source</a></div><div id="IDshort-array-type"><div><h3>Var: short-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L490">View Source</a></div><div id="IDshutdown"><div><h3>Function: shutdown</h3><pre>Arglists:
+  Set flag to true.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L210">View Source</a></div><div id="IDshort-array-type"><div><h3>Var: short-array-type</h3><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L492">View Source</a></div><div id="IDshutdown"><div><h3>Function: shutdown</h3><pre>Arglists:
 =========
 
   (shutdown exec)
