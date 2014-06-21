@@ -465,6 +465,7 @@
       (f line))))
 
 
+
 ;;;
 ;;; Shutdown hook convenience
 ;;;
@@ -477,10 +478,11 @@
   (let [hook (Thread. f)]
     (-> (Runtime/getRuntime) (.addShutdownHook hook))))
 
+
+
 ;;;
 ;;; Primitive data types array types
 ;;;
-
 (def boolean-array-type
   (type (boolean-array 0)))
 
@@ -504,6 +506,8 @@
 
 (def double-array-type
   (type (double-array 0)))
+
+
 
 ;;;
 ;;; Helpers for converting Clojure specific data structures to theire "pure" Java equivalents.

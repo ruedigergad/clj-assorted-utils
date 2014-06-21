@@ -272,6 +272,8 @@
     (process-line-by-line "test-file.txt" (fn [x] (cntr #(+ % (read-string x)))))
     (is (= 55 (cntr)))))
 
+
+
 ;;;
 ;;; Tests for converting Clojure specific data structures to their "pure" Java equivalents.
 ;;;
