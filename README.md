@@ -18,6 +18,7 @@ http://ruedigergad.github.com/clj-assorted-utils/doc
 ## CI
 
 [![Build Status](https://travis-ci.org/ruedigergad/clj-assorted-utils.png?branch=master)](https://travis-ci.org/ruedigergad/clj-assorted-utils)
+[![Coverage Status](https://img.shields.io/coveralls/ruedigergad/clj-assorted-utils.svg)](https://coveralls.io/r/ruedigergad/clj-assorted-utils?branch=master)
 
 ## Test Results
 
