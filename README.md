@@ -2,6 +2,9 @@
 
 Unsorted bunch of helper and utility functions.
 
+clj-assorted-utils is available on clojars.org:
+
+[![Clojars Project](http://clojars.org/clj-assorted-utils/latest-version.svg)](http://clojars.org/clj-assorted-utils)
 
 ## Usage
 
