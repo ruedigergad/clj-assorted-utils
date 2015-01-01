@@ -354,3 +354,18 @@
   (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
     (is (= "23" (reduce-selected-map-entries in str ["b" "abc" "c"])))))
 
+
+
+;;;
+;;; Tests for getting data from a Map with default values when the entry does not exist.
+;;;
+(deftest get-with-default-key-exists-test
+  (let [m {"a" "A" "b" 6}]
+    (is (= "A" (get-with-default m "a" "X")))
+    (is (= 6 (get-with-default m "b" 1)))))
+
+(deftest get-with-default-key-does-not-exist-test
+  (let [m {"c" "C"}]
+    (is (= "X" (get-with-default m "a" "X")))
+    (is (= 1 (get-with-default m "b" 1)))))
+

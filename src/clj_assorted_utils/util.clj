@@ -15,7 +15,7 @@
   (:use clojure.xml)
   (:require (clojure [string :as str]))
   (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
-           (java.util ArrayList HashMap HashSet)
+           (java.util ArrayList HashMap HashSet Map)
            (java.util.concurrent CountDownLatch Executors ThreadFactory TimeUnit)
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
@@ -548,4 +548,16 @@
   "Reduce the values of all selected keys of a map m by applying the function f."
   [m f selected-keys]
   (reduce f (vals (select-keys m (reverse selected-keys)))))
+
+
+
+;;;
+;;; Retrieve values from a Map or default value if key does not exist.
+;;;
+(defmacro get-with-default
+  "Get a value for the given key k from a map m and if the value does not exist return the default d."
+  [^Map m k d]
+  `(if (.containsKey ~m ~k)
+     (.get ~m ~k)
+     ~d))
 
