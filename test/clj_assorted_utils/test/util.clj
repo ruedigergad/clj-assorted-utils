@@ -154,6 +154,11 @@
     (dotimes [_ 1000] (my-counter dec))
     (is (= 0 (my-counter)))))
 
+(deftest counter-invalid-operation-test
+  (let [cntr (counter)
+        out-string (with-out-str (cntr "foo"))]
+    (is (= "No function passed: foo\n" out-string)))) 
+
 (deftest simple-delta-counter-test
   (let [cntr (counter)
         delta-cntr (delta-counter)]
