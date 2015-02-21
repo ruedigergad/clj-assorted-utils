@@ -418,6 +418,14 @@
   [& s]
   (apply println-err s))
 
+(defmacro with-err-str
+  "Analog to with-out-str, just for *err*: https://clojuredocs.org/clojure.core/with-out-str"
+  [& body]
+  `(let [s# (new java.io.StringWriter)]
+     (binding [*err* s#]
+       ~@body
+       (str s#))))
+
 
 
 ;;;

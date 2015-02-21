@@ -123,6 +123,12 @@
     (set-flag flag)
     (is (flag-set? flag))))
 
+(deftest await-flag-test
+  (let [flag (prepare-flag)]
+    (run-once (executor) #(set-flag flag) 200)
+    (await-flag flag)
+    (is (flag-set? flag))))
+
 (deftest counter-test
   (let [my-counter (prepare-counter)]
     (dotimes [_ 1000] (inc-counter my-counter))
