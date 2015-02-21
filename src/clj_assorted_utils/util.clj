@@ -66,7 +66,7 @@
   ([cmd stdout-fn stderr-fn]
     (let [^Process proc (exec cmd)
           stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)
-          stderr-thread (process-input-stream-line-by-line (.getErrorStream proc) stdout-fn)]
+          stderr-thread (process-input-stream-line-by-line (.getErrorStream proc) stderr-fn)]
       proc)))
 
 ;;;
