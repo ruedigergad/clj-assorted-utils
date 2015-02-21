@@ -413,6 +413,20 @@
 
 
 ;;;
+;;; Tests for printing to stderr.
+;;;
+(deftest print-err-no-stdout-test
+  (is (= "" (with-out-str (print-err "foo")))))
+
+(deftest print-err-test
+  (is (= "foo" (with-err-str (print-err "foo")))))
+
+(deftest println-err-test
+  (is (= "foo\n" (with-err-str (println-err "foo")))))
+
+
+
+;;;
 ;;; Tests for getting data from a Map with default values when the entry does not exist.
 ;;;
 (deftest get-with-default-key-exists-test
