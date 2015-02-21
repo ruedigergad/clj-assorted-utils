@@ -24,6 +24,14 @@
 ;        (f)))))
 ;(use-fixtures :once junit-output-fixture)
 
+;;;
+;;; Test for getting system properties.
+;;;
+(deftest get-property-test
+  (is (= java.lang.String (type (get-system-property "os.arch"))))) 
+
+(deftest is-os-test
+  (is (not (is-os? "FooOS"))))
 
 ;;;
 ;;; Tests for executing commands.
