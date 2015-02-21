@@ -10,9 +10,7 @@
   ^{:author "Ruediger Gad",
     :doc "Java utility and helper functions"}
   clj-assorted-utils.JavaUtils
-  (:use clojure.test
-        clojure.test.junit
-        clojure.java.io
+  (:use clj-assorted-utils.java-utils
         clj-assorted-utils.util)
   (:import (java.util ArrayList HashMap HashSet List Map Set))
   (:gen-class
@@ -21,41 +19,15 @@
               #^{:static true} [readMapFromClojureString [String] java.util.Map]
               #^{:static true} [readSetFromClojureString [String] java.util.Set]]))
 
-(defn- no-eval-read-string
-  [input]
-  (binding [*read-eval* false] (read-string input)))
+(defn -readObjectFromClojureString [input]
+  (read-object-from-clojure-string input))
 
-(defn -readObjectFromClojureString
-  "Tries to read data from a string that contains data expressed in Clojure data structures.
-   Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
-  [input]
-  (let [read-input (no-eval-read-string input)]
-    (convert-from-clojure-to-java read-input)))
+(defn -readListFromClojureString [input]
+  (read-list-from-clojure-string input))
 
-(defn -readListFromClojureString
-  "Tries to read data from a string that contains data expressed in Clojure data structures.
-   This method checks for List type of data for the top-level object and returns nil/null otherwise.
-   Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
-  [input]
-  (let [read-input (no-eval-read-string input)]
-    (if (or (vector? read-input) (list? read-input))
-      (convert-from-clojure-to-java read-input))))
+(defn -readMapFromClojureString [input]
+  (read-map-from-clojure-string input))
 
-(defn -readMapFromClojureString
-  "Tries to read data from a string that contains data expressed in Clojure data structures.
-   This method checks for Map type of data for the top-level object and returns nil/null otherwise.
-   Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
-  [input]
-  (let [read-input (no-eval-read-string input)]
-    (if (map? read-input)
-      (convert-from-clojure-to-java read-input))))
-
-(defn -readSetFromClojureString
-  "Tries to read data from a string that contains data expressed in Clojure data structures.
-   This method checks for Set type of data for the top-level object and returns nil/null otherwise.
-   Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
-  [input]
-  (let [read-input (no-eval-read-string input)]
-    (if (set? read-input)
-      (convert-from-clojure-to-java read-input))))
+(defn -readSetFromClojureString [input]
+  (read-set-from-clojure-string input))
 

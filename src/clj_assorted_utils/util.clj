@@ -10,9 +10,9 @@
   ^{:author "Ruediger Gad",
     :doc "Utility and helper functions"}
   clj-assorted-utils.util
-  (:use clojure.java.io)
-  (:use clojure.walk)
-  (:use clojure.xml)
+  (:use clojure.java.io
+        clojure.walk
+        clojure.xml)
   (:require (clojure [string :as str]))
   (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
            (java.util ArrayList HashMap HashSet Map)
