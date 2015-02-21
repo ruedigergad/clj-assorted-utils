@@ -245,6 +245,32 @@
     (sleep 300)
     (is (flag-set? flag))))
 
+(deftest test-repeating-executor
+  (let [cntr (counter)
+        run-fn #(cntr inc)
+        exec (executor)]
+    (run-repeat exec run-fn 200)
+    (sleep 500)
+    (is (= 3 (cntr)))
+    (sleep 200)
+    (is (= 4 (cntr)))
+    (shutdown-now exec)
+    (sleep 400)
+    (is (= 4 (cntr)))))
+
+(deftest test-repeating-executor-2
+  (let [cntr (counter)
+        run-fn #(cntr inc)
+        exec (executor)]
+    (run-repeat exec run-fn 200)
+    (sleep 500)
+    (is (= 3 (cntr)))
+    (sleep 200)
+    (is (= 4 (cntr)))
+    (shutdown exec)
+    (sleep 400)
+    (is (= 4 (cntr)))))
+
 
 
 ;;;
