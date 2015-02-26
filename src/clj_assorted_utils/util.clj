@@ -14,8 +14,8 @@
         clojure.walk
         clojure.xml)
   (:require (clojure [string :as str]))
-  (:import (java.io ByteArrayOutputStream ObjectOutputStream BufferedReader)
-           (java.util ArrayList HashMap HashSet Map)
+  (:import (java.io BufferedReader BufferedWriter ByteArrayOutputStream IOException ObjectOutputStream)
+           (java.util ArrayList HashMap HashSet List Map)
            (java.util.concurrent CountDownLatch Executors ThreadFactory TimeUnit)
            (java.util.zip GZIPOutputStream ZipOutputStream)))
 
@@ -126,7 +126,8 @@
 (defn rm
   "Delete file f."
   [f]
-  (delete-file (file f)))
+  (if (exists? f)
+    (delete-file (file f))))
 
 (defn rmdir
   "Delete d if d is an empty directory."
@@ -568,4 +569,98 @@
   `(if (.containsKey ~m ~k)
      (.get ~m ~k)
      ~d))
+
+
+
+;;;
+;;; Convenience functionality for writing strings to a file or fifo.
+;;;
+(defn create-string-to-file-output
+  ([out-file] (create-string-to-file-output out-file {}))
+  ([out-file arg-map]
+    (let [insert-newline (get-with-default arg-map :insert-newline false)
+          resume-broken-pipe (get-with-default arg-map :resume-broken-pipe false)
+          catch-exceptions (get-with-default arg-map :catch-exceptions false)
+          hdr (get-with-default arg-map :header "")
+          append (get-with-default arg-map :append false)
+          await-open (get-with-default arg-map :await-open true)
+          wrtr (atom nil)
+          wrtr-opened (prepare-flag)
+          open-wrtr-fn (fn []
+                         (reset! wrtr nil)
+                         (doto (Thread.
+                                 #(do
+                                    (reset! wrtr (writer out-file :append append))
+                                    (set-flag wrtr-opened)
+                                    (.write @wrtr hdr)))
+                           (.setDaemon true)
+                           (.start)))
+          _ (open-wrtr-fn)
+          _ (if await-open
+              (await-flag wrtr-opened))
+          closed (atom false)
+          close-fn (fn []
+                     (reset! closed true)
+                     (if @wrtr
+                       (doto (Thread. #(try
+                                         (.close ^BufferedWriter @wrtr)
+                                         (catch Exception e
+                                           (if catch-exceptions
+                                             (println e)
+                                             (throw e)))))
+                         (.setDaemon true)
+                         (.start))))
+          handle-exception-fn (if resume-broken-pipe
+                                #(if (and
+                                       (= IOException (type %))
+                                       (= "Broken pipe" (.getMessage %))
+                                       (not @closed))
+                                   (do
+                                     (println "Pipe broke. Re-opening writer...")
+                                     (open-wrtr-fn))
+                                   (if catch-exceptions
+                                     (println %)
+                                     (throw %)))
+                                #(if catch-exceptions
+                                   (println %)
+                                   (throw %)))]
+      (fn
+        ([] (close-fn))
+        ([data]
+          (let [^BufferedWriter w @wrtr]
+            (if (and (not (nil? w)) (not @closed))
+              (try
+                (condp #(instance? %1 %2) data
+                  String (do
+                           (.write w ^String data)
+                           (if insert-newline
+                             (.newLine w)))
+                  List   (loop [it (.iterator ^List data)]
+                           (.write w ^String (.next it))
+                           (if insert-newline
+                             (.newLine w))
+                           (if (.hasNext it)
+                             (recur it)))
+                  (do
+                    (.write w (str data))
+                    (if insert-newline
+                      (.newLine w))))
+                (.flush w)
+                (catch Exception e
+                  (handle-exception-fn e))))))))))
+
+(defn mkfifo
+  [f]
+  (exec-blocking (str "mkfifo " f)))
+
+(defn create-threaded-lineseq-reader
+  [in-file process-fn]
+  (let [running (atom true)
+        ^Thread t (doto (Thread. #(while @running (process-line-by-line in-file process-fn)))
+                    (.setDaemon true)
+                    (.start))]
+    (fn []
+      (reset! running false)
+      (if (.isAlive t)
+        (.interrupt t)))))
 

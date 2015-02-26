@@ -439,3 +439,100 @@
     (is (= "X" (get-with-default m "a" "X")))
     (is (= 1 (get-with-default m "b" 1)))))
 
+
+
+;;;
+;;; Tests for convenience functions for writing to files.
+;;;
+(def test-out-file "file-out.test.file")
+
+(deftest simple-str-to-file-without-newline-test
+  (rm test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file)]
+    (str-file-out "my-string")
+    (is (= "my-string" (slurp test-out-file)))
+    (str-file-out)))
+
+(deftest simple-str-to-file-with-newline-test
+  (rm test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file {:insert-newline true})]
+    (str-file-out "my-string")
+    (is (= "my-string\n" (slurp test-out-file)))
+    (str-file-out)))
+
+(deftest simple-str-to-file-no-append-test
+  (rm test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file)]
+    (str-file-out "my-string")
+    (is (= "my-string" (slurp test-out-file)))
+    (str-file-out)
+    ((create-string-to-file-output test-out-file) "my-new-string")
+    (is (= "my-new-string" (slurp test-out-file)))))
+
+(deftest simple-str-to-file-append-test
+  (rm test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file)]
+    (str-file-out "my-string")
+    (is (= "my-string" (slurp test-out-file)))
+    (str-file-out)
+    ((create-string-to-file-output test-out-file {:append true}) "my-new-string")
+    (is (= "my-stringmy-new-string" (slurp test-out-file)))))
+
+(deftest simple-str-list-to-file-test
+  (rm test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file)
+        str-lst '("foo" "bar" "blah")]
+    (str-file-out str-lst)
+    (is (= "foobarblah" (slurp test-out-file)))
+    (str-file-out)))
+
+(deftest simple-map-to-file-test
+  (rm test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file)
+        str-lst {"foo" "bar"}]
+    (str-file-out str-lst)
+    (is (= "{\"foo\" \"bar\"}" (slurp test-out-file)))
+    (str-file-out)))
+
+(deftest simple-fifo-str-to-file-test
+  (rm test-out-file)
+  (mkfifo test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file {:append true :await-open false})]
+    (run-once (executor) #(str-file-out "my-string\n") 100)
+    (with-open [rdr (clojure.java.io/reader test-out-file)]
+      (is (= "my-string" (first (line-seq rdr)))))
+    (str-file-out)))
+
+(deftest fifo-write-and-read-repeatedly-test
+  (rm test-out-file)
+  (mkfifo test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file {:append true :await-open false})
+        ctr (counter)
+        threaded-rdr (create-threaded-lineseq-reader test-out-file (fn [_] (ctr inc)))]
+    (sleep 100)
+    (str-file-out "my-string\n")
+    (str-file-out "my-string\n")
+    (str-file-out "my-string\n")
+    (sleep 100)
+    (is (= 3 (ctr)))
+    (str-file-out)))
+
+(deftest close-and-re-open-fifo-writer-test
+  (rm test-out-file)
+  (mkfifo test-out-file)
+  (let [str-file-out (create-string-to-file-output test-out-file {:append true :await-open false})
+        ctr (counter)
+        threaded-rdr (create-threaded-lineseq-reader test-out-file (fn [_] (ctr inc)))]
+    (sleep 100)
+    (str-file-out "my-string\n")
+    (sleep 100)
+    (str-file-out)
+    (sleep 100)
+    (let [str-file-out-2 (create-string-to-file-output test-out-file {:append true :await-open false})]
+      (sleep 100)
+      (str-file-out-2 "my-string\n")
+      (str-file-out-2 "my-string\n")
+      (sleep 100)
+      (str-file-out-2))
+    (is (= 3 (ctr)))))
+
