@@ -202,8 +202,9 @@
         latch (CountDownLatch. 1)]
     (fn [arg]
       (cond
-        (= arg :set) (dosync
-                       (alter flag assoc :flag true)
+        (= arg :set) (do
+                       (dosync
+                         (alter flag assoc :flag true))
                        (.countDown latch))
         (= arg :is-set?) (:flag @flag)
         (= arg :await) (.await latch)))))
