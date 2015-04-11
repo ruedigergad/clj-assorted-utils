@@ -1,4 +1,4 @@
-;(defproject clj-assorted-utils "1.9.0"
+;(defproject clj-assorted-utils "1.9.1"
 (defproject clj-assorted-utils "1.10.0-SNAPSHOT"
   :description "Unsorted bunch of helper and utility functions."
   :dependencies [[org.clojure/clojure "1.6.0"]]
