@@ -214,6 +214,13 @@
     (is (= '([a b c]) (:args ret)))
     (is (= 6 ((:fn ret) 1 2 3)))))
 
+(defn test-multi-arity-args-fn 
+  ([a] a)
+  ([a b] (+ a b))
+  ([a b c] (+ a b c)))
+
+(deftest get-defn-arglists-multi-arity-test
+  (is (= '([a] [a b] [a b c]) (get-defn-arglists test-multi-arity-args-fn))))
 
 
 ;;;
