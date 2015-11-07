@@ -206,9 +206,10 @@
 ;;;
 (defn test-args-fn [a b c] (+ a b c))
 
-(deftest get-defn-arglists-for-defn
+(deftest get-defn-arglists-test
   (= '([a b c]) (get-defn-arglists test-args-fn)))
 
+(deftest get-
 
 
 ;;;
