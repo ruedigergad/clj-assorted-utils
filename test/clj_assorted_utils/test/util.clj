@@ -33,6 +33,8 @@
 (deftest is-os-test
   (is (not (is-os? "FooOS"))))
 
+
+
 ;;;
 ;;; Tests for executing commands.
 ;;;
@@ -183,6 +185,7 @@
     (is (= 0 (delta-cntr :cntr-a (cntr-a))))))
 
 
+
 ;;;
 ;;; Tests for getting class and fn names.
 ;;;
@@ -195,6 +198,7 @@
 
 (deftest test-fn-name
   (is (= "test-fn" (fn-name test-fn))))
+
 
 
 ;;;
