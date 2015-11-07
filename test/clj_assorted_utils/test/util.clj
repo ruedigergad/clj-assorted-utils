@@ -222,15 +222,15 @@
 (deftest get-defn-arglists-multi-arity-test
   (is (= '([a] [a b] [a b c]) (get-defn-arglists test-multi-arity-args-fn))))
 
-(deftest get-fn-arglists-test
-  (let [ret (get-fn-arglists (fn 
-                               ([a] a)
-                               ([a b] (+ a b))
-                               ([a b c] (+ a b c))))]
-    (is (= '([a] [a b] [a b c]) (:args ret)))
-    (is (= 1 ((:fn ret) 1)))
-    (is (= 3 ((:fn ret) 1 2)))
-    (is (= 6 ((:fn ret) 1 2 3)))))
+;(deftest get-fn-arglists-test
+;  (let [ret (get-fn-arglists (fn 
+;                               ([a] a)
+;                               ([a b] (+ a b))
+;                               ([a b c] (+ a b c))))]
+;    (is (= '([a] [a b] [a b c]) (:args ret)))
+;    (is (= 1 ((:fn ret) 1)))
+;    (is (= 3 ((:fn ret) 1 2)))
+;    (is (= 6 ((:fn ret) 1 2 3)))))
 
 
 ;;;
