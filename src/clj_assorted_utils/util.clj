@@ -69,6 +69,8 @@
           stderr-thread (process-input-stream-line-by-line (.getErrorStream proc) stderr-fn)]
       proc)))
 
+
+
 ;;;
 ;;; Helper functions for handling system properties.
 ;;;
@@ -138,6 +140,7 @@
   "If f does not exist, create it."
   [f]
   (.createNewFile (file f)))
+
 
 
 ;;;
@@ -284,6 +287,8 @@
           (let [new-cntr (counter)]
             (dosync (alter counters assoc k new-cntr))
             (new-cntr)))))))
+
+
 
 ;;;
 ;;; Convenience functions for getting class and fn names.
