@@ -312,6 +312,16 @@
 
 
 ;;;
+;;; Functions for getting information about function arguments.
+;;;
+(defmacro get-defn-arglists
+  "Get the arglists of a function that was defined with defn."
+  [f]
+  `(-> ~f var meta :arglists))
+
+
+
+;;;
 ;;; Byte to Int
 ;;;
 (defn byte-seq-to-int

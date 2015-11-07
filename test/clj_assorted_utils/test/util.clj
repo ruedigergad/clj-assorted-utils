@@ -202,6 +202,16 @@
 
 
 ;;;
+;;; Tests for getting information about function arguments.
+;;;
+(defn test-args-fn [a b c] (+ a b c))
+
+(deftest get-defn-arglists-for-defn
+  (= '([a b c]) (get-defn-arglists test-args-fn)))
+
+
+
+;;;
 ;;; Tests for manipulating vectors.
 ;;;
 (deftest test-byte-seq-to-int
