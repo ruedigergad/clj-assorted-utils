@@ -209,6 +209,11 @@
 (deftest get-defn-arglists-test
   (is (= '([a b c]) (get-defn-arglists test-args-fn))))
 
+(deftest get-fn-arglists-test
+  (let [ret (get-fn-arglists (fn [a b c] (+ a b c)))]
+    (is (= '([a b c]) (:args ret)))
+    (is (= 6 ((:fn ret) 1 2 3)))))
+
 
 
 ;;;
