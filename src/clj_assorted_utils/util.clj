@@ -319,13 +319,25 @@
   [f]
   `(-> ~f var meta :arglists))
 
+;(defmacro get-fn-arglists
+;  "Returns a map that contains the actual fn that was passed as argument and its arglists.
+;   The result will be a map of form: {:fn f :args <f-args>}."
+;  [f]
+;  `(let [m# {:fn ~f
+;             :args '(~(nth f 1))}]
+;     m#))
+
 (defmacro get-fn-arglists
   "Returns a map that contains the actual fn that was passed as argument and its arglists.
    The result will be a map of form: {:fn f :args <f-args>}."
   [f]
   `(let [m# {:fn ~f
-             :args '(~(nth f 1))}]
+             :args (if ~(vector? (nth f 1))
+                     '(~(nth f 1))
+                     nil)}]
      m#))
+
+
 
 
 
