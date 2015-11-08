@@ -545,7 +545,7 @@
 
 
 ;;;
-;;; Helpers for converting Clojure specific data structures to theire "pure" Java equivalents.
+;;; Helpers for converting Clojure specific data structures to their "pure" Java equivalents.
 ;;;
 (defn convert-from-clojure-to-java
   "Converts the given Clojure specific data structure (list, map, set, vector) into the equivalent \"pure\" Java data structure.
