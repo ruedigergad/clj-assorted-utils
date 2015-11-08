@@ -334,7 +334,7 @@
   (let [m {:fn f
            :args (if (vector? (nth f 1))
                    `'(~(nth f 1))
-                   (rest f))}]
+                   `'(~(reduce (fn [v e] (conj v (first e))) [] (rest f))))}]
      m))
 
 
