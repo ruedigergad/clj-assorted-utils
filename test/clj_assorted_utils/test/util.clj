@@ -207,11 +207,14 @@
 (defn test-args-fn [a b c] (+ a b c))
 
 (deftest get-defn-arglists-test
-  (is (= '([a b c]) (get-defn-arglists test-args-fn))))
+  (let [ret (get-defn-arglists test-args-fn)]
+    (is (vector? ret))
+    (is (= '[[a b c]] ret))))
 
 (deftest get-fn-arglists-test
   (let [ret (get-fn-arglists (fn [a b c] (+ a b c)))]
-    (is (= '([a b c]) (:args ret)))
+    (is (vector? (:args ret)))
+    (is (= '[[a b c]] (:args ret)))
     (is (= 6 ((:fn ret) 1 2 3)))))
 
 (defn test-multi-arity-args-fn 
@@ -220,17 +223,20 @@
   ([a b c] (+ a b c)))
 
 (deftest get-defn-arglists-multi-arity-test
-  (is (= '([a] [a b] [a b c]) (get-defn-arglists test-multi-arity-args-fn))))
+  (let [ret (get-defn-arglists test-multi-arity-args-fn)]
+    (is (vector? ret))
+    (is (= '[[a] [a b] [a b c]] ret))))
 
-;(deftest get-fn-arglists-mulit-arity-test
-;  (let [ret (get-fn-arglists (fn 
-;                               ([a] a)
-;                               ([a b] (+ a b))
-;                               ([a b c] (+ a b c))))]
-;    (is (= '([a] [a b] [a b c]) (:args ret)))
-;    (is (= 1 ((:fn ret) 1)))
-;    (is (= 3 ((:fn ret) 1 2)))
-;    (is (= 6 ((:fn ret) 1 2 3)))))
+(deftest get-fn-arglists-mulit-arity-test
+  (let [ret (get-fn-arglists (fn 
+                               ([a] a)
+                               ([a b] (+ a b))
+                               ([a b c] (+ a b c))))]
+    (is (vector? (:args ret)))
+    (is (= '[[a] [a b] [a b c]] (:args ret)))
+    (is (= 1 ((:fn ret) 1)))
+    (is (= 3 ((:fn ret) 1 2)))
+    (is (= 6 ((:fn ret) 1 2 3)))))
 
 
 

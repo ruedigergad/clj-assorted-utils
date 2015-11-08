@@ -317,15 +317,7 @@
 (defmacro get-defn-arglists
   "Get the arglists of a function that was defined with defn."
   [f]
-  `(-> ~f var meta :arglists))
-
-(defmacro get-fn-arglists-1
-  "Returns a map that contains the actual fn that was passed as argument and its arglists.
-   The result will be a map of form: {:fn f :args <f-args>}."
-  [f]
-  `(let [m# {:fn ~f
-             :args '(~(nth f 1))}]
-     m#))
+  `(-> ~f var meta :arglists vec))
 
 (defmacro get-fn-arglists
   "Returns a map that contains the actual fn that was passed as argument and its arglists.
@@ -333,11 +325,9 @@
   [f]
   (let [m {:fn f
            :args (if (vector? (nth f 1))
-                   `'(~(nth f 1))
-                   `'(~(reduce (fn [v e] (conj v (first e))) [] (rest f))))}]
+                   `'[~(nth f 1)]
+                   `'~(reduce (fn [v e] (conj v (first e))) [] (rest f)))}]
      m))
-
-
 
 
 
