@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="clj-assorted-utils.test.java-utils" errors="0" failures="0" tests="20" time="0.0192" timestamp="2015-08-10_22:12:24+0200">
-    <testcase name="check-for-non-eval-on-read-set" classname="clj-assorted-utils.test.java-utils" time="0.0016">
+<testsuite name="clj-assorted-utils.test.java-utils" errors="0" failures="0" tests="20" time="0.0189" timestamp="2015-11-08_20:23:26+0100">
+    <testcase name="check-for-non-eval-on-read-set" classname="clj-assorted-utils.test.java-utils" time="0.0014">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0006">
+    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0008">
     </testcase>
     <testcase name="read-clojure-data-structure-string-to-java-map" classname="clj-assorted-utils.test.java-utils" time="0.0006">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0005">
+    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0006">
     </testcase>
     <testcase name="read-clojure-data-structure-string-to-java-list-2" classname="clj-assorted-utils.test.java-utils" time="0.0005">
     </testcase>
@@ -18,23 +18,23 @@
     </testcase>
     <testcase name="check-for-non-eval-on-read-list" classname="clj-assorted-utils.test.java-utils" time="0.0002">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0003">
+    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0002">
     </testcase>
     <testcase name="check-for-non-eval-on-read-object" classname="clj-assorted-utils.test.java-utils" time="0.0002">
     </testcase>
     <testcase name="read-clojure-data-structure-string-to-java-set" classname="clj-assorted-utils.test.java-utils" time="0.0006">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0004">
+    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0005">
     </testcase>
     <testcase name="read-clojure-data-structure-string-to-java-list" classname="clj-assorted-utils.test.java-utils" time="0.0004">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0003">
+    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0002">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-vector" classname="clj-assorted-utils.test.java-utils" time="0.0005">
+    <testcase name="read-clojure-data-structure-string-to-java-vector" classname="clj-assorted-utils.test.java-utils" time="0.0006">
     </testcase>
     <testcase name="read-clojure-data-structure-string-to-java-map-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0002">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0005">
+    <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0004">
     </testcase>
     <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0002">
     </testcase>
