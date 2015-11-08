@@ -333,8 +333,8 @@
   [f]
   (let [m {:fn f
            :args (if (vector? (nth f 1))
-                     `'(~(nth f 1))
-                     (rest f))}]
+                   `'(~(nth f 1))
+                   (rest f))}]
      m))
 
 
