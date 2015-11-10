@@ -336,9 +336,6 @@
            :args (if (vector? (nth f 1))
                    [(map-quote-vec (nth f 1))]
                    (reduce (fn [v e] (conj v (map-quote-vec (first e)))) [] (rest f)))}]
-                   ;2)}]
-                   ;(vector (nth f 1))
-                   ;(reduce (fn [v e] (conj v `'(first ~e))) [] (rest f)))}]
     m))
 
 (defmacro get-fn-arglists-m
