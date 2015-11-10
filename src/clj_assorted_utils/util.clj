@@ -314,10 +314,14 @@
 ;;;
 ;;; Functions for getting information about function arguments.
 ;;;
-(defmacro get-defn-arglists
+(defn get-defn-arglists
   "Get the arglists of a function that was defined with defn."
   [f]
-  `(-> ~f var meta :arglists vec))
+  (-> f meta :arglists vec))
+
+(defmacro get-defn-arglists-m
+  [f]
+  `(get-defn-arglists (var ~f)))
 
 (defmacro get-fn-arglists
   "Returns a map that contains the actual fn that was passed as argument and its arglists.

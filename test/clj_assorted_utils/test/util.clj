@@ -207,7 +207,7 @@
 (defn test-args-fn [a b c] (+ a b c))
 
 (deftest get-defn-arglists-test
-  (let [ret (get-defn-arglists test-args-fn)]
+  (let [ret (get-defn-arglists-m test-args-fn)]
     (is (vector? ret))
     (is (= '[[a b c]] ret))))
 
@@ -223,7 +223,7 @@
   ([a b c] (+ a b c)))
 
 (deftest get-defn-arglists-multi-arity-test
-  (let [ret (get-defn-arglists test-multi-arity-args-fn)]
+  (let [ret (get-defn-arglists-m test-multi-arity-args-fn)]
     (is (vector? ret))
     (is (= '[[a] [a b] [a b c]] ret))))
 
