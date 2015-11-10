@@ -323,19 +323,22 @@
   [f]
   `(get-defn-arglists (var ~f)))
 
+
+(defn map-quote-vec
+  [c]
+  (into [] (map (fn [x] `(quote ~x)) c)))
+
 (defn get-fn-arglists
   "Returns a map that contains the actual fn that was passed as argument and its arglists.
    The result will be a map of form: {:fn f :args <f-args>}."
   [f]
-  (println (nth f 1))
   (let [m {:fn f
            :args (if (vector? (nth f 1))
-                   [(into [] (map (fn [x] `(quote ~x)) (nth f 1)))]
-                   ;(reduce (fn [v e] (conj v (first e))) [] (rest f)))}]
-                   2)}]
+                   [(map-quote-vec (nth f 1))]
+                   (reduce (fn [v e] (conj v (map-quote-vec (first e)))) [] (rest f)))}]
+                   ;2)}]
                    ;(vector (nth f 1))
                    ;(reduce (fn [v e] (conj v `'(first ~e))) [] (rest f)))}]
-    (println m)
     m))
 
 (defmacro get-fn-arglists-m
