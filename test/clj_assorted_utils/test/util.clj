@@ -212,7 +212,7 @@
     (is (= '[[a b c]] ret))))
 
 (deftest get-fn-arglists-test
-  (let [ret (get-fn-arglists (fn [a b c] (+ a b c)))]
+  (let [ret (get-fn-arglists-m (fn [a b c] (+ a b c)))]
     (is (vector? (:args ret)))
     (is (= '[[a b c]] (:args ret)))
     (is (= 6 ((:fn ret) 1 2 3)))))
@@ -228,10 +228,10 @@
     (is (= '[[a] [a b] [a b c]] ret))))
 
 (deftest get-fn-arglists-mulit-arity-test
-  (let [ret (get-fn-arglists (fn 
-                               ([a] a)
-                               ([a b] (+ a b))
-                               ([a b c] (+ a b c))))]
+  (let [ret (get-fn-arglists-m (fn 
+                                 ([a] a)
+                                 ([a b] (+ a b))
+                                 ([a b c] (+ a b c))))]
     (is (vector? (:args ret)))
     (is (= '[[a] [a b] [a b c]] (:args ret)))
     (is (= 1 ((:fn ret) 1)))
