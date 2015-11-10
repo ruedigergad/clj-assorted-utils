@@ -323,7 +323,6 @@
   [f]
   `(get-defn-arglists (var ~f)))
 
-
 (defn map-quote-vec
   [c]
   (into [] (map (fn [x] `(quote ~x)) c)))
