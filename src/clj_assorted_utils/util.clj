@@ -315,11 +315,14 @@
 ;;; Functions for getting information about function arguments.
 ;;;
 (defn get-defn-arglists
-  "Get the arglists of a function that was defined with defn."
+  "Get the arglists of a function that was defined with defn.
+   This function is intended to be used from within a macor.
+   For a macro version of this functionality please use get-defn-arglists-m."
   [f]
   (-> f meta :arglists vec))
 
 (defmacro get-defn-arglists-m
+  "Macro version of get-defn-arglists."
   [f]
   `(get-defn-arglists (var ~f)))
 
@@ -329,7 +332,9 @@
 
 (defn get-fn-arglists
   "Returns a map that contains the actual fn that was passed as argument and its arglists.
-   The result will be a map of form: {:fn f :args <f-args>}."
+   The result will be a map of form: {:fn f :args <f-args>}.
+   This function is intended to be used from within a macor.
+   For a macro version of this functionality please use get-fn-arglists-m."
   [f]
   (let [m {:fn f
            :args (if (vector? (nth f 1))
@@ -338,6 +343,7 @@
     m))
 
 (defmacro get-fn-arglists-m
+  "Macro version of get-fn-arglists."
   [f]
   (get-fn-arglists f))
 
