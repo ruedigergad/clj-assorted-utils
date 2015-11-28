@@ -279,7 +279,7 @@
   []
   (let [counters (ref {})]
     (fn [k v]
-      (let [cntr (k @counters)]
+      (let [cntr (@counters k)]
         (if cntr
           (let [delta (- v (cntr))]
             (cntr (fn [_] v))
