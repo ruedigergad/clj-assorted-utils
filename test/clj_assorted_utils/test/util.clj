@@ -59,7 +59,7 @@
     (sleep 100)
     (is (flag-set? stdout-run))))
 
-(deftest test-exec-with-out-process-output
+(deftest test-exec-with-out-process-output-2
   (let [command (into-array java.lang.String ["/bin/sh" "-c" "ls /etc/passwd 1>&2"])
         stderr-run (prepare-flag)
         stderr-fn (fn [out] (if (= out "/etc/passwd") (set-flag stderr-run)))
