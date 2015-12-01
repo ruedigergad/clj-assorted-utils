@@ -10,14 +10,17 @@
   ^{:author "Ruediger Gad",
     :doc "Utility and helper functions"}
   clj-assorted-utils.util
-  (:use clojure.java.io
-        clojure.walk
-        clojure.xml)
-  (:require (clojure [string :as str]))
-  (:import (java.io BufferedReader BufferedWriter ByteArrayOutputStream IOException ObjectOutputStream)
-           (java.util ArrayList HashMap HashSet List Map)
-           (java.util.concurrent CountDownLatch Executors ThreadFactory TimeUnit)
-           (java.util.zip GZIPOutputStream ZipOutputStream)))
+  (:require
+    (clojure
+      [string :as str]
+      [walk :refer :all]
+      [xml :refer :all])
+    (clojure.java [io :refer :all]))
+  (:import
+    (java.io BufferedReader BufferedWriter ByteArrayOutputStream IOException ObjectOutputStream)
+    (java.util ArrayList HashMap HashSet List Map)
+    (java.util.concurrent CountDownLatch Executors ThreadFactory TimeUnit)
+    (java.util.zip GZIPOutputStream ZipOutputStream)))
 
 
 (defn sleep
@@ -74,8 +77,9 @@
 ;;;
 ;;; Helper functions for handling system properties.
 ;;;
-(defn get-system-property [p]
+(defn get-system-property
   "Get system property p. p is a String naming the property go get."
+  [p]
   (System/getProperty p))
 (def get-arch (partial get-system-property "os.arch"))
 (def get-os (partial get-system-property "os.name"))
