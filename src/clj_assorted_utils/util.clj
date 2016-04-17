@@ -198,32 +198,6 @@
 ;;; Flags and a simple counter.
 ;;; I use these primarily for unit testing to check if something happened or not.
 ;;;
-(defprotocol Flag
-  (set-flag
-;    "Set flag to true."
-    [this])
-  (flag-set?
-;    "Test if flag had been set.
-;     Returns true if flag was set and false otherwise."
-    [this])
-  (await-flag
-;    "Block the current thread until the flat was set."
-    [this]))
-
-(defrecord CountDownFlag [^CountDownLatch cdl]
-  Flag
-    (set-flag [this]
-      (if (not (.flag-set? this))
-        (.countDown cdl)))
-    (flag-set? [_] (= 0 (.getCount cdl)))
-    (await-flag [_] (.await cdl)))
-
-(defn prepare-flag
-  "Prepare a flag with default value false."
-  []
-  (->CountDownFlag
-    (CountDownLatch. 1)))
-
 (defn prepare-counter 
   "Prepare a simple counter. Use @ to access the value."
   ([] (prepare-counter 0))
@@ -283,6 +257,36 @@
           (let [new-cntr (counter)]
             (dosync (alter counters assoc k new-cntr))
             (new-cntr)))))))
+
+(defprotocol Flag
+  (set-flag
+;    "Set flag to true."
+    [this])
+  (flag-set?
+;    "Test if flag had been set.
+;     Returns true if flag was set and false otherwise."
+    [this])
+  (await-flag
+;    "Block the current thread until the flat was set."
+    [this]))
+
+(defrecord CountDownFlag [cntr ^CountDownLatch cdl]
+  Flag
+    (set-flag [this]
+      (cntr dec)
+      (if (.flag-set? this)
+        (.countDown cdl)))
+    (flag-set? [_] (= 0 (cntr)))
+    (await-flag [_] (.await cdl)))
+
+(defn prepare-flag
+  "Prepare a flag with default value false."
+  ([]
+   (prepare-flag 1))
+  ([n]
+   (->CountDownFlag
+     (counter n)
+     (CountDownLatch. 1))))
 
 
 

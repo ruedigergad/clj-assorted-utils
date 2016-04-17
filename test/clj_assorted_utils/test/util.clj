@@ -131,6 +131,19 @@
     (await-flag flag)
     (is (flag-set? flag))))
 
+(deftest await-flag-n-test
+  (let [flag (prepare-flag 4)
+        cntr (counter)]
+    (run-repeat
+      (executor)
+      #(when (not (flag-set? flag))
+         (cntr inc)
+         (set-flag flag))
+      200)
+    (await-flag flag)
+    (is (flag-set? flag))
+    (is (= 4 (cntr)))))
+
 (deftest counter-test
   (let [my-counter (prepare-counter)]
     (dotimes [_ 1000] (inc-counter my-counter))
