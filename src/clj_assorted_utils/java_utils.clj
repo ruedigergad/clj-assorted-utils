@@ -10,16 +10,17 @@
   ^{:author "Ruediger Gad",
     :doc "Utility and helper functions for Java"}
   clj-assorted-utils.java-utils
-  (:use clj-assorted-utils.util))
+  (:require
+    (clj-assorted-utils [util :refer :all])))
 
 (defn no-eval-read-string
   [input]
   (binding [*read-eval* false] (read-string input)))
 
 (defn read-object-from-clojure-string
-  [input]
   "Tries to read data from a string that contains data expressed in Clojure data structures.
    Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
+  [input]
   (let [read-input (no-eval-read-string input)]
     (convert-from-clojure-to-java read-input)))
 

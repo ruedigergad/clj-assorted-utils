@@ -10,8 +10,10 @@
   ^{:author "Ruediger Gad",
     :doc "Java utility and helper functions"}
   clj-assorted-utils.JavaUtils
-  (:use clj-assorted-utils.java-utils
-        clj-assorted-utils.util)
+  (:require
+    (clj-assorted-utils
+      [java-utils :refer :all]
+      [util :refer :all]))
   (:import (java.util ArrayList HashMap HashSet List Map Set))
   (:gen-class
     :methods [#^{:static true} [readObjectFromClojureString [String] Object]

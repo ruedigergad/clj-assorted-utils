@@ -10,10 +10,14 @@
   ^{:author "Ruediger Gad",
     :doc "Unit tests for Java utility and helper functions"}
   clj-assorted-utils.test.java-utils
-  (:use clojure.test
-        clojure.test.junit
-        clj-assorted-utils.JavaUtils
-        clj-assorted-utils.java-utils)
+  (:require
+    (clojure
+      [test :refer :all])
+    (clojure.test
+      [junit :refer :all])
+    (clj-assorted-utils
+      [JavaUtils :refer :all]
+      [java-utils :refer :all]))
   (:import (clj_assorted_utils JavaUtils)
            (java.util ArrayList HashMap HashSet)))
 
