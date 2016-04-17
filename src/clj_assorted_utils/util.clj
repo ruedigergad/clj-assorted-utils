@@ -260,15 +260,15 @@
 
 (defprotocol Flag
   (set-flag
-;    "Set flag to true."
-    [this])
+    [this]
+    "Set flag to true.")
   (flag-set?
-;    "Test if flag had been set.
-;     Returns true if flag was set and false otherwise."
-    [this])
+    [this]
+    "Test if flag had been set.
+     Returns true if flag was set and false otherwise.")
   (await-flag
-;    "Block the current thread until the flat was set."
-    [this]))
+    [this]
+    "Block the current thread until the flat was set."))
 
 (defrecord CountDownFlag [cntr ^CountDownLatch cdl]
   Flag
