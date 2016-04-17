@@ -9,5 +9,5 @@
   :test2junit-output-dir "ghpages/test-results"
   :test2junit-run-ant true
   :aot [clj-assorted-utils.JavaUtils]
-  :plugins [[lein-cloverage "1.0.2"]]
+  :plugins [[lein-cloverage "1.0.6"]]
 )
