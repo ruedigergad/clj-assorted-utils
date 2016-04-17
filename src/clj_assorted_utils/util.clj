@@ -198,35 +198,34 @@
 ;;; Flags and a simple counter.
 ;;; I use these primarily for unit testing to check if something happened or not.
 ;;;
+(defprotocol Flag
+  (set-flag
+;    "Set flag to true."
+    [this])
+  (flag-set?
+;    "Test if flag had been set.
+;     Returns true if flag was set and false otherwise."
+    [this])
+  (await-flag
+;    "Block the current thread until the flat was set."
+    [this]))
+
+(defrecord FlagRecord [data ^CountDownLatch cdl]
+  Flag
+    (set-flag [_]
+      (do
+        (dosync
+          (alter data assoc :flag true))
+        (.countDown cdl)))
+    (flag-set? [_] (@data :flag))
+    (await-flag [_] (.await cdl)))
+
 (defn prepare-flag
   "Prepare a flag with default value false."
   []
-  (let [flag (ref {:flag false})
-        latch (CountDownLatch. 1)]
-    (fn [arg]
-      (cond
-        (= arg :set) (do
-                       (dosync
-                         (alter flag assoc :flag true))
-                       (.countDown latch))
-        (= arg :is-set?) (:flag @flag)
-        (= arg :await) (.await latch)))))
-
-(defn set-flag
-  "Set flag to true."
-  [f]
-  (f :set))
-
-(defn flag-set?
-  "Test if flag had been set.
-   Returns true if flag was set and false otherwise."
-  [f]
-  (f :is-set?))
-
-(defn await-flag
-  "Block the current thread until the flat was set."
-  [f]
-  (f :await))
+  (->FlagRecord
+    (ref {:flag false})
+    (CountDownLatch. 1)))
 
 (defn prepare-counter 
   "Prepare a simple counter. Use @ to access the value."
