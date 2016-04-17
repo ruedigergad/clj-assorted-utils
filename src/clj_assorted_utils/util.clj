@@ -268,7 +268,7 @@
      Returns true if flag was set and false otherwise.")
   (await-flag
     [this]
-    "Block the current thread until the flat was set."))
+    "Block the current thread until the flag was set."))
 
 (defrecord CountDownFlag [cntr ^CountDownLatch cdl]
   Flag
