@@ -29,7 +29,7 @@ http://ruedigergad.github.com/clj-assorted-utils/test-results/html
 
 ## License
 
-Copyright (C) 2012, 2013, 2014 Ruediger Gad
+Copyright (C) 2012 - 2016 Ruediger Gad
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
