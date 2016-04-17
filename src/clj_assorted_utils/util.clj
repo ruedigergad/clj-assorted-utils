@@ -210,21 +210,18 @@
 ;    "Block the current thread until the flat was set."
     [this]))
 
-(defrecord FlagRecord [data ^CountDownLatch cdl]
+(defrecord CountDownFlag [^CountDownLatch cdl]
   Flag
-    (set-flag [_]
-      (do
-        (dosync
-          (alter data assoc :flag true))
+    (set-flag [this]
+      (if (not (.flag-set? this))
         (.countDown cdl)))
-    (flag-set? [_] (@data :flag))
+    (flag-set? [_] (= 0 (.getCount cdl)))
     (await-flag [_] (.await cdl)))
 
 (defn prepare-flag
   "Prepare a flag with default value false."
   []
-  (->FlagRecord
-    (ref {:flag false})
+  (->CountDownFlag
     (CountDownLatch. 1)))
 
 (defn prepare-counter 
