@@ -538,6 +538,14 @@
     (is (= "" (with-out-str-ext write-fn (print "foo"))))
     (is (= "foo" @intercepted-input))))
 
+(deftest with-err-str-ext-single-print-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   (str "bar" s "baz"))]
+    (is (= "barfoobaz" (with-err-str-ext write-fn (print-err "foo"))))
+    (is (= "foo" @intercepted-input))))
+
 
 
 ;;;

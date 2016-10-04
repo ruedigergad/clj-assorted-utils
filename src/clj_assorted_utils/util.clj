@@ -493,6 +493,18 @@
        ~@body
        (str wrtr#))))
 
+(defmacro with-err-str-ext
+  "Extended version of with-err-str.
+   This version executes the function write-fn for every element that is added to the writer.
+   The element that is added to the writer is the string representation of the return value of write-fn."
+  [write-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write (str (~write-fn s#)))))]
+     (binding [*err* wrtr#]
+       ~@body
+       (str wrtr#))))
+
 
 
 ;;;
