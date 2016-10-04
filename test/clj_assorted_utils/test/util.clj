@@ -19,7 +19,9 @@
       [io :refer :all])
     (clj-assorted-utils
       [util :refer :all]))
-  (:import (java.util ArrayList HashMap HashSet)))
+  (:import
+    (java.util ArrayList HashMap HashSet)
+    (java.io StringWriter)))
 
 
 ;(defn junit-output-fixture [f]
@@ -484,6 +486,41 @@
 
 (deftest println-err-test
   (is (= "foo\n" (with-err-str (println-err "foo")))))
+
+;;;
+;;; Tests for with-out-str-custom that allows to execute a function on each added string.
+;;;
+(deftest with-out-str-custom-single-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foo\n" (with-out-str-custom write-fn (println "foo"))))
+    (is (= "foo\n" @intercepted-input))))
+
+(deftest with-out-str-custom-double-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foo\nbar\n" (with-out-str-custom write-fn (println "foo") (println "bar"))))
+    (is (= "foo\nbar\n" @intercepted-input))))
+
+(deftest with-out-str-custom-single-print-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foo" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" @intercepted-input))))
+
+(deftest with-out-str-custom-double-print-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foobar" (with-out-str-custom write-fn (print "foo") (print "bar"))))
+    (is (= "foobar" @intercepted-input))))
 
 
 

@@ -478,6 +478,22 @@
 
 
 ;;;
+;;; Custom with-out-str that allows to execute a function on each added string.
+;;;
+
+(defmacro with-out-str-custom
+  "Analog to with-out-str, just for *err*: https://clojuredocs.org/clojure.core/with-out-str"
+  [write-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write (~write-fn s#))))]
+     (binding [*out* wrtr#]
+       ~@body
+       (str wrtr#))))
+
+
+
+;;;
 ;;; Functions for serializing objects.
 ;;;
 (defn object-to-byte-array
