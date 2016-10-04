@@ -522,6 +522,22 @@
     (is (= "foobar" (with-out-str-custom write-fn (print "foo") (print "bar"))))
     (is (= "foobar" @intercepted-input))))
 
+(deftest with-out-str-custom-manipulated-string-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   (str s s))]
+    (is (= "foofoo" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" @intercepted-input))))
+
+(deftest with-out-str-custom-nil-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   nil)]
+    (is (= "" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" @intercepted-input))))
+
 
 
 ;;;
