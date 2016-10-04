@@ -482,11 +482,13 @@
 ;;;
 
 (defmacro with-out-str-custom
-  "Analog to with-out-str, just for *err*: https://clojuredocs.org/clojure.core/with-out-str"
+  "Extended version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
+   This version executes the function write-fn for every element that is added to the writer.
+   The element that is added to the writer is the string representation of the return value of write-fn."
   [write-fn & body]
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write [^String s#]
-                   (proxy-super write (~write-fn s#))))]
+                   (proxy-super write (str (~write-fn s#)))))]
      (binding [*out* wrtr#]
        ~@body
        (str wrtr#))))
