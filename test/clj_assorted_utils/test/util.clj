@@ -488,54 +488,54 @@
   (is (= "foo\n" (with-err-str (println-err "foo")))))
 
 ;;;
-;;; Tests for with-out-str-custom that allows to execute a function on each added string.
+;;; Tests for with-out-str-ext that allows to execute a function on each added string.
 ;;;
-(deftest with-out-str-custom-single-println-test
+(deftest with-out-str-ext-single-println-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foo\n" (with-out-str-custom write-fn (println "foo"))))
+    (is (= "foo\n" (with-out-str-ext write-fn (println "foo"))))
     (is (= "foo\n" @intercepted-input))))
 
-(deftest with-out-str-custom-double-println-test
+(deftest with-out-str-ext-double-println-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foo\nbar\n" (with-out-str-custom write-fn (println "foo") (println "bar"))))
+    (is (= "foo\nbar\n" (with-out-str-ext write-fn (println "foo") (println "bar"))))
     (is (= "foo\nbar\n" @intercepted-input))))
 
-(deftest with-out-str-custom-single-print-test
+(deftest with-out-str-ext-single-print-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foo" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" (with-out-str-ext write-fn (print "foo"))))
     (is (= "foo" @intercepted-input))))
 
-(deftest with-out-str-custom-double-print-test
+(deftest with-out-str-ext-double-print-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foobar" (with-out-str-custom write-fn (print "foo") (print "bar"))))
+    (is (= "foobar" (with-out-str-ext write-fn (print "foo") (print "bar"))))
     (is (= "foobar" @intercepted-input))))
 
-(deftest with-out-str-custom-manipulated-string-test
+(deftest with-out-str-ext-manipulated-string-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    (str s s))]
-    (is (= "foofoo" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foofoo" (with-out-str-ext write-fn (print "foo"))))
     (is (= "foo" @intercepted-input))))
 
-(deftest with-out-str-custom-nil-test
+(deftest with-out-str-ext-nil-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    nil)]
-    (is (= "" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "" (with-out-str-ext write-fn (print "foo"))))
     (is (= "foo" @intercepted-input))))
 
 

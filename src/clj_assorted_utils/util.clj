@@ -478,10 +478,10 @@
 
 
 ;;;
-;;; Custom with-out-str that allows to execute a function on each added string.
+;;; Extended with-out-str that allows to execute a function on each added string.
 ;;;
 
-(defmacro with-out-str-custom
+(defmacro with-out-str-ext
   "Extended version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
    This version executes the function write-fn for every element that is added to the writer.
    The element that is added to the writer is the string representation of the return value of write-fn."
