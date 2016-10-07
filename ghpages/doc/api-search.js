@@ -80,8 +80,8 @@ $(function() {
     {label: "clj-assorted-utils.util/touch", value: "clj-assorted-utils.util.html#IDtouch"},
     {label: "clj-assorted-utils.util/vec-replace", value: "clj-assorted-utils.util.html#IDvec-replace"},
     {label: "clj-assorted-utils.util/with-err-str", value: "clj-assorted-utils.util.html#IDwith-err-str"},
-    {label: "clj-assorted-utils.util/with-err-str-ext", value: "clj-assorted-utils.util.html#IDwith-err-str-ext"},
-    {label: "clj-assorted-utils.util/with-out-str-ext", value: "clj-assorted-utils.util.html#IDwith-out-str-ext"},
+    {label: "clj-assorted-utils.util/with-err-str-custom", value: "clj-assorted-utils.util.html#IDwith-err-str-custom"},
+    {label: "clj-assorted-utils.util/with-out-str-custom", value: "clj-assorted-utils.util.html#IDwith-out-str-custom"},
     {label: "clj-assorted-utils.util/xml-string-to-map", value: "clj-assorted-utils.util.html#IDxml-string-to-map"},
     {label: "clj-assorted-utils.util/xml-string-to-map-stringified", value: "clj-assorted-utils.util.html#IDxml-string-to-map-stringified"}  ];
   $('#api-search').autocomplete({
