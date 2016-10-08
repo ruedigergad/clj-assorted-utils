@@ -546,6 +546,20 @@
     (is (= "barfoobaz" (with-err-str-custom write-fn (print-err "foo"))))
     (is (= "foo" @intercepted-input))))
 
+(deftest with-out-str-cb-double-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s))]
+    (is (= "foo\nbar\n" (with-out-str-cb write-fn (println "foo") (println "bar"))))
+    (is (= "foo\nbar\n" @intercepted-input))))
+
+(deftest with-err-str-cb-double-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s))]
+    (is (= "foo\nbar\n" (with-err-str-cb write-fn (println-err "foo") (println-err "bar"))))
+    (is (= "foo\nbar\n" @intercepted-input))))
+
 
 
 ;;;
