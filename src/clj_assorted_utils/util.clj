@@ -510,7 +510,7 @@
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write [^String s#]
                    (proxy-super write s#)
-                   (cb-fn s#)))]
+                   (~cb-fn s#)))]
      (binding [*out* wrtr#]
        ~@body
        (str wrtr#))))
@@ -520,7 +520,7 @@
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write [^String s#]
                    (proxy-super write s#)
-                   (cb-fn s#)))]
+                   (~cb-fn s#)))]
      (binding [*err* wrtr#]
        ~@body
        (str wrtr#))))
