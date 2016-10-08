@@ -506,6 +506,9 @@
        (str wrtr#))))
 
 (defmacro with-out-str-cb
+  "Callback version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
+   This version executes the function cb-fn for every element that was added to the writer.
+   cb-fn is executed after the element was added to the writer."
   [cb-fn & body]
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write [^String s#]
@@ -516,6 +519,9 @@
        (str wrtr#))))
 
 (defmacro with-err-str-cb
+  "Callback version of with-err-str.
+   This version executes the function cb-fn for every element that was added to the writer.
+   cb-fn is executed after the element was added to the writer."
   [cb-fn & body]
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write [^String s#]
