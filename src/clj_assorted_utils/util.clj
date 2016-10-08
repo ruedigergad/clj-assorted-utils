@@ -505,6 +505,26 @@
        ~@body
        (str wrtr#))))
 
+(defmacro with-out-str-cb
+  [cb-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write s#)
+                   (cb-fn s#)))]
+     (binding [*out* wrtr#]
+       ~@body
+       (str wrtr#))))
+
+(defmacro with-err-str-cb
+  [cb-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write s#)
+                   (cb-fn s#)))]
+     (binding [*err* wrtr#]
+       ~@body
+       (str wrtr#))))
+
 
 
 ;;;
