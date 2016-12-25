@@ -19,7 +19,9 @@
       [io :refer :all])
     (clj-assorted-utils
       [util :refer :all]))
-  (:import (java.util ArrayList HashMap HashSet)))
+  (:import
+    (java.util ArrayList HashMap HashSet)
+    (java.io StringWriter)))
 
 
 ;(defn junit-output-fixture [f]
@@ -484,6 +486,79 @@
 
 (deftest println-err-test
   (is (= "foo\n" (with-err-str (println-err "foo")))))
+
+;;;
+;;; Tests for with-out-str-custom that allows to execute a function on each added string.
+;;;
+(deftest with-out-str-custom-single-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foo\n" (with-out-str-custom write-fn (println "foo"))))
+    (is (= "foo\n" @intercepted-input))))
+
+(deftest with-out-str-custom-double-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foo\nbar\n" (with-out-str-custom write-fn (println "foo") (println "bar"))))
+    (is (= "foo\nbar\n" @intercepted-input))))
+
+(deftest with-out-str-custom-single-print-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foo" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" @intercepted-input))))
+
+(deftest with-out-str-custom-double-print-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   s)]
+    (is (= "foobar" (with-out-str-custom write-fn (print "foo") (print "bar"))))
+    (is (= "foobar" @intercepted-input))))
+
+(deftest with-out-str-custom-manipulated-string-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   (str s s))]
+    (is (= "foofoo" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" @intercepted-input))))
+
+(deftest with-out-str-custom-nil-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   nil)]
+    (is (= "" (with-out-str-custom write-fn (print "foo"))))
+    (is (= "foo" @intercepted-input))))
+
+(deftest with-err-str-custom-single-print-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s)
+                   (str "bar" s "baz"))]
+    (is (= "barfoobaz" (with-err-str-custom write-fn (print-err "foo"))))
+    (is (= "foo" @intercepted-input))))
+
+(deftest with-out-str-cb-double-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s))]
+    (is (= "foo\nbar\n" (with-out-str-cb write-fn (println "foo") (println "bar"))))
+    (is (= "foo\nbar\n" @intercepted-input))))
+
+(deftest with-err-str-cb-double-println-test
+  (let [intercepted-input (atom "")
+        write-fn (fn [s]
+                   (swap! intercepted-input str s))]
+    (is (= "foo\nbar\n" (with-err-str-cb write-fn (println-err "foo") (println-err "bar"))))
+    (is (= "foo\nbar\n" @intercepted-input))))
 
 
 

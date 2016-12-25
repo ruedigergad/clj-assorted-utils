@@ -478,6 +478,62 @@
 
 
 ;;;
+;;; Customizable with-out-str that allows to execute a function on each added string.
+;;;
+
+(defmacro with-out-str-custom
+  "Customizable version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
+   This version executes the function write-fn for every element that is added to the writer.
+   The element that is added to the writer is the string representation of the return value of write-fn."
+  [write-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write (str (~write-fn s#)))))]
+     (binding [*out* wrtr#]
+       ~@body
+       (str wrtr#))))
+
+(defmacro with-err-str-custom
+  "Customizable version of with-err-str.
+   This version executes the function write-fn for every element that is added to the writer.
+   The element that is added to the writer is the string representation of the return value of write-fn."
+  [write-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write (str (~write-fn s#)))))]
+     (binding [*err* wrtr#]
+       ~@body
+       (str wrtr#))))
+
+(defmacro with-out-str-cb
+  "Callback version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
+   This version executes the function cb-fn for every element that was added to the writer.
+   cb-fn is executed after the element was added to the writer."
+  [cb-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write s#)
+                   (~cb-fn s#)))]
+     (binding [*out* wrtr#]
+       ~@body
+       (str wrtr#))))
+
+(defmacro with-err-str-cb
+  "Callback version of with-err-str.
+   This version executes the function cb-fn for every element that was added to the writer.
+   cb-fn is executed after the element was added to the writer."
+  [cb-fn & body]
+  `(let [wrtr# (proxy [java.io.StringWriter] []
+                 (write [^String s#]
+                   (proxy-super write s#)
+                   (~cb-fn s#)))]
+     (binding [*err* wrtr#]
+       ~@body
+       (str wrtr#))))
+
+
+
+;;;
 ;;; Functions for serializing objects.
 ;;;
 (defn object-to-byte-array
