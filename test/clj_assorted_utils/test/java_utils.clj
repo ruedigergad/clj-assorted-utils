@@ -21,6 +21,20 @@
   (:import (clj_assorted_utils JavaUtils)
            (java.util ArrayList HashMap HashSet)))
 
+(deftest convert-from-clojure-to-java-list-test
+  (let [in '("a" 1 1.23)
+        expected (doto (ArrayList.) (.add "a") (.add 1) (.add 1.23))
+        out (JavaUtils/convertFromClojureToJava in)]
+    (is (= expected out))
+    (is (= java.util.ArrayList (type out)))))
+
+(deftest convert-from-clojure-to-java-map-test
+  (let [in {"a" 1 "b" 1.23}
+        expected (doto (HashMap.) (.put "a" 1) (.put "b" 1.23))
+        out (JavaUtils/convertFromClojureToJava in)]
+    (is (= expected out))
+    (is (= java.util.HashMap (type out)))))
+
 (deftest read-clojure-data-structure-string-to-java-list
   (let [in-string "(1 2.3 \"foo\")"
         expected (doto (ArrayList.) (.add 1) (.add 2.3) (.add "foo"))
