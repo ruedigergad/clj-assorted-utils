@@ -631,14 +631,12 @@
    Nested data structures will be converted recursively."
   [input]
   (cond
-    (or
-      (list? input)
-      (vector? input)) (let [out (ArrayList.)]
-                         (doseq [in-element input]
-                           (if (coll? in-element)
-                             (.add out (convert-from-clojure-to-java in-element))
-                             (.add out in-element)))
-                         out)
+    (sequential? input) (let [out (ArrayList.)]
+                          (doseq [in-element input]
+                            (if (coll? in-element)
+                              (.add out (convert-from-clojure-to-java in-element))
+                              (.add out in-element)))
+                          out)
     (map? input) (let [out (HashMap.)]
                    (doseq [in-element input]
                      (if (coll? (val in-element))
