@@ -277,7 +277,8 @@
 (defrecord CountDownFlag [cntr ^CountDownLatch cdl]
   Flag
     (set-flag [this]
-      (cntr dec)
+      (if (not= (cntr) 0)
+        (cntr dec))
       (if (.flag-set? this)
         (.countDown cdl)))
     (flag-set? [_] (= 0 (cntr)))
