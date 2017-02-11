@@ -132,6 +132,12 @@
     (set-flag flag)
     (is (flag-set? flag))))
 
+(deftest test-set-flag-twice
+  (let [flag (prepare-flag)]
+    (set-flag flag)
+    (set-flag flag)
+    (is (flag-set? flag))))
+
 (deftest await-flag-test
   (let [flag (prepare-flag)]
     (run-once (executor) #(set-flag flag) 200)
