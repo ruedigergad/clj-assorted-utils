@@ -533,6 +533,11 @@
        (str wrtr#))))
 
 (defmacro with-eo-str
+  "Macro that executes body capturing its stdout and stderr output.
+   This returns a map with the following structure:
+   {:all both-stdout-and-std-err-output-in-proper-order
+    :stderr stderr-output
+    :stdout stdout-output}"
   [& body]
   `(let [all-str# (ref "")
          out-str# (atom "")
@@ -549,6 +554,7 @@
      {:all @all-str#
       :stderr err-str#
       :stdout @out-str#}))
+
 
 
 ;;;
