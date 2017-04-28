@@ -532,6 +532,23 @@
        ~@body
        (str wrtr#))))
 
+(defmacro with-eo-str
+  [& body]
+  `(let [all-str# (ref "")
+         out-str# (atom "")
+         err-str# (with-err-str-cb
+                    (fn [e-str#]
+                      (dosync
+                        (alter all-str# str e-str#)))
+                    (let [out-str-tmp# (with-out-str-cb
+                                        (fn [o-str#]
+                                          (dosync
+                                            (alter all-str# str o-str#)))
+                                        ~@body)]
+                      (reset! out-str# out-str-tmp#)))]
+     {:all @all-str#
+      :stderr err-str#
+      :stdout @out-str#}))
 
 
 ;;;

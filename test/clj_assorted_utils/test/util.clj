@@ -493,6 +493,8 @@
 (deftest println-err-test
   (is (= "foo\n" (with-err-str (println-err "foo")))))
 
+
+
 ;;;
 ;;; Tests for with-out-str-custom that allows to execute a function on each added string.
 ;;;
@@ -565,6 +567,14 @@
                    (swap! intercepted-input str s))]
     (is (= "foo\nbar\n" (with-err-str-cb write-fn (println-err "foo") (println-err "bar"))))
     (is (= "foo\nbar\n" @intercepted-input))))
+
+(deftest with-eo-str-test
+  (let [eo-out (with-eo-str
+                 (println "foo")
+                 (println-err "bar"))]
+    (is (= "foo\nbar\n" (eo-out :all)))
+    (is (= "foo\n" (eo-out :stdout)))
+    (is (= "bar\n" (eo-out :stderr)))))
 
 
 
