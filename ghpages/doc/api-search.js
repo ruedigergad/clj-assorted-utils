@@ -1,5 +1,6 @@
 $(function() {
   var index = [
+    {label: "clj-assorted-utils.JavaUtils/-convertFromClojureToJava", value: "clj-assorted-utils.JavaUtils.html#ID-convertFromClojureToJava"},
     {label: "clj-assorted-utils.JavaUtils/-readListFromClojureString", value: "clj-assorted-utils.JavaUtils.html#ID-readListFromClojureString"},
     {label: "clj-assorted-utils.JavaUtils/-readMapFromClojureString", value: "clj-assorted-utils.JavaUtils.html#ID-readMapFromClojureString"},
     {label: "clj-assorted-utils.JavaUtils/-readObjectFromClojureString", value: "clj-assorted-utils.JavaUtils.html#ID-readObjectFromClojureString"},
@@ -79,6 +80,7 @@ $(function() {
     {label: "clj-assorted-utils.util/stringify-map", value: "clj-assorted-utils.util.html#IDstringify-map"},
     {label: "clj-assorted-utils.util/touch", value: "clj-assorted-utils.util.html#IDtouch"},
     {label: "clj-assorted-utils.util/vec-replace", value: "clj-assorted-utils.util.html#IDvec-replace"},
+    {label: "clj-assorted-utils.util/with-eo-str", value: "clj-assorted-utils.util.html#IDwith-eo-str"},
     {label: "clj-assorted-utils.util/with-err-str", value: "clj-assorted-utils.util.html#IDwith-err-str"},
     {label: "clj-assorted-utils.util/with-err-str-cb", value: "clj-assorted-utils.util.html#IDwith-err-str-cb"},
     {label: "clj-assorted-utils.util/with-err-str-custom", value: "clj-assorted-utils.util.html#IDwith-err-str-custom"},
