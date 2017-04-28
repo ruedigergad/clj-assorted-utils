@@ -571,10 +571,12 @@
 (deftest with-eo-str-test
   (let [eo-out (with-eo-str
                  (println "foo")
-                 (println-err "bar"))]
+                 (println-err "bar")
+                 (+ 1 2 3))]
     (is (= "foo\nbar\n" (eo-out :all)))
     (is (= "foo\n" (eo-out :stdout)))
-    (is (= "bar\n" (eo-out :stderr)))))
+    (is (= "bar\n" (eo-out :stderr)))
+    (is (= 6 (eo-out :ret)))))
 
 
 
