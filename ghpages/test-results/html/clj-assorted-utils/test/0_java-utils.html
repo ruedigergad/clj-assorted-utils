@@ -6,7 +6,117 @@
 <script type="text/javascript" language="JavaScript">
         var TestCases = new Array();
         var cur;
-        </script><script type="text/javascript" language="JavaScript">
+        
+    cur = TestCases['clj-assorted-utils.test.java-utils'] = new Array();
+    
+        cur['awt.toolkit'] = 'sun.awt.X11.XToolkit';
+    
+        cur['clj-assorted-utils.version'] = '1.18.1';
+    
+        cur['clojure.compile.path'] = '/home/rc/repositories/private/clojure/clj-assorted-utils/target/classes';
+    
+        cur['clojure.debug'] = 'false';
+    
+        cur['file.encoding'] = 'UTF-8';
+    
+        cur['file.encoding.pkg'] = 'sun.io';
+    
+        cur['file.separator'] = '/';
+    
+        cur['java.awt.graphicsenv'] = 'sun.awt.X11GraphicsEnvironment';
+    
+        cur['java.awt.printerjob'] = 'sun.print.PSPrinterJob';
+    
+        cur['java.class.path'] = '/home/rc/repositories/private/clojure/clj-assorted-utils/test:/home/rc/repositories/private/clojure/clj-assorted-utils/src:/home/rc/repositories/private/clojure/clj-assorted-utils/dev-resources:/home/rc/repositories/private/clojure/clj-assorted-utils/resources:/home/rc/repositories/private/clojure/clj-assorted-utils/target/classes:/home/rc/.m2/repository/org/clojure/clojure/1.6.0/clojure-1.6.0.jar:/home/rc/.m2/repository/org/clojure/tools.nrepl/0.2.12/tools.nrepl-0.2.12.jar:/home/rc/.m2/repository/clojure-complete/clojure-complete/0.2.4/clojure-complete-0.2.4.jar:/home/rc/.m2/repository/robert/hooke/1.3.0/hooke-1.3.0.jar:/home/rc/.m2/repository/clj-assorted-utils/clj-assorted-utils/1.18.1/clj-assorted-utils-1.18.1.jar:/home/rc/.m2/repository/test2junit/test2junit/1.3.2/test2junit-1.3.2.jar';
+    
+        cur['java.class.version'] = '52.0';
+    
+        cur['java.endorsed.dirs'] = '/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/endorsed';
+    
+        cur['java.ext.dirs'] = '/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/ext:/usr/java/packages/lib/ext';
+    
+        cur['java.home'] = '/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre';
+    
+        cur['java.io.tmpdir'] = '/tmp';
+    
+        cur['java.library.path'] = '/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib';
+    
+        cur['java.runtime.name'] = 'OpenJDK Runtime Environment';
+    
+        cur['java.runtime.version'] = '1.8.0_121-b14';
+    
+        cur['java.specification.name'] = 'Java Platform API Specification';
+    
+        cur['java.specification.vendor'] = 'Oracle Corporation';
+    
+        cur['java.specification.version'] = '1.8';
+    
+        cur['java.vendor'] = 'Oracle Corporation';
+    
+        cur['java.vendor.url'] = 'http://java.oracle.com/';
+    
+        cur['java.vendor.url.bug'] = 'http://bugreport.sun.com/bugreport/';
+    
+        cur['java.version'] = '1.8.0_121';
+    
+        cur['java.vm.info'] = 'mixed mode';
+    
+        cur['java.vm.name'] = 'OpenJDK 64-Bit Server VM';
+    
+        cur['java.vm.specification.name'] = 'Java Virtual Machine Specification';
+    
+        cur['java.vm.specification.vendor'] = 'Oracle Corporation';
+    
+        cur['java.vm.specification.version'] = '1.8';
+    
+        cur['java.vm.vendor'] = 'Oracle Corporation';
+    
+        cur['java.vm.version'] = '25.121-b14';
+    
+        cur['line.separator'] = ' ';
+    
+        cur['os.arch'] = 'amd64';
+    
+        cur['os.name'] = 'Linux';
+    
+        cur['os.version'] = '4.10.10-200.fc25.x86_64';
+    
+        cur['path.separator'] = ':';
+    
+        cur['sun.arch.data.model'] = '64';
+    
+        cur['sun.boot.class.path'] = '/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/resources.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/rt.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/jsse.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/charsets.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/jfr.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/classes';
+    
+        cur['sun.boot.library.path'] = '/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-10.b14.fc25.x86_64/jre/lib/amd64';
+    
+        cur['sun.cpu.endian'] = 'little';
+    
+        cur['sun.cpu.isalist'] = '';
+    
+        cur['sun.io.unicode.encoding'] = 'UnicodeLittle';
+    
+        cur['sun.java.command'] = 'clojure.main -i /tmp/form-init1171368224183917820.clj';
+    
+        cur['sun.java.launcher'] = 'SUN_STANDARD';
+    
+        cur['sun.jnu.encoding'] = 'UTF-8';
+    
+        cur['sun.management.compiler'] = 'HotSpot 64-Bit Tiered Compilers';
+    
+        cur['sun.os.patch.level'] = 'unknown';
+    
+        cur['user.country'] = 'US';
+    
+        cur['user.dir'] = '/home/rc/repositories/private/clojure/clj-assorted-utils';
+    
+        cur['user.home'] = '/home/rc';
+    
+        cur['user.language'] = 'en';
+    
+        cur['user.name'] = 'rc';
+    
+        cur['user.timezone'] = 'Europe/Berlin';
+    </script><script type="text/javascript" language="JavaScript">
         function displayProperties (name) {
           var win = window.open('','JUnitSystemProperties','scrollbars=1,resizable=1');
           var doc = win.document;
@@ -50,7 +160,7 @@
 <th width="80%">Name</th><th>Tests</th><th>Errors</th><th>Failures</th><th>Skipped</th><th nowrap>Time(s)</th><th nowrap>Time Stamp</th><th>Host</th>
 </tr>
 <tr valign="top" class="Pass">
-<td><a title="Display all tests" href="0_java-utils.html">java-utils</a></td><td><a title="Display all tests" href="0_java-utils.html">22</a></td><td>0</td><td>0</td><td></td><td>0.026</td><td>2017-04-28_22:20:07+0200</td><td></td>
+<td><a title="Display all tests" href="0_java-utils.html">java-utils</a></td><td><a title="Display all tests" href="0_java-utils.html">22</a></td><td>0</td><td>0</td><td></td><td>0.053</td><td>2017-05-26_00:45:12+0200</td><td></td>
 </tr>
 </table>
 <h2>Tests</h2>
@@ -65,10 +175,10 @@
 <td><a name="read-clojure-data-structure-string-to-java-list-type-safe"></a>read-clojure-data-structure-string-to-java-list-type-safe</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-map"></a>read-clojure-data-structure-string-to-java-map</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="read-clojure-data-structure-string-to-java-map"></a>read-clojure-data-structure-string-to-java-map</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-map-type-safe"></a>read-clojure-data-structure-string-to-java-map-type-safe</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="read-clojure-data-structure-string-to-java-map-type-safe"></a>read-clojure-data-structure-string-to-java-map-type-safe</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="read-clojure-data-structure-string-to-java-list-2"></a>read-clojure-data-structure-string-to-java-list-2</td><td>Success</td><td></td><td>0.001</td>
@@ -83,13 +193,13 @@
 <td><a name="read-clojure-data-structure-string-to-java-list-type-safe-2"></a>read-clojure-data-structure-string-to-java-list-type-safe-2</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="check-for-non-eval-on-read-map"></a>check-for-non-eval-on-read-map</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="check-for-non-eval-on-read-map"></a>check-for-non-eval-on-read-map</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="check-for-non-eval-on-read-list"></a>check-for-non-eval-on-read-list</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="check-for-non-eval-on-read-list"></a>check-for-non-eval-on-read-list</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-list-type-safe-nil"></a>read-clojure-data-structure-string-to-java-list-type-safe-nil</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="read-clojure-data-structure-string-to-java-list-type-safe-nil"></a>read-clojure-data-structure-string-to-java-list-type-safe-nil</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="check-for-non-eval-on-read-object"></a>check-for-non-eval-on-read-object</td><td>Success</td><td></td><td>0.000</td>
@@ -98,25 +208,25 @@
 <td><a name="read-clojure-data-structure-string-to-java-set"></a>read-clojure-data-structure-string-to-java-set</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-set-type-safe"></a>read-clojure-data-structure-string-to-java-set-type-safe</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="read-clojure-data-structure-string-to-java-set-type-safe"></a>read-clojure-data-structure-string-to-java-set-type-safe</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="read-clojure-data-structure-string-to-java-list"></a>read-clojure-data-structure-string-to-java-list</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-set-type-safe-nil"></a>read-clojure-data-structure-string-to-java-set-type-safe-nil</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="read-clojure-data-structure-string-to-java-set-type-safe-nil"></a>read-clojure-data-structure-string-to-java-set-type-safe-nil</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-vector"></a>read-clojure-data-structure-string-to-java-vector</td><td>Success</td><td></td><td>0.001</td>
+<td><a name="read-clojure-data-structure-string-to-java-vector"></a>read-clojure-data-structure-string-to-java-vector</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="read-clojure-data-structure-string-to-java-map-type-safe-nil"></a>read-clojure-data-structure-string-to-java-map-type-safe-nil</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="read-clojure-data-structure-string-to-java-map-type-safe-nil"></a>read-clojure-data-structure-string-to-java-map-type-safe-nil</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="read-clojure-data-structure-string-to-java-vector-type-safe"></a>read-clojure-data-structure-string-to-java-vector-type-safe</td><td>Success</td><td></td><td>0.001</td>
 </tr>
 <tr valign="top" class="TableRowColor">
-<td><a name="convert-from-clojure-to-java-list-test"></a>convert-from-clojure-to-java-list-test</td><td>Success</td><td></td><td>0.000</td>
+<td><a name="convert-from-clojure-to-java-list-test"></a>convert-from-clojure-to-java-list-test</td><td>Success</td><td></td><td>0.002</td>
 </tr>
 <tr valign="top" class="TableRowColor">
 <td><a name="read-clojure-data-structure-string-to-java-vector-type-safe-nil"></a>read-clojure-data-structure-string-to-java-vector-type-safe-nil</td><td>Success</td><td></td><td>0.000</td>
@@ -129,6 +239,16 @@
 <a href="javascript:displayProperties('clj-assorted-utils.test.java-utils');">
                     Properties &raquo;
                 </a>
+</div>
+<div class="Properties">
+<a href="./0_java-utils-out.html">
+                        System.out &raquo;
+                    </a>
+</div>
+<div class="Properties">
+<a href="./0_java-utils-err.html">
+                        System.err &raquo;
+                    </a>
 </div>
 </body>
 </html>
