@@ -542,12 +542,18 @@
   `(let [all-str# (ref "")
          out-str# (atom "")
          ret# (atom nil)
+         err-wrtr# (writer System/err)
+         out-wrtr# (writer System/out)
          err-str# (with-err-str-cb
                     (fn [e-str#]
+                      (binding [*out* err-wrtr#]
+                        (println e-str#))
                       (dosync
                         (alter all-str# str e-str#)))
                     (let [out-str-tmp# (with-out-str-cb
                                          (fn [o-str#]
+                                           (binding [*out* out-wrtr#]
+                                             (println o-str#))
                                            (dosync
                                              (alter all-str# str o-str#)))
                                          (let [ret-tmp# (do ~@body)]
