@@ -31,7 +31,11 @@ http://ruedigergad.github.com/clj-assorted-utils/test-results/html
 
 ## License
 
-Copyright (C) 2012 - 2016 Ruediger Gad
+Copyright (C) 2012 - 2017 Ruediger Gad et al. (See below.)
+
+Contributors:
+
+Eric Caspary https://github.com/err
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
