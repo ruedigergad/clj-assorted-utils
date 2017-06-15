@@ -569,14 +569,43 @@
     (is (= "foo\nbar\n" @intercepted-input))))
 
 (deftest with-eo-str-test
-  (let [eo-out (with-eo-str
-                 (println "foo")
-                 (println-err "bar")
-                 (+ 1 2 3))]
-    (is (= "foo\nbar\n" (eo-out :all)))
-    (is (= "foo\n" (eo-out :stdout)))
-    (is (= "bar\n" (eo-out :stderr)))
-    (is (= 6 (eo-out :ret)))))
+  (let [{:keys [stdout stderr all ret]}
+        (with-eo-str
+          (println "foo")
+          (println-err "bar")
+          (+ 1 2 3))]
+    (is (= "foo\nbar\n" all))
+    (is (= "foo\n" stdout))
+    (is (= "bar\n" stderr))
+    (is (= 6 ret)))
+
+  (testing "captures compiler output"
+    (testing "reflection warnings"
+      (let [{:keys [stdout stderr all ret]}
+            (with-eo-str
+              (println "foo-out")
+              (println-err "bar-err")
+              (eval '(.toString 42))
+              (+ 1 2 3))]
+        (is (.startsWith all "foo-out\nbar-err\nReflection warning,"))
+        (is (= "foo-out\n" stdout))
+        (is (.startsWith stderr "bar-err\nReflection warning,")
+            (pr-str stderr))
+        (is (re-find #"bar-err\nReflection warning, .* - reference to field toString on long can't be resolved.\n"
+                     stderr))
+        (is (= 6 ret))))
+
+    (testing "var replacement warning"
+      (let [{:keys [stdout stderr all ret]}
+            (with-eo-str
+              (println "foo-out")
+              (println-err "bar-err")
+              (eval '(def rationalize clojure.core/rationalize))
+              (+ 1 2 3))]
+        (is (= all "foo-out\nbar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
+        (is (= "foo-out\n" stdout))
+        (is (= stderr "bar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
+        (is (= 6 ret))))))
 
 
 
