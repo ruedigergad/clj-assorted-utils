@@ -1,4 +1,4 @@
-(defproject clj-assorted-utils "1.18.2"
+(defproject clj-assorted-utils "1.18.3"
 ;(defproject clj-assorted-utils "1.19.0-SNAPSHOT"
   :description "Unsorted bunch of helper and utility functions."
   :dependencies [[org.clojure/clojure "1.6.0"]]
@@ -11,4 +11,8 @@
   :aot [clj-assorted-utils.JavaUtils]
   :plugins [[lein-cloverage "1.0.6"]]
   :profiles  {:repl  {:dependencies  [[jonase/eastwood "0.2.2" :exclusions  [org.clojure/clojure]]]}}
+  :license {:name "Eclipse Public License (EPL) - v 1.0"
+            :url "http://www.eclipse.org/legal/epl-v10.html"
+            :distribution :repo
+            :comments "This is the same license as used for Clojure."}
 )
