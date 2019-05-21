@@ -36,7 +36,7 @@
 (defn exec-blocking
   "Execute the given command and block until execution has finished."
   [cmd]
-  (-> (exec cmd) (.waitFor)))
+  (-> ^java.lang.Process (exec cmd) (.waitFor)))
 
 (defn process-input-stream-line-by-line
   "Process the given input stream line-by-line.
@@ -85,7 +85,7 @@
 (def get-os (partial get-system-property "os.name"))
 
 (defn is-os? [^String os]
-  (-> (get-os) (.toLowerCase) (.startsWith os)))
+  (-> ^java.lang.String (get-os) (.toLowerCase) (.startsWith os)))
 
 
 
@@ -163,7 +163,7 @@
   "Create an executor for executing fns in an own thread."
   []
   (Executors/newSingleThreadScheduledExecutor (proxy [ThreadFactory] []
-                                                (newThread [r] (doto (Thread. r) (.setDaemon true))))))
+                                                (newThread [^java.lang.Runnable r] (doto (Thread. r) (.setDaemon true))))))
 
 (defn shutdown
   "Shut executor down."
