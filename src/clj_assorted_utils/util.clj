@@ -167,12 +167,12 @@
 
 (defn shutdown
   "Shut executor down."
-  [exec]
+  [^java.util.concurrent.ExecutorService exec]
   (.shutdown exec))
 
 (defn shutdown-now
   "Force executor shut down."
-  [exec]
+  [^java.util.concurrent.ExecutorService exec]
   (.shutdownNow exec))
 
 (defn run-once
@@ -181,19 +181,19 @@
    tu defaults to TimeUnit/MILLISECONDS."
   ([exec f d]
    (run-once exec f d TimeUnit/MILLISECONDS))
-  ([exec f d tu]
+  ([^java.util.concurrent.ScheduledExecutorService exec ^java.lang.Runnable f ^long d ^TimeUnit tu]
    (.schedule exec f d tu)))
 
 (defn run-repeat
   "Run f repeatedly using executor exec with delay d.
-   Optionally an initial delay id and a time unit tu can be given.
+   Optionally an initial delay, id, and a time unit tu can be given.
    Time unit is a static member of TimeUnit, e.g., TimeUnit/SECONDS 
    and defaults to TimeUnit/MILLISECONDS."
   ([exec f d]
    (run-repeat exec f 0 d))
   ([exec f id d]
    (run-repeat exec f id d TimeUnit/MILLISECONDS))
-  ([exec f id d tu]
+  ([^java.util.concurrent.ScheduledExecutorService exec ^java.lang.Runnable f ^java.lang.Long id ^java.lang.Long d ^TimeUnit tu]
    (.scheduleAtFixedRate exec f id d tu)))
 
 
@@ -306,7 +306,7 @@
 
 (defn fn-name
   "Get the name of the given fn f."
-  [f]
+  [^clojure.lang.IFn f]
   (-> 
     (.getClass f) 
     (.getName) 
@@ -624,7 +624,7 @@
    The supplied function f will be called when the JVM shuts down.
    Please note: when using multiple hooks, there is no guarantee with
    respect to the order in which the hooks will be executed."
-  [f]
+  [^java.lang.Runnable f]
   (let [hook (Thread. f)]
     (-> (Runtime/getRuntime) (.addShutdownHook hook))))
 
@@ -702,12 +702,12 @@
 ;;;
 ;;; Retrieve values from a Map or default value if key does not exist.
 ;;;
-(defmacro get-with-default
+(defn get-with-default
   "Get a value for the given key k from a map m and if the value does not exist return the default d."
   [^Map m k d]
-  `(if (.containsKey ~m ~k)
-     (.get ~m ~k)
-     ~d))
+  (if (.containsKey m k)
+    (.get m k)
+    d))
 
 
 
@@ -731,7 +731,7 @@
                                  #(do
                                     (reset! wrtr (writer out-file :append append))
                                     (set-flag wrtr-opened)
-                                    (.write @wrtr hdr)))
+                                    (.write ^java.io.Writer @wrtr ^java.lang.String hdr)))
                            (.setDaemon true)
                            (.start)))
           _ (open-wrtr-fn)
@@ -752,7 +752,7 @@
           handle-exception-fn (if resume-broken-pipe
                                 #(if (and
                                        (= IOException (type %))
-                                       (= "Broken pipe" (.getMessage %))
+                                       (= "Broken pipe" (.getMessage ^IOException %))
                                        (not @closed))
                                    (do
                                      (println "Pipe broke. Re-opening writer...")
