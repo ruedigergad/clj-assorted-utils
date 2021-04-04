@@ -513,7 +513,8 @@
   [cb-fn & body]
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write [^String s#]
-                   (proxy-super write s#)
+                   (let [~'^java.io.StringWriter this ~'this]
+                     (proxy-super write s#))
                    (~cb-fn s#)))]
      (binding [*out* wrtr#]
        ~@body
@@ -527,11 +528,13 @@
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write
                    ([^String s#]
-                    (proxy-super write s#)
-                    (~cb-fn s#))
-                   ([^String s# off# len#]
-                    (proxy-super write s# off# len#)
-                    (~cb-fn s#))))]
+                     (let [~'^java.io.StringWriter this ~'this]
+                       (proxy-super write s#))
+                     (~cb-fn s#))
+                   ([^String s# ^Integer off# ^Integer len#]
+                     (let [~'^java.io.StringWriter this ~'this]
+                       (proxy-super write s# off# len#))
+                     (~cb-fn s#))))]
      (binding [*err* wrtr#]
        ~@body
        (str wrtr#))))
