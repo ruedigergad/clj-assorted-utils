@@ -512,10 +512,12 @@
    cb-fn is executed after the element was added to the writer."
   [cb-fn & body]
   `(let [wrtr# (proxy [java.io.StringWriter] []
-                 (write [^String s#]
+                 (write [arg#]
                    (let [~'^java.io.StringWriter this ~'this]
-                     (proxy-super write s#))
-                   (~cb-fn s#)))]
+                     (condp = (type arg#)
+                       String (proxy-super write ^String arg#)
+                       Integer (proxy-super write ^Integer arg#)))
+                   (~cb-fn arg#)))]
      (binding [*out* wrtr#]
        ~@body
        (str wrtr#))))
@@ -527,10 +529,12 @@
   [cb-fn & body]
   `(let [wrtr# (proxy [java.io.StringWriter] []
                  (write
-                   ([^String s#]
+                   ([arg#]
                      (let [~'^java.io.StringWriter this ~'this]
-                       (proxy-super write s#))
-                     (~cb-fn s#))
+                       (condp = (type arg#)
+                         String (proxy-super write ^String arg#)
+                         Integer (proxy-super write ^Integer arg#)))
+                     (~cb-fn arg#))
                    ([^String s# ^Integer off# ^Integer len#]
                      (let [~'^java.io.StringWriter this ~'this]
                        (proxy-super write s# off# len#))
