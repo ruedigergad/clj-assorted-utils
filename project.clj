@@ -1,7 +1,7 @@
 (defproject clj-assorted-utils "1.18.5"
 ;(defproject clj-assorted-utils "1.19.0-SNAPSHOT"
   :description "Unsorted bunch of helper and utility functions."
-  :dependencies [[org.clojure/clojure "1.9.0"]]
+  :dependencies [[org.clojure/clojure "1.10.3"]]
   :global-vars {*warn-on-reflection* true}
   :html5-docs-docs-dir "ghpages/doc"
   :html5-docs-ns-includes #"^clj-assorted-utils.*"
