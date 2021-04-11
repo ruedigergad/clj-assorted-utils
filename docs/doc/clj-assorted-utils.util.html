@@ -1,0 +1,691 @@
+<!DOCTYPE html><html><head><meta charset="utf-8" /><title>Namespace clj-assorted-utils.util</title><style type="text/css">body { margin: 10px;
+          padding: 10px;
+          background-color: #DFE9F5;
+          font-family: sans-serif; }
+
+  #top { width: 800px;
+         padding: 10px;
+         margin-left: auto;
+         margin-right: auto;
+         overflow: hidden;
+         background-color: #FFFFFF;
+         color: #123154;
+         border: 3px solid #B4D3F5; }
+
+  pre { padding: 10px;
+        border: 2px dashed #B4D3F5;
+        background-color: #F0F6FD;
+        font-family: monospace; }
+
+  a { color: #4A6A8F; }
+  a:hover { background-color: #B4D3F5; }
+  a:visited { color: #425365; }
+
+  td, th { padding-left: 5px;
+           text-align: left; }
+
+  #ui-widget {
+    position: fixed;
+    top: 0em;
+    left: 0em;
+  }</style><link href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" /></head><body><div id="ui-widget"><input autofocus="autofocus" id="api-search" placeholder="API Search" tabindex="1" /></div><div id="top"><header><h1>Namespace clj-assorted-utils.util</h1><p>Utility and helper functions</p></header><section class="ns-toc" id="other-ns-toc"><h2>Other Namespaces</h2><details><summary>Show/Hide</summary><table><tr><td><a href="clj-assorted-utils.JavaUtils.html">clj-assorted-utils.JavaUtils</a></td><td><div>Java utility and helper functions</div></td></tr><tr><td><a href="clj-assorted-utils.java-utils.html">clj-assorted-utils.java-utils</a></td><td><div>Utility and helper functions for Java</div></td></tr><tr><td><a href="index.html">Index Page</a></td><td></td></tr><tr><td><a href="var-index.html">Alphabetic Var Index</a></td><td></td></tr></table></details></section><section id="pubvars-toc"><h2>Public Vars</h2><nav><a href="#ID-GREATERCountDownFlag">-&gt;CountDownFlag</a>, <a href="#IDFlag">Flag</a>, <a href="#IDadd-shutdown-hook">add-shutdown-hook</a>, <a href="#IDawait-flag">await-flag</a>, <a href="#IDboolean-array-type">boolean-array-type</a>, <a href="#IDbyte-array-type">byte-array-type</a>, <a href="#IDbyte-seq-to-int">byte-seq-to-int</a>, <a href="#IDchange-int-in-byte-vector">change-int-in-byte-vector</a>, <a href="#IDchar-array-type">char-array-type</a>, <a href="#IDclassname">classname</a>, <a href="#IDcompress-object-to-byte-array">compress-object-to-byte-array</a>, <a href="#IDconvert-from-clojure-to-java">convert-from-clojure-to-java</a>, <a href="#IDcounter">counter</a>, <a href="#IDcreate-string-to-file-output">create-string-to-file-output</a>, <a href="#IDcreate-threaded-lineseq-reader">create-threaded-lineseq-reader</a>, <a href="#IDdelay-eval">delay-eval</a>, <a href="#IDdelta-counter">delta-counter</a>, <a href="#IDdir-existsQMARK">dir-exists?</a>, <a href="#IDdouble-array-type">double-array-type</a>, <a href="#IDexec">exec</a>, <a href="#IDexec-blocking">exec-blocking</a>, <a href="#IDexec-with-out">exec-with-out</a>, <a href="#IDexecutor">executor</a>, <a href="#IDexistsQMARK">exists?</a>, <a href="#IDfile-existsQMARK">file-exists?</a>, <a href="#IDflag-setQMARK">flag-set?</a>, <a href="#IDfloat-array-type">float-array-type</a>, <a href="#IDfn-name">fn-name</a>, <a href="#IDget-arch">get-arch</a>, <a href="#IDget-defn-arglists">get-defn-arglists</a>, <a href="#IDget-defn-arglists-m">get-defn-arglists-m</a>, <a href="#IDget-fn-arglists">get-fn-arglists</a>, <a href="#IDget-fn-arglists-m">get-fn-arglists-m</a>, <a href="#IDget-int-from-byte-vector">get-int-from-byte-vector</a>, <a href="#IDget-os">get-os</a>, <a href="#IDget-system-property">get-system-property</a>, <a href="#IDget-with-default">get-with-default</a>, <a href="#IDinc-counter">inc-counter</a>, <a href="#IDint-array-type">int-array-type</a>, <a href="#IDint-to-byte-vector">int-to-byte-vector</a>, <a href="#IDis-dirQMARK">is-dir?</a>, <a href="#IDis-fileQMARK">is-file?</a>, <a href="#IDis-osQMARK">is-os?</a>, <a href="#IDlong-array-type">long-array-type</a>, <a href="#IDmap-GREATERCountDownFlag">map-&gt;CountDownFlag</a>, <a href="#IDmap-quote-vec">map-quote-vec</a>, <a href="#IDmkdir">mkdir</a>, <a href="#IDmkfifo">mkfifo</a>, <a href="#IDobject-to-byte-array">object-to-byte-array</a>, <a href="#IDprepare-counter">prepare-counter</a>, <a href="#IDprepare-flag">prepare-flag</a>, <a href="#IDprint-err">print-err</a>, <a href="#IDprint-err-ln">print-err-ln</a>, <a href="#IDprintln-err">println-err</a>, <a href="#IDprocess-input-stream-line-by-line">process-input-stream-line-by-line</a>, <a href="#IDprocess-line-by-line">process-line-by-line</a>, <a href="#IDreduce-selected-map-entries">reduce-selected-map-entries</a>, <a href="#IDrm">rm</a>, <a href="#IDrmdir">rmdir</a>, <a href="#IDrun-once">run-once</a>, <a href="#IDrun-repeat">run-repeat</a>, <a href="#IDset-flag">set-flag</a>, <a href="#IDshort-array-type">short-array-type</a>, <a href="#IDshutdown">shutdown</a>, <a href="#IDshutdown-now">shutdown-now</a>, <a href="#IDsleep">sleep</a>, <a href="#IDstringify-keyword">stringify-keyword</a>, <a href="#IDstringify-map">stringify-map</a>, <a href="#IDtouch">touch</a>, <a href="#IDvec-replace">vec-replace</a>, <a href="#IDwith-eo-str">with-eo-str</a>, <a href="#IDwith-err-str">with-err-str</a>, <a href="#IDwith-err-str-cb">with-err-str-cb</a>, <a href="#IDwith-err-str-custom">with-err-str-custom</a>, <a href="#IDwith-out-str-cb">with-out-str-cb</a>, <a href="#IDwith-out-str-custom">with-out-str-custom</a>, <a href="#IDxml-string-to-map">xml-string-to-map</a>, <a href="#IDxml-string-to-map-stringified">xml-string-to-map-stringified</a></nav></section><section><h2>Usage Documentation</h2><details open="open"><summary>Show/Hide</summary><pre>Utility and helper functions</pre></details><a href="#top">Back to top</a></section><section id="details"><h2>Details of Public Vars</h2><div id="ID-GREATERCountDownFlag"><div><h4>Constructor: -&gt;CountDownFlag</h4><pre>Arglists:
+=========
+
+  (-&gt;CountDownFlag cntr cdl)
+
+Docstring:
+==========
+
+  Positional factory function for class clj_assorted_utils.util.CountDownFlag.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L277">View Source</a></div><div id="IDFlag"><div><h4>Protocol: Flag</h4><pre>Docstring:
+==========
+
+  No docs attached.
+
+Extenders:
+==========
+
+
+Signatures:
+===========
+
+  (set-flag this)
+  
+    Set flag to true.
+
+  (flag-set? this)
+  
+    Test if flag had been set.
+       Returns true if flag was set and false otherwise.
+
+  (await-flag this)
+  
+    Block the current thread until the flag was set.
+
+</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L265">View Source</a></div><div id="IDadd-shutdown-hook"><div><h4>Function: add-shutdown-hook</h4><pre>Arglists:
+=========
+
+  (add-shutdown-hook f)
+
+Docstring:
+==========
+
+  Adds a shutdown hook that will be executed when the JVM is shutdown.
+   The supplied function f will be called when the JVM shuts down.
+   Please note: when using multiple hooks, there is no guarantee with
+   respect to the order in which the hooks will be executed.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L629">View Source</a></div><div id="IDawait-flag"><div><h4>Method: await-flag</h4><pre>Specified by protocol Flag.
+
+Arglists:
+=========
+
+  (await-flag this)
+
+Docstring:
+==========
+
+  Block the current thread until the flag was set.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L265">View Source</a></div><div id="IDboolean-array-type"><div><h4>Var: boolean-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L643">View Source</a></div><div id="IDbyte-array-type"><div><h4>Var: byte-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L646">View Source</a></div><div id="IDbyte-seq-to-int"><div><h4>Function: byte-seq-to-int</h4><pre>Arglists:
+=========
+
+  (byte-seq-to-int byte-seq)
+
+Docstring:
+==========
+
+  Convert the byte sequence byte-seq to an integer.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L360">View Source</a></div><div id="IDchange-int-in-byte-vector"><div><h4>Function: change-int-in-byte-vector</h4><pre>Arglists:
+=========
+
+  (change-int-in-byte-vector v n f)
+
+Docstring:
+==========
+
+  In the given vector v, change the byte representation of an integer by applying function f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L403">View Source</a></div><div id="IDchar-array-type"><div><h4>Var: char-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L652">View Source</a></div><div id="IDclassname"><div><h4>Function: classname</h4><pre>Arglists:
+=========
+
+  (classname o)
+
+Docstring:
+==========
+
+  Get classname without leading package names of the given object o.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L301">View Source</a></div><div id="IDcompress-object-to-byte-array"><div><h4>Function: compress-object-to-byte-array</h4><pre>Arglists:
+=========
+
+  (compress-object-to-byte-array obj)
+  (compress-object-to-byte-array obj alg)
+
+Docstring:
+==========
+
+  Write an object into a byte array and compress it.
+   A newly allocated byte array with the serialized and compressed object is returned.
+   The compression algorithm can be specified via the second parameter.
+   Currently GZIP (:gzip) and ZIP (:zip) are supported.
+   The default is GZIP.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L592">View Source</a></div><div id="IDconvert-from-clojure-to-java"><div><h4>Function: convert-from-clojure-to-java</h4><pre>Arglists:
+=========
+
+  (convert-from-clojure-to-java input)
+
+Docstring:
+==========
+
+  Converts the given Clojure specific data structure (list, map, set, vector) into the equivalent &quot;pure&quot; Java data structure.
+   The mapping is as follows: list and vector -&gt; ArrayList, map -&gt; HashMap, set -&gt; HashSet.
+   Nested data structures will be converted recursively.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L672">View Source</a></div><div id="IDcounter"><div><h4>Function: counter</h4><pre>Arglists:
+=========
+
+  (counter)
+  (counter init)
+
+Docstring:
+==========
+
+  Convenience function for creating a more powerful counter.
+   The created counter allows to have arbitrary single-argument functions passed for manipulating the internal value.
+   When the created counter is called with no argument the current value is returned.
+   Example:
+   (use &apos;clj-assorted-utils.util)
+   (let [cntr (counter 123)]
+     (println (cntr))
+     (cntr inc)
+     (cntr dec)
+     (cntr #(- % 123))
+     (cntr))</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L215">View Source</a></div><div id="IDcreate-string-to-file-output"><div><h4>Function: create-string-to-file-output</h4><pre>Arglists:
+=========
+
+  (create-string-to-file-output out-file)
+  (create-string-to-file-output out-file arg-map)
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L724">View Source</a></div><div id="IDcreate-threaded-lineseq-reader"><div><h4>Function: create-threaded-lineseq-reader</h4><pre>Arglists:
+=========
+
+  (create-threaded-lineseq-reader in-file process-fn)
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L802">View Source</a></div><div id="IDdelay-eval"><div><h4>Macro: delay-eval</h4><pre>Arglists:
+=========
+
+  (delay-eval d &amp; body)
+
+Docstring:
+==========
+
+  Evaluates the supplied body with the given delay &apos;d&apos; ([ms]).</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L153">View Source</a></div><div id="IDdelta-counter"><div><h4>Function: delta-counter</h4><pre>Arglists:
+=========
+
+  (delta-counter)
+
+Docstring:
+==========
+
+  Creates a counter for calculating deltas.
+   The returned delta counter function expects two arguments, a keyword and a numerical value.
+   When called for the first time the initial value will be associated to an internal counter and zero is returned.
+   When called subsequently with the same keyword, the difference between the current value
+   and the stored value is calculated and this delta is returned.
+   The internal counter is then set to the new value.
+   Example:
+   (let [cntr (counter)
+         delta-cntr (delta-counter)]
+     (= 0 (delta-cntr :cntr (cntr)))
+     (cntr inc)
+     (cntr inc)
+     (cntr inc)
+     (= 3 (delta-cntr :cntr (cntr)))
+     (= 0 (delta-cntr :cntr (cntr))))</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L237">View Source</a></div><div id="IDdir-existsQMARK"><div><h4>Function: dir-exists?</h4><pre>Arglists:
+=========
+
+  (dir-exists? d)
+
+Docstring:
+==========
+
+  Returns true if f exists and is a directory.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L119">View Source</a></div><div id="IDdouble-array-type"><div><h4>Var: double-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L664">View Source</a></div><div id="IDexec"><div><h4>Function: exec</h4><pre>Arglists:
+=========
+
+  (exec cmd)
+
+Docstring:
+==========
+
+  Execute the given command.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L31">View Source</a></div><div id="IDexec-blocking"><div><h4>Function: exec-blocking</h4><pre>Arglists:
+=========
+
+  (exec-blocking cmd)
+
+Docstring:
+==========
+
+  Execute the given command and block until execution has finished.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L36">View Source</a></div><div id="IDexec-with-out"><div><h4>Function: exec-with-out</h4><pre>Arglists:
+=========
+
+  (exec-with-out cmd stdout-fn)
+  (exec-with-out cmd stdout-fn stderr-fn)
+
+Docstring:
+==========
+
+  Execute the given command and process the output written to stdout with stdout-fn.
+   stdout-fn is run in an own thread.
+   The data written to stdout is passed to stdout-fn line-by-line.
+   When a value of nil is read processing stops and the process in which cmd was executed is destroyed.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L60">View Source</a></div><div id="IDexecutor"><div><h4>Function: executor</h4><pre>Arglists:
+=========
+
+  (executor)
+
+Docstring:
+==========
+
+  Create an executor for executing fns in an own thread.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L162">View Source</a></div><div id="IDexistsQMARK"><div><h4>Function: exists?</h4><pre>Arglists:
+=========
+
+  (exists? f)
+
+Docstring:
+==========
+
+  Returns true if f exists in the filesystem.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L97">View Source</a></div><div id="IDfile-existsQMARK"><div><h4>Function: file-exists?</h4><pre>Arglists:
+=========
+
+  (file-exists? f)
+
+Docstring:
+==========
+
+  Returns true if f exists and is a file.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L107">View Source</a></div><div id="IDflag-setQMARK"><div><h4>Method: flag-set?</h4><pre>Specified by protocol Flag.
+
+Arglists:
+=========
+
+  (flag-set? this)
+
+Docstring:
+==========
+
+  Test if flag had been set.
+     Returns true if flag was set and false otherwise.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L265">View Source</a></div><div id="IDfloat-array-type"><div><h4>Var: float-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L661">View Source</a></div><div id="IDfn-name"><div><h4>Function: fn-name</h4><pre>Arglists:
+=========
+
+  (fn-name f)
+
+Docstring:
+==========
+
+  Get the name of the given fn f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L307">View Source</a></div><div id="IDget-arch"><div><h4>Function: get-arch</h4><pre>Arglists:
+=========
+
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L84">View Source</a></div><div id="IDget-defn-arglists"><div><h4>Function: get-defn-arglists</h4><pre>Arglists:
+=========
+
+  (get-defn-arglists f)
+
+Docstring:
+==========
+
+  Get the arglists of a function that was defined with defn.
+   This function is intended to be used from within a macor.
+   For a macro version of this functionality please use get-defn-arglists-m.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L322">View Source</a></div><div id="IDget-defn-arglists-m"><div><h4>Macro: get-defn-arglists-m</h4><pre>Arglists:
+=========
+
+  (get-defn-arglists-m f)
+
+Docstring:
+==========
+
+  Macro version of get-defn-arglists.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L329">View Source</a></div><div id="IDget-fn-arglists"><div><h4>Function: get-fn-arglists</h4><pre>Arglists:
+=========
+
+  (get-fn-arglists f)
+
+Docstring:
+==========
+
+  Returns a map that contains the actual fn that was passed as argument and its arglists.
+   The result will be a map of form: {:fn f :args &lt;f-args&gt;}.
+   This function is intended to be used from within a macor.
+   For a macro version of this functionality please use get-fn-arglists-m.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L338">View Source</a></div><div id="IDget-fn-arglists-m"><div><h4>Macro: get-fn-arglists-m</h4><pre>Arglists:
+=========
+
+  (get-fn-arglists-m f)
+
+Docstring:
+==========
+
+  Macro version of get-fn-arglists.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L350">View Source</a></div><div id="IDget-int-from-byte-vector"><div><h4>Function: get-int-from-byte-vector</h4><pre>Arglists:
+=========
+
+  (get-int-from-byte-vector v n)
+
+Docstring:
+==========
+
+  From given vector of bytes v get the integer starting at offset n.
+   Starting at offset n the next 4 bytes will be converted to an integer.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L378">View Source</a></div><div id="IDget-os"><div><h4>Function: get-os</h4><pre>Arglists:
+=========
+
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L85">View Source</a></div><div id="IDget-system-property"><div><h4>Function: get-system-property</h4><pre>Arglists:
+=========
+
+  (get-system-property p)
+
+Docstring:
+==========
+
+  Get system property p. p is a String naming the property go get.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L80">View Source</a></div><div id="IDget-with-default"><div><h4>Function: get-with-default</h4><pre>Arglists:
+=========
+
+  (get-with-default m k d)
+
+Docstring:
+==========
+
+  Get a value for the given key k from a map m and if the value does not exist return the default d.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L712">View Source</a></div><div id="IDinc-counter"><div><h4>Function: inc-counter</h4><pre>Arglists:
+=========
+
+  (inc-counter c)
+
+Docstring:
+==========
+
+  Increment the given simple counter c.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L210">View Source</a></div><div id="IDint-array-type"><div><h4>Var: int-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L655">View Source</a></div><div id="IDint-to-byte-vector"><div><h4>Function: int-to-byte-vector</h4><pre>Arglists:
+=========
+
+  (int-to-byte-vector val)
+
+Docstring:
+==========
+
+  Convert the given integer val to a vector of 4 bytes.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L385">View Source</a></div><div id="IDis-dirQMARK"><div><h4>Function: is-dir?</h4><pre>Arglists:
+=========
+
+  (is-dir? d)
+
+Docstring:
+==========
+
+  Returns true if f is a directory.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L114">View Source</a></div><div id="IDis-fileQMARK"><div><h4>Function: is-file?</h4><pre>Arglists:
+=========
+
+  (is-file? f)
+
+Docstring:
+==========
+
+  Returns true if f is a file.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L102">View Source</a></div><div id="IDis-osQMARK"><div><h4>Function: is-os?</h4><pre>Arglists:
+=========
+
+  (is-os? os)
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L87">View Source</a></div><div id="IDlong-array-type"><div><h4>Var: long-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L658">View Source</a></div><div id="IDmap-GREATERCountDownFlag"><div><h4>Function: map-&gt;CountDownFlag</h4><pre>Arglists:
+=========
+
+  (map-&gt;CountDownFlag m__7910__auto__)
+
+Docstring:
+==========
+
+  Factory function for class clj_assorted_utils.util.CountDownFlag, taking a map of keywords to field values.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L277">View Source</a></div><div id="IDmap-quote-vec"><div><h4>Function: map-quote-vec</h4><pre>Arglists:
+=========
+
+  (map-quote-vec c)
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L334">View Source</a></div><div id="IDmkdir"><div><h4>Function: mkdir</h4><pre>Arglists:
+=========
+
+  (mkdir d)
+
+Docstring:
+==========
+
+  Create directory d and if required all parent directories.
+   This is equivalent to &apos;mkdir -p d&apos; on Linux systems.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L126">View Source</a></div><div id="IDmkfifo"><div><h4>Function: mkfifo</h4><pre>Arglists:
+=========
+
+  (mkfifo f)
+
+Docstring:
+==========
+
+  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L798">View Source</a></div><div id="IDobject-to-byte-array"><div><h4>Function: object-to-byte-array</h4><pre>Arglists:
+=========
+
+  (object-to-byte-array obj)
+
+Docstring:
+==========
+
+  Write the given object into a byte array.
+   A newly allocated byte arry with the serialized object is returned.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L583">View Source</a></div><div id="IDprepare-counter"><div><h4>Function: prepare-counter</h4><pre>Arglists:
+=========
+
+  (prepare-counter)
+  (prepare-counter init)
+
+Docstring:
+==========
+
+  Prepare a simple counter. Use @ to access the value.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L205">View Source</a></div><div id="IDprepare-flag"><div><h4>Function: prepare-flag</h4><pre>Arglists:
+=========
+
+  (prepare-flag)
+  (prepare-flag n)
+
+Docstring:
+==========
+
+  Prepare a flag with default value false.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L287">View Source</a></div><div id="IDprint-err"><div><h4>Function: print-err</h4><pre>Arglists:
+=========
+
+  (print-err &amp; s)
+
+Docstring:
+==========
+
+  print to stderr.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L454">View Source</a></div><div id="IDprint-err-ln"><div><h4>Function: print-err-ln</h4><pre>Arglists:
+=========
+
+  (print-err-ln &amp; s)
+
+Docstring:
+==========
+
+  Deprecated! Use println-err instead.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L466">View Source</a></div><div id="IDprintln-err"><div><h4>Function: println-err</h4><pre>Arglists:
+=========
+
+  (println-err &amp; s)
+
+Docstring:
+==========
+
+  println to stderr.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L460">View Source</a></div><div id="IDprocess-input-stream-line-by-line"><div><h4>Function: process-input-stream-line-by-line</h4><pre>Arglists:
+=========
+
+  (process-input-stream-line-by-line input-stream function)
+
+Docstring:
+==========
+
+  Process the given input stream line-by-line.
+   The data read from the stream is passed to the given function.
+   The function is executed in an own thread.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L41">View Source</a></div><div id="IDprocess-line-by-line"><div><h4>Function: process-line-by-line</h4><pre>Arglists:
+=========
+
+  (process-line-by-line location f)
+
+Docstring:
+==========
+
+  Process input from location line-by-line.
+   Each line is passed to f.
+   The processing is done with a clojure reader.
+   So all locations supported by reader are automatically supported as well.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L614">View Source</a></div><div id="IDreduce-selected-map-entries"><div><h4>Function: reduce-selected-map-entries</h4><pre>Arglists:
+=========
+
+  (reduce-selected-map-entries m f selected-keys)
+
+Docstring:
+==========
+
+  Reduce the values of all selected keys of a map m by applying the function f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L702">View Source</a></div><div id="IDrm"><div><h4>Function: rm</h4><pre>Arglists:
+=========
+
+  (rm f)
+
+Docstring:
+==========
+
+  Delete file f.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L132">View Source</a></div><div id="IDrmdir"><div><h4>Function: rmdir</h4><pre>Arglists:
+=========
+
+  (rmdir d)
+
+Docstring:
+==========
+
+  Delete d if d is an empty directory.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L138">View Source</a></div><div id="IDrun-once"><div><h4>Function: run-once</h4><pre>Arglists:
+=========
+
+  (run-once exec f d)
+  (run-once exec f d tu)
+
+Docstring:
+==========
+
+  Run f using executor exec once with delay d.
+   Optionally a time unit tu can be given.
+   tu defaults to TimeUnit/MILLISECONDS.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L178">View Source</a></div><div id="IDrun-repeat"><div><h4>Function: run-repeat</h4><pre>Arglists:
+=========
+
+  (run-repeat exec f d)
+  (run-repeat exec f id d)
+  (run-repeat exec f id d tu)
+
+Docstring:
+==========
+
+  Run f repeatedly using executor exec with delay d.
+   Optionally an initial delay, id, and a time unit tu can be given.
+   Time unit is a static member of TimeUnit, e.g., TimeUnit/SECONDS 
+   and defaults to TimeUnit/MILLISECONDS.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L187">View Source</a></div><div id="IDset-flag"><div><h4>Method: set-flag</h4><pre>Specified by protocol Flag.
+
+Arglists:
+=========
+
+  (set-flag this)
+
+Docstring:
+==========
+
+  Set flag to true.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L265">View Source</a></div><div id="IDshort-array-type"><div><h4>Var: short-array-type</h4><pre>  No docs attached.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L649">View Source</a></div><div id="IDshutdown"><div><h4>Function: shutdown</h4><pre>Arglists:
+=========
+
+  (shutdown exec)
+
+Docstring:
+==========
+
+  Shut executor down.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L168">View Source</a></div><div id="IDshutdown-now"><div><h4>Function: shutdown-now</h4><pre>Arglists:
+=========
+
+  (shutdown-now exec)
+
+Docstring:
+==========
+
+  Force executor shut down.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L173">View Source</a></div><div id="IDsleep"><div><h4>Function: sleep</h4><pre>Arglists:
+=========
+
+  (sleep ms)
+
+Docstring:
+==========
+
+  Sleep for the given number of milliseconds.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L26">View Source</a></div><div id="IDstringify-keyword"><div><h4>Function: stringify-keyword</h4><pre>Arglists:
+=========
+
+  (stringify-keyword k)
+
+Docstring:
+==========
+
+  If a keyword is passed returns the name of the keyword.
+   Else the input is left unchanged.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L423">View Source</a></div><div id="IDstringify-map"><div><h4>Function: stringify-map</h4><pre>Arglists:
+=========
+
+  (stringify-map m)
+
+Docstring:
+==========
+
+  Convert _all_ keywords in a map to their respective names.
+   This, essentially, is an extended version of clojure.walk/stringify-keys,
+   which only converts the keys to strings.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L431">View Source</a></div><div id="IDtouch"><div><h4>Function: touch</h4><pre>Arglists:
+=========
+
+  (touch f)
+
+Docstring:
+==========
+
+  If f does not exist, create it.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L143">View Source</a></div><div id="IDvec-replace"><div><h4>Function: vec-replace</h4><pre>Arglists:
+=========
+
+  (vec-replace v n delta)
+
+Docstring:
+==========
+
+  In given vector v replace the content of v starting at index n with delta.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L395">View Source</a></div><div id="IDwith-eo-str"><div><h4>Macro: with-eo-str</h4><pre>Arglists:
+=========
+
+  (with-eo-str &amp; body)
+
+Docstring:
+==========
+
+  Macro that executes body capturing its stdout and stderr output.
+   This returns a map with the following structure:
+   {:all both-stdout-and-std-err-output-in-proper-order
+    :stderr stderr-output
+    :stdout stdout-output}</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L546">View Source</a></div><div id="IDwith-err-str"><div><h4>Macro: with-err-str</h4><pre>Arglists:
+=========
+
+  (with-err-str &amp; body)
+
+Docstring:
+==========
+
+  Analog to with-out-str, just for *err*: https://clojuredocs.org/clojure.core/with-out-str</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L471">View Source</a></div><div id="IDwith-err-str-cb"><div><h4>Macro: with-err-str-cb</h4><pre>Arglists:
+=========
+
+  (with-err-str-cb cb-fn &amp; body)
+
+Docstring:
+==========
+
+  Callback version of with-err-str.
+   This version executes the function cb-fn for every element that was added to the writer.
+   cb-fn is executed after the element was added to the writer.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L525">View Source</a></div><div id="IDwith-err-str-custom"><div><h4>Macro: with-err-str-custom</h4><pre>Arglists:
+=========
+
+  (with-err-str-custom write-fn &amp; body)
+
+Docstring:
+==========
+
+  Customizable version of with-err-str.
+   This version executes the function write-fn for every element that is added to the writer.
+   The element that is added to the writer is the string representation of the return value of write-fn.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L497">View Source</a></div><div id="IDwith-out-str-cb"><div><h4>Macro: with-out-str-cb</h4><pre>Arglists:
+=========
+
+  (with-out-str-cb cb-fn &amp; body)
+
+Docstring:
+==========
+
+  Callback version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
+   This version executes the function cb-fn for every element that was added to the writer.
+   cb-fn is executed after the element was added to the writer.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L509">View Source</a></div><div id="IDwith-out-str-custom"><div><h4>Macro: with-out-str-custom</h4><pre>Arglists:
+=========
+
+  (with-out-str-custom write-fn &amp; body)
+
+Docstring:
+==========
+
+  Customizable version of with-out-str: https://clojuredocs.org/clojure.core/with-out-str
+   This version executes the function write-fn for every element that is added to the writer.
+   The element that is added to the writer is the string representation of the return value of write-fn.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L485">View Source</a></div><div id="IDxml-string-to-map"><div><h4>Function: xml-string-to-map</h4><pre>Arglists:
+=========
+
+  (xml-string-to-map xml-str)
+
+Docstring:
+==========
+
+  Takes an XML definition in form of a string and outputs the corresponding map.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L416">View Source</a></div><div id="IDxml-string-to-map-stringified"><div><h4>Function: xml-string-to-map-stringified</h4><pre>Arglists:
+=========
+
+  (xml-string-to-map-stringified xml-str)
+
+Docstring:
+==========
+
+  Convert the XML string xml-str to a map with all keywords converted to strings.</pre></div><a href="#top">Back to top</a> <a href="https://github.com/ruedigergad/clj-assorted-utils/blob/master/src/clj_assorted_utils/util.clj#L443">View Source</a></div></section></div><footer><p>These docs were generated by the <a href="https://github.com/tsdh/lein-html5-docs">Leiningen HTML5 Docs Plugin</a>, version 3.0.3.</p><a href="http://www.w3.org/html/logo/"><img alt="HTML5 Powered" height="64" src="http://www.w3.org/html/logo/badge/html5-badge-h-solo.png" title="HTML5 Powered" width="63" /></a><script src="http://code.jquery.com/jquery.min.js"></script><script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script><script src="api-search.js"></script></footer></body></html>
