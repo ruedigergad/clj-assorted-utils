@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="create_html_report" name="test2junit-html-report-generator">
     <target name="create_html_report">
-        <junitreport todir="ghpages/test-results/tmp">
-            <fileset dir="ghpages/test-results/xml" />
-            <report todir="ghpages/test-results/html" />
+        <junitreport todir="docs/test-results/tmp">
+            <fileset dir="docs/test-results/xml" />
+            <report todir="docs/test-results/html" />
         </junitreport>
     </target>
 </project>
