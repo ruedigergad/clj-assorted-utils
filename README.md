@@ -31,7 +31,7 @@ http://ruedigergad.github.com/clj-assorted-utils/test-results/html
 
 ## License
 
-Copyright (C) 2012 - 2017 Ruediger Gad et al. (See below.)
+Copyright (C) 2012 - 2021 Ruediger Gad et al. (See below.)
 
 Contributors:
 
