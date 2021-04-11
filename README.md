@@ -5,6 +5,10 @@ Unsorted bunch of helper and utility functions.
 clj-assorted-utils is available on clojars.org:
 
 [![Clojars Project](http://clojars.org/clj-assorted-utils/latest-version.svg)](http://clojars.org/clj-assorted-utils)
+[![Build Status TravisCI](https://travis-ci.org/ruedigergad/clj-assorted-utils.png?branch=master)](https://travis-ci.org/ruedigergad/clj-assorted-utils)
+[![Build Status CircleCI](https://circleci.com/gh/ruedigergad/clj-assorted-utils.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/ruedigergad/clj-assorted-utils.svg?style=shield&circle-token=:circle-token)
+[![lein test](https://github.com/ruedigergad/clj-assorted-utils/actions/workflows/lein_test.yml/badge.svg)](https://github.com/ruedigergad/clj-assorted-utils/actions/workflows/lein_test.yml)
+[![Coverage Status](https://img.shields.io/coveralls/ruedigergad/clj-assorted-utils.svg)](https://coveralls.io/r/ruedigergad/clj-assorted-utils?branch=master)
 
 ## Usage
 
@@ -17,13 +21,7 @@ Documentation is available for online browsing:
 
 http://ruedigergad.github.com/clj-assorted-utils/doc
 
-## CI
-[![Build Status TravisCI](https://travis-ci.org/ruedigergad/clj-assorted-utils.png?branch=master)](https://travis-ci.org/ruedigergad/clj-assorted-utils)
-
-[![Build Status CircleCI](https://circleci.com/gh/ruedigergad/clj-assorted-utils.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/ruedigergad/clj-assorted-utils.svg?style=shield&circle-token=:circle-token)
-
 ## Test Results
-[![Coverage Status](https://img.shields.io/coveralls/ruedigergad/clj-assorted-utils.svg)](https://coveralls.io/r/ruedigergad/clj-assorted-utils?branch=master)
 
 Detailed results of the unit tests are available:
 
