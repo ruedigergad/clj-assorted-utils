@@ -3,10 +3,10 @@
   :description "Unsorted bunch of helper and utility functions."
   :dependencies [[org.clojure/clojure "1.10.3"]]
   :global-vars {*warn-on-reflection* true}
-  :html5-docs-docs-dir "ghpages/doc"
+  :html5-docs-docs-dir "docs/doc"
   :html5-docs-ns-includes #"^clj-assorted-utils.*"
   :html5-docs-repository-url "https://github.com/ruedigergad/clj-assorted-utils/blob/master"
-  :test2junit-output-dir "ghpages/test-results"
+  :test2junit-output-dir "docs/test-results"
   :test2junit-run-ant true
   :aot [clj-assorted-utils.JavaUtils]
   :plugins [[lein-cloverage "1.0.6"]]
