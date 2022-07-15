@@ -13,9 +13,9 @@
   (:require
     (clojure
       [string :as str]
-      [walk :refer :all]
-      [xml :refer :all])
-    (clojure.java [io :refer :all]))
+      [walk :as wlk]
+      [xml :as xml])
+    (clojure.java [io :as jio]))
   (:import
     (java.io BufferedReader BufferedWriter ByteArrayOutputStream IOException ObjectOutputStream)
     (java.util ArrayList HashMap HashSet List Map)
@@ -43,7 +43,7 @@
    The data read from the stream is passed to the given function.
    The function is executed in an own thread."
   [input-stream function]
-  (let [^BufferedReader rdr (reader input-stream)
+  (let [^BufferedReader rdr (jio/reader input-stream)
         running (ref true)
         thread (Thread. (fn []
                           (try 
@@ -63,13 +63,13 @@
    The data written to stdout is passed to stdout-fn line-by-line.
    When a value of nil is read processing stops and the process in which cmd was executed is destroyed."
   ([cmd stdout-fn]
-    (let [^Process proc (exec cmd)
-          stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)]
+    (let [^Process proc (exec cmd)]
+      (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)
       proc))
   ([cmd stdout-fn stderr-fn]
-    (let [^Process proc (exec cmd)
-          stdout-thread (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)
-          stderr-thread (process-input-stream-line-by-line (.getErrorStream proc) stderr-fn)]
+    (let [^Process proc (exec cmd)] 
+      (process-input-stream-line-by-line (.getInputStream proc) stdout-fn)
+      (process-input-stream-line-by-line (.getErrorStream proc) stderr-fn)
       proc)))
 
 
@@ -97,12 +97,12 @@
 (defn exists?
   "Returns true if f exists in the filesystem."
   [f]
-  (.exists (file f)))
+  (.exists (jio/file f)))
 
 (defn is-file?
   "Returns true if f is a file."
   [f]
-  (.isFile (file f)))
+  (.isFile (jio/file f)))
 
 (defn file-exists?
   "Returns true if f exists and is a file."
@@ -114,7 +114,7 @@
 (defn is-dir?
   "Returns true if f is a directory."
   [d]
-  (.isDirectory (file d)))
+  (.isDirectory (jio/file d)))
 
 (defn dir-exists?
   "Returns true if f exists and is a directory."
@@ -127,23 +127,23 @@
   "Create directory d and if required all parent directories.
    This is equivalent to 'mkdir -p d' on Linux systems."
   [d]
-  (.mkdirs (file d)))
+  (.mkdirs (jio/file d)))
 
 (defn rm
   "Delete file f."
   [f]
-  (if (exists? f)
-    (delete-file (file f))))
+  (when (exists? f)
+    (jio/delete-file (jio/file f))))
 
 (defn rmdir
   "Delete d if d is an empty directory."
   [d]
-  (if (is-dir? d) (rm d)))
+  (when (is-dir? d) (rm d)))
 
 (defn touch
   "If f does not exist, create it."
   [f]
-  (.createNewFile (file f)))
+  (.createNewFile (jio/file f)))
 
 
 
@@ -232,7 +232,7 @@
        ([op]
          (cond
            (fn? op) (dosync (alter cntr op))
-           :default (println "No function passed:" op)))))))
+           :else (println "No function passed:" op)))))))
 
 (defn delta-counter
   "Creates a counter for calculating deltas.
@@ -277,9 +277,9 @@
 (defrecord CountDownFlag [cntr ^CountDownLatch cdl]
   Flag
     (set-flag [this]
-      (if (not= (cntr) 0)
+      (when (not= (cntr) 0)
         (cntr dec))
-      (if (.flag-set? this)
+      (when (.flag-set? this)
         (.countDown cdl)))
     (flag-set? [_] (= 0 (cntr)))
     (await-flag [_] (.await cdl)))
@@ -418,7 +418,7 @@
   [^String xml-str]
   (with-open [xml-in (clojure.java.io/input-stream 
                        (.getBytes xml-str "UTF-8"))] 
-    (clojure.xml/parse xml-in)))
+    (xml/parse xml-in)))
 
 (defn stringify-keyword
   "If a keyword is passed returns the name of the keyword.
@@ -438,7 +438,7 @@
                   (if (map? m)
                     (into {} (map map-fn m))
                     m))]
-  (clojure.walk/postwalk walk-fn m)))
+  (wlk/postwalk walk-fn m)))
 
 (defn xml-string-to-map-stringified
   "Convert the XML string xml-str to a map with all keywords converted to strings."
@@ -553,8 +553,8 @@
   `(let [all-str# (ref "")
          out-str# (atom "")
          ret# (atom nil)
-         err-wrtr# (writer System/err)
-         out-wrtr# (writer System/out)
+         err-wrtr# (jio/writer System/err)
+         out-wrtr# (jio/writer System/out)
          err-str# (with-err-str-cb
                     (fn [e-str#]
                       (binding [*out* err-wrtr#]
@@ -601,7 +601,7 @@
     (let [byte-out (ByteArrayOutputStream.)
           compress-out (cond
                          (= :zip alg) (ZipOutputStream. byte-out)
-                         :default (GZIPOutputStream. byte-out))
+                         :else (GZIPOutputStream. byte-out))
           obj-out (ObjectOutputStream. compress-out)]
       (doto obj-out (.writeObject obj) .flush .close)
       (.toByteArray byte-out))))
@@ -736,18 +736,18 @@
                          (reset! wrtr nil)
                          (doto (Thread.
                                  #(do
-                                    (reset! wrtr (writer out-file :append append))
+                                    (reset! wrtr (jio/writer out-file :append append))
                                     (set-flag wrtr-opened)
                                     (.write ^java.io.Writer @wrtr ^java.lang.String hdr)))
                            (.setDaemon true)
                            (.start)))
           _ (open-wrtr-fn)
-          _ (if await-open
+          _ (when await-open
               (await-flag wrtr-opened))
           closed (atom false)
           close-fn (fn []
                      (reset! closed true)
-                     (if @wrtr
+                     (when @wrtr
                        (doto (Thread. #(try
                                          (.close ^BufferedWriter @wrtr)
                                          (catch Exception e
@@ -774,22 +774,22 @@
         ([] (close-fn))
         ([data]
           (let [^BufferedWriter w @wrtr]
-            (if (and (not (nil? w)) (not @closed))
+            (when (and (not (nil? w)) (not @closed))
               (try
                 (condp #(instance? %1 %2) data
                   String (do
                            (.write w ^String data)
-                           (if insert-newline
+                           (when insert-newline
                              (.newLine w)))
                   List   (loop [it (.iterator ^List data)]
                            (.write w ^String (.next it))
-                           (if insert-newline
+                           (when insert-newline
                              (.newLine w))
-                           (if (.hasNext it)
+                           (when (.hasNext it)
                              (recur it)))
                   (do
                     (.write w (str data))
-                    (if insert-newline
+                    (when insert-newline
                       (.newLine w))))
                 (.flush w)
                 (catch Exception e
@@ -807,6 +807,6 @@
                     (.start))]
     (fn []
       (reset! running false)
-      (if (.isAlive t)
+      (when (.isAlive t)
         (.interrupt t)))))
 

@@ -11,7 +11,7 @@
     :doc "Utility and helper functions for Java"}
   clj-assorted-utils.java-utils
   (:require
-    (clj-assorted-utils [util :refer :all])))
+    (clj-assorted-utils [util :as util])))
 
 (defn no-eval-read-string
   [input]
@@ -22,7 +22,7 @@
    Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
   [input]
   (let [read-input (no-eval-read-string input)]
-    (convert-from-clojure-to-java read-input)))
+    (util/convert-from-clojure-to-java read-input)))
 
 (defn read-list-from-clojure-string
   "Tries to read data from a string that contains data expressed in Clojure data structures.
@@ -30,8 +30,8 @@
    Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
   [input]
   (let [read-input (no-eval-read-string input)]
-    (if (or (vector? read-input) (list? read-input))
-      (convert-from-clojure-to-java read-input))))
+    (when (or (vector? read-input) (list? read-input))
+      (util/convert-from-clojure-to-java read-input))))
 
 (defn read-map-from-clojure-string
   "Tries to read data from a string that contains data expressed in Clojure data structures.
@@ -39,8 +39,8 @@
    Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
   [input]
   (let [read-input (no-eval-read-string input)]
-    (if (map? read-input)
-      (convert-from-clojure-to-java read-input))))
+    (when (map? read-input)
+      (util/convert-from-clojure-to-java read-input))))
 
 (defn read-set-from-clojure-string
   "Tries to read data from a string that contains data expressed in Clojure data structures.
@@ -48,5 +48,5 @@
    Note that *read-eval* is set to false for reading the string in order to avoid unintended code execution."
   [input]
   (let [read-input (no-eval-read-string input)]
-    (if (set? read-input)
-      (convert-from-clojure-to-java read-input))))
+    (when (set? read-input)
+      (util/convert-from-clojure-to-java read-input))))

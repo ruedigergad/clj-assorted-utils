@@ -12,9 +12,8 @@
   clj-assorted-utils.JavaUtils
   (:require
     (clj-assorted-utils
-      [java-utils :refer :all]
-      [util :refer :all]))
-  (:import (java.util ArrayList HashMap HashSet List Map Set))
+      [java-utils :as jutil]
+      [util :as util]))
   (:gen-class
     :methods [#^{:static true} [convertFromClojureToJava [Object] Object]
               #^{:static true} [readObjectFromClojureString [String] Object]
@@ -23,17 +22,17 @@
               #^{:static true} [readSetFromClojureString [String] java.util.Set]]))
 
 (defn -convertFromClojureToJava [input]
-  (convert-from-clojure-to-java input))
+  (util/convert-from-clojure-to-java input))
 
 (defn -readObjectFromClojureString [input]
-  (read-object-from-clojure-string input))
+  (jutil/read-object-from-clojure-string input))
 
 (defn -readListFromClojureString [input]
-  (read-list-from-clojure-string input))
+  (jutil/read-list-from-clojure-string input))
 
 (defn -readMapFromClojureString [input]
-  (read-map-from-clojure-string input))
+  (jutil/read-map-from-clojure-string input))
 
 (defn -readSetFromClojureString [input]
-  (read-set-from-clojure-string input))
+  (jutil/read-set-from-clojure-string input))
 
