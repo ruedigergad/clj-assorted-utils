@@ -12,16 +12,13 @@
   clj-assorted-utils.test.util
   (:require
     (clojure
-      [test :refer :all])
-    (clojure.test
-      [junit :refer :all])
+      [test :as test])
     (clojure.java
-      [io :refer :all])
+      [io :as jio])
     (clj-assorted-utils
-      [util :refer :all]))
+      [util :as util]))
   (:import
-    (java.util ArrayList HashMap HashSet)
-    (java.io StringWriter)))
+    (java.util ArrayList HashMap HashSet)))
 
 
 ;(defn junit-output-fixture [f]
@@ -34,43 +31,43 @@
 ;;;
 ;;; Test for getting system properties.
 ;;;
-(deftest get-property-test
-  (is (= java.lang.String (type (get-system-property "os.arch"))))) 
+(test/deftest get-property-test
+  (test/is (= java.lang.String (type (util/get-system-property "os.arch"))))) 
 
-(deftest is-os-test
-  (is (not (is-os? "FooOS"))))
+(test/deftest is-os-test
+  (test/is (not (util/is-os? "FooOS"))))
 
 
 
 ;;;
 ;;; Tests for executing commands.
 ;;;
-(deftest test-exec-with-out
+(test/deftest test-exec-with-out
   (let [command "ls /etc/passwd"
-        stdout-run (prepare-flag)
-        stdout-fn (fn [_] (set-flag stdout-run) nil)]
-    (exec-with-out command stdout-fn)
-    (sleep 100)
-    (is (flag-set? stdout-run))))
+        stdout-run (util/prepare-flag)
+        stdout-fn (fn [_] (util/set-flag stdout-run) nil)]
+    (util/exec-with-out command stdout-fn)
+    (util/sleep 100)
+    (test/is (util/flag-set? stdout-run))))
     
-(deftest test-exec-with-out-process-output
+(test/deftest test-exec-with-out-process-output
   (let [command "ls /etc/passwd"
-        stdout-run (prepare-flag)
-        stdout-fn (fn [out] (if (= out "/etc/passwd") (set-flag stdout-run)))]
-    (exec-with-out command stdout-fn)
-    (sleep 100)
-    (is (flag-set? stdout-run))))
+        stdout-run (util/prepare-flag)
+        stdout-fn (fn [out] (when (= out "/etc/passwd") (util/set-flag stdout-run)))]
+    (util/exec-with-out command stdout-fn)
+    (util/sleep 100)
+    (test/is (util/flag-set? stdout-run))))
 
-(deftest test-exec-with-out-process-output-2
+(test/deftest test-exec-with-out-process-output-2
   (let [command (into-array java.lang.String ["/bin/sh" "-c" "ls /etc/passwd 1>&2"])
-        stderr-run (prepare-flag)
-        stderr-fn (fn [out] (if (= out "/etc/passwd") (set-flag stderr-run)))
-        stdout-run (prepare-flag)
-        stdout-fn (fn [out] (set-flag stdout-run))]
-    (exec-with-out command stdout-fn stderr-fn)
-    (sleep 100)
-    (is (flag-set? stderr-run))
-    (is (not (flag-set? stdout-run)))))
+        stderr-run (util/prepare-flag)
+        stderr-fn (fn [out] (when (= out "/etc/passwd") (util/set-flag stderr-run)))
+        stdout-run (util/prepare-flag)
+        stdout-fn (fn [_] (util/set-flag stdout-run))]
+    (util/exec-with-out command stdout-fn stderr-fn)
+    (util/sleep 100)
+    (test/is (util/flag-set? stderr-run))
+    (test/is (not (util/flag-set? stdout-run)))))
 
 
 
@@ -80,150 +77,150 @@
 (def test-dirname "test-dir-foo")
 (def test-filename "test-file-bar")
 
-(deftest test-exists
-  (is (exists? "test/clj_assorted_utils/test/util.clj"))
-  (is (exists? "test")))
+(test/deftest test-exists
+  (test/is (util/exists? "test/clj_assorted_utils/test/util.clj"))
+  (test/is (util/exists? "test")))
 
-(deftest test-is-file
-  (is (is-file? "test/clj_assorted_utils/test/util.clj"))
-  (is (not (is-file? "test"))))
+(test/deftest test-is-file
+  (test/is (util/is-file? "test/clj_assorted_utils/test/util.clj"))
+  (test/is (not (util/is-file? "test"))))
 
-(deftest test-file-exists
-  (is (file-exists? "test/clj_assorted_utils/test/util.clj"))
-  (is (not (file-exists? "test")))
-  (is (not (file-exists? test-filename))))
+(test/deftest test-file-exists
+  (test/is (util/file-exists? "test/clj_assorted_utils/test/util.clj"))
+  (test/is (not (util/file-exists? "test")))
+  (test/is (not (util/file-exists? test-filename))))
 
-(deftest test-is-dir
-  (is (is-dir? "test"))
-  (is (not (is-dir? "test/clj_assorted_utils/test/util.clj"))))
+(test/deftest test-is-dir
+  (test/is (util/is-dir? "test"))
+  (test/is (not (util/is-dir? "test/clj_assorted_utils/test/util.clj"))))
 
-(deftest test-dir-exists
-  (is (dir-exists? "test"))
-  (is (not (dir-exists? "test/clj_assorted_utils/test/util.clj")))
-  (is (not (dir-exists? test-dirname))))
+(test/deftest test-dir-exists
+  (test/is (util/dir-exists? "test"))
+  (test/is (not (util/dir-exists? "test/clj_assorted_utils/test/util.clj")))
+  (test/is (not (util/dir-exists? test-dirname))))
 
-(deftest mkdir-rmdir
+(test/deftest mkdir-rmdir
   (let [dirname test-dirname]
-    (is (not (dir-exists? dirname)))
-    (mkdir dirname)
-    (is (dir-exists? dirname))
-    (rmdir dirname)
-    (is (not (dir-exists? dirname)))))
+    (test/is (not (util/dir-exists? dirname)))
+    (util/mkdir dirname)
+    (test/is (util/dir-exists? dirname))
+    (util/rmdir dirname)
+    (test/is (not (util/dir-exists? dirname)))))
 
-(deftest touch-rm
+(test/deftest touch-rm
   (let [filename test-filename]
-    (is (not (file-exists? filename)))
-    (touch filename)
-    (is (file-exists? filename))
-    (rm filename)
-    (is (not (file-exists? filename)))))
+    (test/is (not (util/file-exists? filename)))
+    (util/touch filename)
+    (test/is (util/file-exists? filename))
+    (util/rm filename)
+    (test/is (not (util/file-exists? filename)))))
 
 
 
 ;;;
 ;;; Tests for setting and querying flags and a simple counter.
 ;;;
-(deftest flag-not-set
-  (let [flag (prepare-flag)]
-    (is (not (flag-set? flag)))))
+(test/deftest flag-not-set
+  (let [flag (util/prepare-flag)]
+    (test/is (not (util/flag-set? flag)))))
 
-(deftest flag-set
-  (let [flag (prepare-flag)]
-    (set-flag flag)
-    (is (flag-set? flag))))
+(test/deftest flag-set
+  (let [flag (util/prepare-flag)]
+    (util/set-flag flag)
+    (test/is (util/flag-set? flag))))
 
-(deftest test-set-flag-twice
-  (let [flag (prepare-flag)]
-    (set-flag flag)
-    (set-flag flag)
-    (is (flag-set? flag))))
+(test/deftest test-set-flag-twice
+  (let [flag (util/prepare-flag)]
+    (util/set-flag flag)
+    (util/set-flag flag)
+    (test/is (util/flag-set? flag))))
 
-(deftest await-flag-test
-  (let [flag (prepare-flag)]
-    (run-once (executor) #(set-flag flag) 200)
-    (await-flag flag)
-    (is (flag-set? flag))))
+(test/deftest await-flag-test
+  (let [flag (util/prepare-flag)]
+    (util/run-once (util/executor) #(util/set-flag flag) 200)
+    (util/await-flag flag)
+    (test/is (util/flag-set? flag))))
 
-(deftest await-flag-n-test
-  (let [flag (prepare-flag 4)
-        cntr (counter)]
-    (run-repeat
-      (executor)
-      #(when (not (flag-set? flag))
+(test/deftest await-flag-n-test
+  (let [flag (util/prepare-flag 4)
+        cntr (util/counter)]
+    (util/run-repeat
+      (util/executor)
+      #(when (not (util/flag-set? flag))
          (cntr inc)
-         (set-flag flag))
+         (util/set-flag flag))
       200)
-    (await-flag flag)
-    (is (flag-set? flag))
-    (is (= 4 (cntr)))))
+    (util/await-flag flag)
+    (test/is (util/flag-set? flag))
+    (test/is (= 4 (cntr)))))
 
-(deftest counter-test
-  (let [my-counter (prepare-counter)]
-    (dotimes [_ 1000] (inc-counter my-counter))
-    (is (= 1000 @my-counter))))
+(test/deftest counter-test
+  (let [my-counter (util/prepare-counter)]
+    (dotimes [_ 1000] (util/inc-counter my-counter))
+    (test/is (= 1000 @my-counter))))
 
-(deftest counter-with-initial-value-test
-  (let [my-counter (prepare-counter 1000)]
-    (dotimes [_ 1000] (inc-counter my-counter))
-    (is (= 2000 @my-counter))))
+(test/deftest counter-with-initial-value-test
+  (let [my-counter (util/prepare-counter 1000)]
+    (dotimes [_ 1000] (util/inc-counter my-counter))
+    (test/is (= 2000 @my-counter))))
 
-(deftest counter-convenience-test
-  (let [my-counter (counter)]
+(test/deftest counter-convenience-test
+  (let [my-counter (util/counter)]
     (dotimes [_ 1000] (my-counter inc))
-    (is (= 1000 (my-counter)))))
+    (test/is (= 1000 (my-counter)))))
 
-(deftest counter-convenience-test-custom-fn
-  (let [my-counter (counter)]
+(test/deftest counter-convenience-test-custom-fn
+  (let [my-counter (util/counter)]
     (dotimes [_ 1000] (my-counter #(+ 2 %)))
-    (is (= 2000 (my-counter)))))
+    (test/is (= 2000 (my-counter)))))
 
-(deftest counter-convenience-test-init-value-decrementing
-  (let [my-counter (counter 1000)]
+(test/deftest counter-convenience-test-init-value-decrementing
+  (let [my-counter (util/counter 1000)]
     (dotimes [_ 1000] (my-counter dec))
-    (is (= 0 (my-counter)))))
+    (test/is (= 0 (my-counter)))))
 
-(deftest counter-invalid-operation-test
-  (let [cntr (counter)
+(test/deftest counter-invalid-operation-test
+  (let [cntr (util/counter)
         out-string (with-out-str (cntr "foo"))]
-    (is (= "No function passed: foo\n" out-string)))) 
+    (test/is (= "No function passed: foo\n" out-string)))) 
 
-(deftest simple-delta-counter-test
-  (let [cntr (counter)
-        delta-cntr (delta-counter)]
-    (is (= 0 (delta-cntr :cntr (cntr))))
+(test/deftest simple-delta-counter-test
+  (let [cntr (util/counter)
+        delta-cntr (util/delta-counter)]
+    (test/is (= 0 (delta-cntr :cntr (cntr))))
     (cntr inc)
     (cntr inc)
     (cntr inc)
-    (is (= 3 (delta-cntr :cntr (cntr))))
-    (is (= 0 (delta-cntr :cntr (cntr))))))
+    (test/is (= 3 (delta-cntr :cntr (cntr))))
+    (test/is (= 0 (delta-cntr :cntr (cntr))))))
 
-(deftest two-counters-delta-counter-test
-  (let [cntr-a (counter)
-        cntr-b (counter)
-        delta-cntr (delta-counter)]
-    (is (= 0 (delta-cntr :cntr-a (cntr-a))))
-    (is (= 0 (delta-cntr :cntr-b (cntr-b))))
+(test/deftest two-counters-delta-counter-test
+  (let [cntr-a (util/counter)
+        cntr-b (util/counter)
+        delta-cntr (util/delta-counter)]
+    (test/is (= 0 (delta-cntr :cntr-a (cntr-a))))
+    (test/is (= 0 (delta-cntr :cntr-b (cntr-b))))
     (cntr-a inc)
     (cntr-a inc)
     (cntr-a inc)
-    (is (= 0 (delta-cntr :cntr-b (cntr-b))))
-    (is (= 3 (delta-cntr :cntr-a (cntr-a))))
-    (is (= 0 (delta-cntr :cntr-a (cntr-a))))))
+    (test/is (= 0 (delta-cntr :cntr-b (cntr-b))))
+    (test/is (= 3 (delta-cntr :cntr-a (cntr-a))))
+    (test/is (= 0 (delta-cntr :cntr-a (cntr-a))))))
 
 
 
 ;;;
 ;;; Tests for getting class and fn names.
 ;;;
-(deftest get-classname
+(test/deftest get-classname
   (let [o (Object.)
-        n (classname o)]
-    (is (= "Object" n))))
+        n (util/classname o)]
+    (test/is (= "Object" n))))
 
 (defn test-fn [] (println "It's -O3 the letter not -03 the number."))
 
-(deftest test-fn-name
-  (is (= "test-fn" (fn-name test-fn))))
+(test/deftest test-fn-name
+  (test/is (= "test-fn" (util/fn-name test-fn))))
 
 
 
@@ -232,69 +229,69 @@
 ;;;
 (defn test-args-fn [a b c] (+ a b c))
 
-(deftest get-defn-arglists-test
-  (let [ret (get-defn-arglists-m test-args-fn)]
-    (is (vector? ret))
-    (is (= '[[a b c]] ret))))
+(test/deftest get-defn-arglists-test
+  (let [ret (util/get-defn-arglists-m test-args-fn)]
+    (test/is (vector? ret))
+    (test/is (= '[[a b c]] ret))))
 
-(deftest get-fn-arglists-test
-  (let [ret (get-fn-arglists-m (fn [a b c] (+ a b c)))]
-    (is (vector? (:args ret)))
-    (is (= '[[a b c]] (:args ret)))
-    (is (= 6 ((:fn ret) 1 2 3)))))
+(test/deftest get-fn-arglists-test
+  (let [ret (util/get-fn-arglists-m (fn [a b c] (+ a b c)))]
+    (test/is (vector? (:args ret)))
+    (test/is (= '[[a b c]] (:args ret)))
+    (test/is (= 6 ((:fn ret) 1 2 3)))))
 
 (defn test-multi-arity-args-fn 
   ([a] a)
   ([a b] (+ a b))
   ([a b c] (+ a b c)))
 
-(deftest get-defn-arglists-multi-arity-test
-  (let [ret (get-defn-arglists-m test-multi-arity-args-fn)]
-    (is (vector? ret))
-    (is (= '[[a] [a b] [a b c]] ret))))
+(test/deftest get-defn-arglists-multi-arity-test
+  (let [ret (util/get-defn-arglists-m test-multi-arity-args-fn)]
+    (test/is (vector? ret))
+    (test/is (= '[[a] [a b] [a b c]] ret))))
 
-(deftest get-fn-arglists-mulit-arity-test
-  (let [ret (get-fn-arglists-m (fn 
-                                 ([a] a)
-                                 ([a b] (+ a b))
-                                 ([a b c] (+ a b c))))]
-    (is (vector? (:args ret)))
-    (is (= '[[a] [a b] [a b c]] (:args ret)))
-    (is (= 1 ((:fn ret) 1)))
-    (is (= 3 ((:fn ret) 1 2)))
-    (is (= 6 ((:fn ret) 1 2 3)))))
+(test/deftest get-fn-arglists-mulit-arity-test
+  (let [ret (util/get-fn-arglists-m (fn 
+                                      ([a] a)
+                                      ([a b] (+ a b))
+                                      ([a b c] (+ a b c))))]
+    (test/is (vector? (:args ret)))
+    (test/is (= '[[a] [a b] [a b c]] (:args ret)))
+    (test/is (= 1 ((:fn ret) 1)))
+    (test/is (= 3 ((:fn ret) 1 2)))
+    (test/is (= 6 ((:fn ret) 1 2 3)))))
 
 
 
 ;;;
 ;;; Tests for manipulating vectors.
 ;;;
-(deftest test-byte-seq-to-int
+(test/deftest test-byte-seq-to-int
   (let [byte-vec [82 17 0 0]
         int-val 4434]
-    (is (= int-val (byte-seq-to-int byte-vec)))))
+    (test/is (= int-val (util/byte-seq-to-int byte-vec)))))
 
-(deftest test-get-int-from-byte-vector
+(test/deftest test-get-int-from-byte-vector
   (let [byte-vec [121 -110 84 79 0 0 0 0 -23 -71 8 0 0 0 0 0 82 17 0 0 82 17 0 0]
         int-val 4434]
-    (is (= int-val (get-int-from-byte-vector byte-vec 16))))) 
+    (test/is (= int-val (util/get-int-from-byte-vector byte-vec 16))))) 
 
-(deftest test-int-to-byte-vector
+(test/deftest test-int-to-byte-vector
   (let [int-val 4434
         byte-vec [82 17 0 0]]
-    (is (= byte-vec (subvec (int-to-byte-vector int-val) 0 4)))))
+    (test/is (= byte-vec (subvec (util/int-to-byte-vector int-val) 0 4)))))
 
-(deftest test-vec-replace
+(test/deftest test-vec-replace
   (let [original-vec [1 2 3 4 5 6]
         expected-vec [1 2 "a" "b" "c" 6]
-        changed-vec (vec-replace original-vec 2 ["a" "b" "c"])]
-    (is (= expected-vec changed-vec))))
+        changed-vec (util/vec-replace original-vec 2 ["a" "b" "c"])]
+    (test/is (= expected-vec changed-vec))))
 
-(deftest test-change-int-in-byte-vector
+(test/deftest test-change-int-in-byte-vector
   (let [original-vec [121 -110 84 79 0 0 0 0 -23 -71 8 0 0 0 0 0 82 17 0 0 82 17 0 0]
         expected-vec [121 -110 84 79 0 0 0 0 -23 -71 8 0 0 0 0 0 70 17 0 0 82 17 0 0]
-        changed-vec (change-int-in-byte-vector original-vec 16 #(- % 12))]
-    (is (= expected-vec changed-vec))))
+        changed-vec (util/change-int-in-byte-vector original-vec 16 #(- % 12))]
+    (test/is (= expected-vec changed-vec))))
 
 
 
@@ -302,325 +299,325 @@
 ;;; Tests for messing with XML.
 ;;; Primarily for transforming XML data in string format to maps.
 ;;;
-(deftest test-xml-string-to-map
+(test/deftest test-xml-string-to-map
   (let [xml-str "<foo fubar=\"snafu\">bar</foo>"
         expected-map {:tag :foo :attrs {:fubar "snafu"} :content ["bar"]}]
-    (is (= expected-map (xml-string-to-map xml-str)))))
+    (test/is (= expected-map (util/xml-string-to-map xml-str)))))
 
-(deftest test-stringify-keyword
-  (is (= "foo" (stringify-keyword :foo))))
+(test/deftest test-stringify-keyword
+  (test/is (= "foo" (util/stringify-keyword :foo))))
 
-(deftest test-stringify-map
+(test/deftest test-stringify-map
   (let [input-map {:tag :foo :attrs {:fubar "snafu"} :content ["bar"]}
         expected-map {"tag" "foo" "attrs" {"fubar" "snafu"} "content" ["bar"]}]
-    (is (= expected-map (stringify-map input-map)))))
+    (test/is (= expected-map (util/stringify-map input-map)))))
 
-(deftest test-xml-string-to-map-stringified
+(test/deftest test-xml-string-to-map-stringified
   (let [xml-str "<foo fubar=\"snafu\">bar</foo>"
         expected-map {"tag" "foo" "attrs" {"fubar" "snafu"} "content" ["bar"]}]
-    (is (= expected-map (xml-string-to-map-stringified xml-str)))))
+    (test/is (= expected-map (util/xml-string-to-map-stringified xml-str)))))
 
 
 
 ;;;
 ;;; Tests for running fn's regularly
 ;;;
-(deftest test-simple-executor
-  (let [flag (prepare-flag)
-        run-fn #(set-flag flag)
-        exec (executor)]
-    (run-once exec run-fn 100)
-    (sleep 300)
-    (is (flag-set? flag))))
+(test/deftest test-simple-executor
+  (let [flag (util/prepare-flag)
+        run-fn #(util/set-flag flag)
+        exec (util/executor)]
+    (util/run-once exec run-fn 100)
+    (util/sleep 300)
+    (test/is (util/flag-set? flag))))
 
-(deftest test-repeating-executor
-  (let [cntr (counter)
+(test/deftest test-repeating-executor
+  (let [cntr (util/counter)
         run-fn #(cntr inc)
-        exec (executor)]
-    (run-repeat exec run-fn 200)
-    (sleep 500)
-    (is (= 3 (cntr)))
-    (sleep 200)
-    (is (= 4 (cntr)))
-    (shutdown-now exec)
-    (sleep 400)
-    (is (= 4 (cntr)))))
+        exec (util/executor)]
+    (util/run-repeat exec run-fn 200)
+    (util/sleep 500)
+    (test/is (= 3 (cntr)))
+    (util/sleep 200)
+    (test/is (= 4 (cntr)))
+    (util/shutdown-now exec)
+    (util/sleep 400)
+    (test/is (= 4 (cntr)))))
 
-(deftest test-repeating-executor-2
-  (let [cntr (counter)
+(test/deftest test-repeating-executor-2
+  (let [cntr (util/counter)
         run-fn #(cntr inc)
-        exec (executor)]
-    (run-repeat exec run-fn 200)
-    (sleep 500)
-    (is (= 3 (cntr)))
-    (sleep 200)
-    (is (= 4 (cntr)))
-    (shutdown exec)
-    (sleep 400)
-    (is (= 4 (cntr)))))
+        exec (util/executor)]
+    (util/run-repeat exec run-fn 200)
+    (util/sleep 500)
+    (test/is (= 3 (cntr)))
+    (util/sleep 200)
+    (test/is (= 4 (cntr)))
+    (util/shutdown exec)
+    (util/sleep 400)
+    (test/is (= 4 (cntr)))))
 
 
 
 ;;;
 ;;; Tests for object serialization.
 ;;;
-(deftest test-object-to-byte-array
+(test/deftest test-object-to-byte-array
   (let [obj-int (int 123)
         obj-string "abc"
-        ba-int (object-to-byte-array obj-int)
-        ba-string (object-to-byte-array obj-string)]
-    (is (not (nil? ba-int)))
-    (is (not (nil? ba-string)))))
+        ba-int (util/object-to-byte-array obj-int)
+        ba-string (util/object-to-byte-array obj-string)]
+    (test/is (not (nil? ba-int)))
+    (test/is (not (nil? ba-string)))))
 
-(deftest test-compress-object-to-byte-array
+(test/deftest test-compress-object-to-byte-array
   (let [obj-int (int 123)
         obj-string "abc"
-        ba-int (compress-object-to-byte-array obj-int :gzip)
-        ba-string (compress-object-to-byte-array obj-string :gzip)]
-    (is (not (nil? ba-int)))
-    (is (not (nil? ba-string)))))
+        ba-int (util/compress-object-to-byte-array obj-int :gzip)
+        ba-string (util/compress-object-to-byte-array obj-string :gzip)]
+    (test/is (not (nil? ba-int)))
+    (test/is (not (nil? ba-string)))))
 
 
 
 ;;;
 ;;; Tests for reading input line-by-line
 ;;;
-(deftest process-line-by-line-test
-  (let [cntr (counter)]
-    (is (= 0 (cntr)))
-    (process-line-by-line "test-file.txt" (fn [_] (cntr inc)))
-    (is (= 10 (cntr)))))
+(test/deftest process-line-by-line-test
+  (let [cntr (util/counter)]
+    (test/is (= 0 (cntr)))
+    (util/process-line-by-line "test-file.txt" (fn [_] (cntr inc)))
+    (test/is (= 10 (cntr)))))
 
-(deftest process-line-by-line-test2
-  (let [cntr (counter)]
-    (is (= 0 (cntr)))
-    (process-line-by-line "test-file.txt" (fn [x] (cntr #(+ % (read-string x)))))
-    (is (= 55 (cntr)))))
+(test/deftest process-line-by-line-test2
+  (let [cntr (util/counter)]
+    (test/is (= 0 (cntr)))
+    (util/process-line-by-line "test-file.txt" (fn [x] (cntr #(+ % (read-string x)))))
+    (test/is (= 55 (cntr)))))
 
 
 
 ;;;
 ;;; Tests for converting Clojure specific data structures to their "pure" Java equivalents.
 ;;;
-(deftest convert-from-clojure-to-java-list-test
+(test/deftest convert-from-clojure-to-java-list-test
   (let [in '("a" 1 1.23)
         expected (doto (ArrayList.) (.add "a") (.add 1) (.add 1.23))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.ArrayList (type out)))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.ArrayList (type out)))))
 
-(deftest convert-from-clojure-to-java-map-test
+(test/deftest convert-from-clojure-to-java-map-test
   (let [in {"a" 1 "b" 1.23}
         expected (doto (HashMap.) (.put "a" 1) (.put "b" 1.23))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.HashMap (type out)))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.HashMap (type out)))))
 
-(deftest convert-from-clojure-to-java-set-test
+(test/deftest convert-from-clojure-to-java-set-test
   (let [in #{"a" 1 1.23}
         expected (doto (HashSet.) (.add "a") (.add 1) (.add 1.23))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.HashSet (type out)))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.HashSet (type out)))))
 
-(deftest convert-from-clojure-to-java-vector-test
+(test/deftest convert-from-clojure-to-java-vector-test
   (let [in ["a" 1 1.23]
         expected (doto (ArrayList.) (.add "a") (.add 1) (.add 1.23))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.ArrayList (type out)))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.ArrayList (type out)))))
 
-(deftest convert-from-clojure-to-java-nested-map-test
+(test/deftest convert-from-clojure-to-java-nested-map-test
   (let [in {"a" {"b" 1}}
         expected-nested (doto (HashMap.) (.put "b" 1))
         expected (doto (HashMap.) (.put "a" expected-nested))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.HashMap (type out)))
-    (is (= expected-nested (.get out "a")))
-    (is (= java.util.HashMap (type (.get out "a"))))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.HashMap (type out)))
+    (test/is (= expected-nested (.get out "a")))
+    (test/is (= java.util.HashMap (type (.get out "a"))))))
 
-(deftest convert-from-clojure-to-java-nested-set-test
+(test/deftest convert-from-clojure-to-java-nested-set-test
   (let [in #{"a" #{1 1.23}}
         expected-nested (doto (HashSet.) (.add 1) (.add 1.23))
         expected (doto (HashSet.) (.add "a") (.add expected-nested))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.HashSet (type out)))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.HashSet (type out)))))
 
-(deftest convert-from-clojure-to-java-nested-vector-test
+(test/deftest convert-from-clojure-to-java-nested-vector-test
   (let [in ["a" [1 1.23]]
         expected-nested (doto (ArrayList.) (.add 1) (.add 1.23))
         expected (doto (ArrayList.) (.add "a") (.add expected-nested))
-        out (convert-from-clojure-to-java in)]
-    (is (= expected out))
-    (is (= java.util.ArrayList (type out)))
-    (is (= expected-nested (.get out 1)))
-    (is (= java.util.ArrayList (type (.get out 1))))))
+        out (util/convert-from-clojure-to-java in)]
+    (test/is (= expected out))
+    (test/is (= java.util.ArrayList (type out)))
+    (test/is (= expected-nested (.get out 1)))
+    (test/is (= java.util.ArrayList (type (.get out 1))))))
 
 
 
 ;;;
 ;;; Tests for selectively accumulating map entries.
 ;;;
-(deftest reduce-selected-map-entries-sum-test
+(test/deftest reduce-selected-map-entries-sum-test
   (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
-    (is (= 6 (reduce-selected-map-entries in + ["a" "b" "c"])))))
+    (test/is (= 6 (util/reduce-selected-map-entries in + ["a" "b" "c"])))))
 
-(deftest reduce-selected-map-entries-sum-nil-test
+(test/deftest reduce-selected-map-entries-sum-nil-test
   (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
-    (is (= 7 (reduce-selected-map-entries in + ["c" "xyz" "d"])))))
+    (test/is (= 7 (util/reduce-selected-map-entries in + ["c" "xyz" "d"])))))
 
-(deftest reduce-selected-map-entries-concat-string-test
+(test/deftest reduce-selected-map-entries-concat-string-test
   (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
-    (is (= "234" (reduce-selected-map-entries in str ["b" "c" "d"])))))
+    (test/is (= "234" (util/reduce-selected-map-entries in str ["b" "c" "d"])))))
 
-(deftest reduce-selected-map-entries-concat-string-nil-test
+(test/deftest reduce-selected-map-entries-concat-string-nil-test
   (let [in {"a" 1 "b" 2 "c" 3 "d" 4}]
-    (is (= "23" (reduce-selected-map-entries in str ["b" "abc" "c"])))))
+    (test/is (= "23" (util/reduce-selected-map-entries in str ["b" "abc" "c"])))))
 
 
 
 ;;;
 ;;; Tests for printing to stderr.
 ;;;
-(deftest print-err-no-stdout-test
-  (is (= "" (with-out-str (print-err "foo")))))
+(test/deftest print-err-no-stdout-test
+  (test/is (= "" (with-out-str (util/print-err "foo")))))
 
-(deftest print-err-test
-  (is (= "foo" (with-err-str (print-err "foo")))))
+(test/deftest print-err-test
+  (test/is (= "foo" (util/with-err-str (util/print-err "foo")))))
 
-(deftest println-err-test
-  (is (= "foo\n" (with-err-str (println-err "foo")))))
+(test/deftest println-err-test
+  (test/is (= "foo\n" (util/with-err-str (util/println-err "foo")))))
 
 
 
 ;;;
 ;;; Tests for with-out-str-custom that allows to execute a function on each added string.
 ;;;
-(deftest with-out-str-custom-single-println-test
+(test/deftest with-out-str-custom-single-println-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foo\n" (with-out-str-custom write-fn (println "foo"))))
-    (is (= "foo\n" @intercepted-input))))
+    (test/is (= "foo\n" (util/with-out-str-custom write-fn (println "foo"))))
+    (test/is (= "foo\n" @intercepted-input))))
 
-(deftest with-out-str-custom-double-println-test
+(test/deftest with-out-str-custom-double-println-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foo\nbar\n" (with-out-str-custom write-fn (println "foo") (println "bar"))))
-    (is (= "foo\nbar\n" @intercepted-input))))
+    (test/is (= "foo\nbar\n" (util/with-out-str-custom write-fn (println "foo") (println "bar"))))
+    (test/is (= "foo\nbar\n" @intercepted-input))))
 
-(deftest with-out-str-custom-single-print-test
+(test/deftest with-out-str-custom-single-print-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foo" (with-out-str-custom write-fn (print "foo"))))
-    (is (= "foo" @intercepted-input))))
+    (test/is (= "foo" (util/with-out-str-custom write-fn (print "foo"))))
+    (test/is (= "foo" @intercepted-input))))
 
-(deftest with-out-str-custom-double-print-test
+(test/deftest with-out-str-custom-double-print-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    s)]
-    (is (= "foobar" (with-out-str-custom write-fn (print "foo") (print "bar"))))
-    (is (= "foobar" @intercepted-input))))
+    (test/is (= "foobar" (util/with-out-str-custom write-fn (print "foo") (print "bar"))))
+    (test/is (= "foobar" @intercepted-input))))
 
-(deftest with-out-str-custom-manipulated-string-test
+(test/deftest with-out-str-custom-manipulated-string-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    (str s s))]
-    (is (= "foofoo" (with-out-str-custom write-fn (print "foo"))))
-    (is (= "foo" @intercepted-input))))
+    (test/is (= "foofoo" (util/with-out-str-custom write-fn (print "foo"))))
+    (test/is (= "foo" @intercepted-input))))
 
-(deftest with-out-str-custom-nil-test
+(test/deftest with-out-str-custom-nil-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    nil)]
-    (is (= "" (with-out-str-custom write-fn (print "foo"))))
-    (is (= "foo" @intercepted-input))))
+    (test/is (= "" (util/with-out-str-custom write-fn (print "foo"))))
+    (test/is (= "foo" @intercepted-input))))
 
-(deftest with-err-str-custom-single-print-test
+(test/deftest with-err-str-custom-single-print-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s)
                    (str "bar" s "baz"))]
-    (is (= "barfoobaz" (with-err-str-custom write-fn (print-err "foo"))))
-    (is (= "foo" @intercepted-input))))
+    (test/is (= "barfoobaz" (util/with-err-str-custom write-fn (util/print-err "foo"))))
+    (test/is (= "foo" @intercepted-input))))
 
-(deftest with-out-str-cb-double-println-test
+(test/deftest with-out-str-cb-double-println-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s))]
-    (is (= "foo\nbar\n" (with-out-str-cb write-fn (println "foo") (println "bar"))))
-    (is (= "foo\nbar\n" @intercepted-input))))
+    (test/is (= "foo\nbar\n" (util/with-out-str-cb write-fn (println "foo") (println "bar"))))
+    (test/is (= "foo\nbar\n" @intercepted-input))))
 
-(deftest with-err-str-cb-double-println-test
+(test/deftest with-err-str-cb-double-println-test
   (let [intercepted-input (atom "")
         write-fn (fn [s]
                    (swap! intercepted-input str s))]
-    (is (= "foo\nbar\n" (with-err-str-cb write-fn (println-err "foo") (println-err "bar"))))
-    (is (= "foo\nbar\n" @intercepted-input))))
+    (test/is (= "foo\nbar\n" (util/with-err-str-cb write-fn (util/println-err "foo") (util/println-err "bar"))))
+    (test/is (= "foo\nbar\n" @intercepted-input))))
 
-(deftest with-eo-str-test
+(test/deftest with-eo-str-test
   (let [{:keys [stdout stderr all ret]}
-        (with-eo-str
+        (util/with-eo-str
           (println "foo")
-          (println-err "bar")
+          (util/println-err "bar")
           (+ 1 2 3))]
-    (is (= "foo\nbar\n" all))
-    (is (= "foo\n" stdout))
-    (is (= "bar\n" stderr))
-    (is (= 6 ret)))
+    (test/is (= "foo\nbar\n" all))
+    (test/is (= "foo\n" stdout))
+    (test/is (= "bar\n" stderr))
+    (test/is (= 6 ret)))
 
-  (testing "captures compiler output"
-    (testing "reflection warnings"
+  (test/testing "captures compiler output"
+    (test/testing "reflection warnings"
       (let [{:keys [stdout stderr all ret]}
-            (with-eo-str
+            (util/with-eo-str
               (println "foo-out")
-              (println-err "bar-err")
+              (util/println-err "bar-err")
               (eval '(.toString 42))
               (+ 1 2 3))]
-        (is (.startsWith all "foo-out\nbar-err\nReflection warning,"))
-        (is (= "foo-out\n" stdout))
-        (is (.startsWith stderr "bar-err\nReflection warning,")
+        (test/is (.startsWith all "foo-out\nbar-err\nReflection warning,"))
+        (test/is (= "foo-out\n" stdout))
+        (test/is (.startsWith stderr "bar-err\nReflection warning,")
             (pr-str stderr))
-        (is (re-find #"bar-err\nReflection warning, .* - reference to field toString on long can't be resolved.\n"
+        (test/is (re-find #"bar-err\nReflection warning, .* - reference to field toString on long can't be resolved.\n"
                      stderr))
-        (is (= 6 ret))))
+        (test/is (= 6 ret))))
 
-    (testing "var replacement warning"
+    (test/testing "var replacement warning"
       (let [{:keys [stdout stderr all ret]}
-            (with-eo-str
+            (util/with-eo-str
               (println "foo-out")
-              (println-err "bar-err")
+              (util/println-err "bar-err")
               (eval '(def rationalize clojure.core/rationalize))
               (+ 1 2 3))]
-        (is (= all "foo-out\nbar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
-        (is (= "foo-out\n" stdout))
-        (is (= stderr "bar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
-        (is (= 6 ret))))))
+        (test/is (= all "foo-out\nbar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
+        (test/is (= "foo-out\n" stdout))
+        (test/is (= stderr "bar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
+        (test/is (= 6 ret))))))
 
 
 
 ;;;
 ;;; Tests for getting data from a Map with default values when the entry does not exist.
 ;;;
-(deftest get-with-default-key-exists-test
+(test/deftest get-with-default-key-exists-test
   (let [m {"a" "A" "b" 6}]
-    (is (= "A" (get-with-default m "a" "X")))
-    (is (= 6 (get-with-default m "b" 1)))))
+    (test/is (= "A" (util/get-with-default m "a" "X")))
+    (test/is (= 6 (util/get-with-default m "b" 1)))))
 
-(deftest get-with-default-key-does-not-exist-test
+(test/deftest get-with-default-key-does-not-exist-test
   (let [m {"c" "C"}]
-    (is (= "X" (get-with-default m "a" "X")))
-    (is (= 1 (get-with-default m "b" 1)))))
+    (test/is (= "X" (util/get-with-default m "a" "X")))
+    (test/is (= 1 (util/get-with-default m "b" 1)))))
 
 
 
@@ -629,93 +626,93 @@
 ;;;
 (def test-out-file "file-out.test.file")
 
-(deftest simple-str-to-file-without-newline-test
-  (rm test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file)]
+(test/deftest simple-str-to-file-without-newline-test
+  (util/rm test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file)]
     (str-file-out "my-string")
-    (is (= "my-string" (slurp test-out-file)))
+    (test/is (= "my-string" (slurp test-out-file)))
     (str-file-out)))
 
-(deftest simple-str-to-file-with-newline-test
-  (rm test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file {:insert-newline true})]
+(test/deftest simple-str-to-file-with-newline-test
+  (util/rm test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file {:insert-newline true})]
     (str-file-out "my-string")
-    (is (= "my-string\n" (slurp test-out-file)))
+    (test/is (= "my-string\n" (slurp test-out-file)))
     (str-file-out)))
 
-(deftest simple-str-to-file-no-append-test
-  (rm test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file)]
+(test/deftest simple-str-to-file-no-append-test
+  (util/rm test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file)]
     (str-file-out "my-string")
-    (is (= "my-string" (slurp test-out-file)))
+    (test/is (= "my-string" (slurp test-out-file)))
     (str-file-out)
-    ((create-string-to-file-output test-out-file) "my-new-string")
-    (is (= "my-new-string" (slurp test-out-file)))))
+    ((util/create-string-to-file-output test-out-file) "my-new-string")
+    (test/is (= "my-new-string" (slurp test-out-file)))))
 
-(deftest simple-str-to-file-append-test
-  (rm test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file)]
+(test/deftest simple-str-to-file-append-test
+  (util/rm test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file)]
     (str-file-out "my-string")
-    (is (= "my-string" (slurp test-out-file)))
+    (test/is (= "my-string" (slurp test-out-file)))
     (str-file-out)
-    ((create-string-to-file-output test-out-file {:append true}) "my-new-string")
-    (is (= "my-stringmy-new-string" (slurp test-out-file)))))
+    ((util/create-string-to-file-output test-out-file {:append true}) "my-new-string")
+    (test/is (= "my-stringmy-new-string" (slurp test-out-file)))))
 
-(deftest simple-str-list-to-file-test
-  (rm test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file)
+(test/deftest simple-str-list-to-file-test
+  (util/rm test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file)
         str-lst '("foo" "bar" "blah")]
     (str-file-out str-lst)
-    (is (= "foobarblah" (slurp test-out-file)))
+    (test/is (= "foobarblah" (slurp test-out-file)))
     (str-file-out)))
 
-(deftest simple-map-to-file-test
-  (rm test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file)
+(test/deftest simple-map-to-file-test
+  (util/rm test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file)
         str-lst {"foo" "bar"}]
     (str-file-out str-lst)
-    (is (= "{\"foo\" \"bar\"}" (slurp test-out-file)))
+    (test/is (= "{\"foo\" \"bar\"}" (slurp test-out-file)))
     (str-file-out)))
 
-(deftest simple-fifo-str-to-file-test
-  (rm test-out-file)
-  (mkfifo test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file {:append true :await-open false})]
-    (run-once (executor) #(str-file-out "my-string\n") 100)
+(test/deftest simple-fifo-str-to-file-test
+  (util/rm test-out-file)
+  (util/mkfifo test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file {:append true :await-open false})]
+    (util/run-once (util/executor) #(str-file-out "my-string\n") 100)
     (with-open [rdr (clojure.java.io/reader test-out-file)]
-      (is (= "my-string" (first (line-seq rdr)))))
+      (test/is (= "my-string" (first (line-seq rdr)))))
     (str-file-out)))
 
-(deftest fifo-write-and-read-repeatedly-test
-  (rm test-out-file)
-  (mkfifo test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file {:append true :await-open false})
-        ctr (counter)
-        threaded-rdr (create-threaded-lineseq-reader test-out-file (fn [_] (ctr inc)))]
-    (sleep 100)
+(test/deftest fifo-write-and-read-repeatedly-test
+  (util/rm test-out-file)
+  (util/mkfifo test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file {:append true :await-open false})
+        ctr (util/counter)]
+    (util/create-threaded-lineseq-reader test-out-file (fn [_] (ctr inc)))
+    (util/sleep 100)
     (str-file-out "my-string\n")
     (str-file-out "my-string\n")
     (str-file-out "my-string\n")
-    (sleep 100)
-    (is (= 3 (ctr)))
+    (util/sleep 100)
+    (test/is (= 3 (ctr)))
     (str-file-out)))
 
-(deftest close-and-re-open-fifo-writer-test
-  (rm test-out-file)
-  (mkfifo test-out-file)
-  (let [str-file-out (create-string-to-file-output test-out-file {:append true :await-open false})
-        ctr (counter)
-        threaded-rdr (create-threaded-lineseq-reader test-out-file (fn [_] (ctr inc)))]
-    (sleep 100)
+(test/deftest close-and-re-open-fifo-writer-test
+  (util/rm test-out-file)
+  (util/mkfifo test-out-file)
+  (let [str-file-out (util/create-string-to-file-output test-out-file {:append true :await-open false})
+        ctr (util/counter)]
+    (util/create-threaded-lineseq-reader test-out-file (fn [_] (ctr inc)))
+    (util/sleep 100)
     (str-file-out "my-string\n")
-    (sleep 100)
+    (util/sleep 100)
     (str-file-out)
-    (sleep 100)
-    (let [str-file-out-2 (create-string-to-file-output test-out-file {:append true :await-open false})]
-      (sleep 100)
+    (util/sleep 100)
+    (let [str-file-out-2 (util/create-string-to-file-output test-out-file {:append true :await-open false})]
+      (util/sleep 100)
       (str-file-out-2 "my-string\n")
       (str-file-out-2 "my-string\n")
-      (sleep 100)
+      (util/sleep 100)
       (str-file-out-2))
-    (is (= 3 (ctr)))))
+    (test/is (= 3 (ctr)))))
 
