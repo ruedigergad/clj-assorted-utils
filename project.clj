@@ -1,5 +1,5 @@
-(defproject clj-assorted-utils "1.19.0"
-;(defproject clj-assorted-utils "1.19.1-SNAPSHOT"
+;(defproject clj-assorted-utils "1.19.0"
+(defproject clj-assorted-utils "1.19.1-SNAPSHOT"
   :description "Unsorted bunch of helper and utility functions."
   :dependencies [[org.clojure/clojure "1.11.1"]]
   :global-vars {*warn-on-reflection* true}
