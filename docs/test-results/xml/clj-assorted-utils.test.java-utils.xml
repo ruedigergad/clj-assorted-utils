@@ -1,67 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="clj-assorted-utils.test.java-utils" errors="0" failures="0" tests="22" time="0.0678" timestamp="2021-04-11_11:42:43+0200">
-    <testcase name="check-for-non-eval-on-read-set" classname="clj-assorted-utils.test.java-utils" time="0.0031">
+<testsuite name="clj-assorted-utils.test.java-utils" errors="0" failures="0" tests="22" time="0.0964" timestamp="2022-07-26_21:18:36+0200">
+    <testcase name="check-for-non-eval-on-read-set" classname="clj-assorted-utils.test.java-utils" time="0.0032">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0012">
+    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0017">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-map" classname="clj-assorted-utils.test.java-utils" time="0.0011">
+    <testcase name="read-clojure-data-structure-string-to-java-map" classname="clj-assorted-utils.test.java-utils" time="0.0047">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0011">
+    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0013">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list-2" classname="clj-assorted-utils.test.java-utils" time="0.0010">
+    <testcase name="read-clojure-data-structure-string-to-java-list-2" classname="clj-assorted-utils.test.java-utils" time="0.0016">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-map-test" classname="clj-assorted-utils.test.java-utils" time="0.0009">
+    <testcase name="convert-from-clojure-to-java-map-test" classname="clj-assorted-utils.test.java-utils" time="0.0011">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe-2" classname="clj-assorted-utils.test.java-utils" time="0.0011">
+    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe-2" classname="clj-assorted-utils.test.java-utils" time="0.0043">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe-2" classname="clj-assorted-utils.test.java-utils" time="0.0010">
+    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe-2" classname="clj-assorted-utils.test.java-utils" time="0.0019">
     </testcase>
     <testcase name="check-for-non-eval-on-read-map" classname="clj-assorted-utils.test.java-utils" time="0.0007">
     </testcase>
-    <testcase name="check-for-non-eval-on-read-list" classname="clj-assorted-utils.test.java-utils" time="0.0017">
+    <testcase name="check-for-non-eval-on-read-list" classname="clj-assorted-utils.test.java-utils" time="0.0010">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0006">
+    <testcase name="read-clojure-data-structure-string-to-java-list-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0008">
     </testcase>
-    <testcase name="check-for-non-eval-on-read-object" classname="clj-assorted-utils.test.java-utils" time="0.0010">
+    <testcase name="check-for-non-eval-on-read-object" classname="clj-assorted-utils.test.java-utils" time="0.0021">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-set" classname="clj-assorted-utils.test.java-utils" time="0.0030">
+    <testcase name="read-clojure-data-structure-string-to-java-set" classname="clj-assorted-utils.test.java-utils" time="0.0019">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0013">
+    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0024">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-list" classname="clj-assorted-utils.test.java-utils" time="0.0013">
+    <testcase name="read-clojure-data-structure-string-to-java-list" classname="clj-assorted-utils.test.java-utils" time="0.0017">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0006">
+    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0015">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-vector" classname="clj-assorted-utils.test.java-utils" time="0.0014">
+    <testcase name="read-clojure-data-structure-string-to-java-vector" classname="clj-assorted-utils.test.java-utils" time="0.0041">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0005">
+    <testcase name="read-clojure-data-structure-string-to-java-map-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0009">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0011">
+    <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe" classname="clj-assorted-utils.test.java-utils" time="0.0014">
     </testcase>
-    <testcase name="convert-from-clojure-to-java-list-test" classname="clj-assorted-utils.test.java-utils" time="0.0009">
+    <testcase name="convert-from-clojure-to-java-list-test" classname="clj-assorted-utils.test.java-utils" time="0.0010">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0008">
+    <testcase name="read-clojure-data-structure-string-to-java-vector-type-safe-nil" classname="clj-assorted-utils.test.java-utils" time="0.0016">
     </testcase>
-    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe-2" classname="clj-assorted-utils.test.java-utils" time="0.0028">
+    <testcase name="read-clojure-data-structure-string-to-java-set-type-safe-2" classname="clj-assorted-utils.test.java-utils" time="0.0014">
     </testcase>
     <system-err>
     </system-err>
     <system-out>
     </system-out>
     <properties>
-        <property name="sun.os.patch.level" value="unknown">
-        </property>
-        <property name="clj-assorted-utils.version" value="1.18.8">
+        <property name="clj-assorted-utils.version" value="1.19.0">
         </property>
         <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers">
         </property>
-        <property name="java.vm.info" value="mixed mode, sharing">
+        <property name="java.vm.info" value="mixed mode, emulated-client, sharing">
         </property>
         <property name="clojure.debug" value="false">
         </property>
-        <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-11.0.9.11-0.fc31.x86_64/lib">
-        </property>
-        <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment">
+        <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-2.fc36.x86_64/lib">
         </property>
         <property name="path.separator" value=":">
         </property>
@@ -80,29 +76,29 @@
         </property>
         <property name="sun.cpu.endian" value="little">
         </property>
-        <property name="java.vm.version" value="11.0.9+11">
+        <property name="java.vm.version" value="17.0.3+7">
         </property>
         <property name="sun.java.launcher" value="SUN_STANDARD">
         </property>
         <property name="java.vendor" value="Red Hat, Inc.">
         </property>
+        <property name="native.encoding" value="ANSI_X3.4-1968">
+        </property>
         <property name="java.specification.vendor" value="Oracle Corporation">
         </property>
-        <property name="java.vm.compressedOopsMode" value="32-bit">
-        </property>
-        <property name="awt.toolkit" value="sun.awt.X11.XToolkit">
+        <property name="java.vm.compressedOopsMode" value="Zero based">
         </property>
         <property name="clojure.compile.path" value="/home/rc/repositories/private/clojure/clj-assorted-utils/target/classes">
         </property>
-        <property name="java.vm.specification.version" value="11">
+        <property name="java.vm.specification.version" value="17">
         </property>
         <property name="java.io.tmpdir" value="/tmp">
         </property>
-        <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-11.0.9.11-0.fc31.x86_64">
+        <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-2.fc36.x86_64">
         </property>
-        <property name="java.class.path" value="/home/rc/repositories/private/clojure/clj-assorted-utils/test:/home/rc/repositories/private/clojure/clj-assorted-utils/src:/home/rc/repositories/private/clojure/clj-assorted-utils/dev-resources:/home/rc/repositories/private/clojure/clj-assorted-utils/resources:/home/rc/repositories/private/clojure/clj-assorted-utils/target/classes:/home/rc/.m2/repository/org/clojure/clojure/1.10.3/clojure-1.10.3.jar:/home/rc/.m2/repository/org/clojure/spec.alpha/0.2.194/spec.alpha-0.2.194.jar:/home/rc/.m2/repository/org/clojure/core.specs.alpha/0.2.56/core.specs.alpha-0.2.56.jar:/home/rc/.m2/repository/nrepl/nrepl/0.6.0/nrepl-0.6.0.jar:/home/rc/.m2/repository/clojure-complete/clojure-complete/0.2.5/clojure-complete-0.2.5.jar:/home/rc/.m2/repository/robert/hooke/1.3.0/hooke-1.3.0.jar:/home/rc/.m2/repository/clj-assorted-utils/clj-assorted-utils/1.18.2/clj-assorted-utils-1.18.2.jar:/home/rc/.m2/repository/test2junit/test2junit/1.4.2/test2junit-1.4.2.jar">
+        <property name="java.class.path" value="/home/rc/repositories/private/clojure/clj-assorted-utils/test:/home/rc/repositories/private/clojure/clj-assorted-utils/src:/home/rc/repositories/private/clojure/clj-assorted-utils/dev-resources:/home/rc/repositories/private/clojure/clj-assorted-utils/resources:/home/rc/repositories/private/clojure/clj-assorted-utils/target/classes:/home/rc/.m2/repository/org/clojure/clojure/1.11.1/clojure-1.11.1.jar:/home/rc/.m2/repository/org/clojure/spec.alpha/0.3.218/spec.alpha-0.3.218.jar:/home/rc/.m2/repository/org/clojure/core.specs.alpha/0.2.62/core.specs.alpha-0.2.62.jar:/home/rc/.m2/repository/nrepl/nrepl/0.8.3/nrepl-0.8.3.jar:/home/rc/.m2/repository/org/nrepl/incomplete/0.1.0/incomplete-0.1.0.jar:/home/rc/.m2/repository/robert/hooke/1.3.0/hooke-1.3.0.jar:/home/rc/.m2/repository/clj-assorted-utils/clj-assorted-utils/1.18.2/clj-assorted-utils-1.18.2.jar:/home/rc/.m2/repository/test2junit/test2junit/1.4.2/test2junit-1.4.2.jar">
         </property>
-        <property name="java.runtime.version" value="11.0.9+11">
+        <property name="java.runtime.version" value="17.0.3+7">
         </property>
         <property name="java.vm.vendor" value="Red Hat, Inc.">
         </property>
@@ -110,17 +106,17 @@
         </property>
         <property name="java.vm.name" value="OpenJDK 64-Bit Server VM">
         </property>
-        <property name="java.version" value="11.0.9">
+        <property name="java.version" value="17.0.3">
         </property>
         <property name="os.arch" value="amd64">
         </property>
         <property name="user.home" value="/home/rc">
         </property>
-        <property name="java.specification.version" value="11">
+        <property name="java.specification.version" value="17">
         </property>
         <property name="sun.jnu.encoding" value="ANSI_X3.4-1968">
         </property>
-        <property name="java.vendor.version" value="18.9">
+        <property name="java.vendor.version" value="21.9">
         </property>
         <property name="java.runtime.name" value="OpenJDK Runtime Environment">
         </property>
@@ -128,9 +124,7 @@
         </property>
         <property name="sun.arch.data.model" value="64">
         </property>
-        <property name="java.class.version" value="55.0">
-        </property>
-        <property name="sun.cpu.isalist" value="">
+        <property name="java.class.version" value="61.0">
         </property>
         <property name="file.encoding" value="UTF-8">
         </property>
@@ -140,21 +134,19 @@
         </property>
         <property name="os.name" value="Linux">
         </property>
-        <property name="os.version" value="5.8.8-100.fc31.x86_64">
+        <property name="os.version" value="5.18.13-200.fc36.x86_64">
         </property>
         <property name="file.separator" value="/">
         </property>
         <property name="java.vm.specification.name" value="Java Virtual Machine Specification">
         </property>
-        <property name="java.awt.printerjob" value="sun.print.PSPrinterJob">
-        </property>
         <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib">
         </property>
-        <property name="java.version.date" value="2020-10-20">
+        <property name="java.version.date" value="2022-04-19">
         </property>
-        <property name="java.vendor.url.bug" value="https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&amp;component=java-11-openjdk&amp;version=31">
+        <property name="java.vendor.url.bug" value="https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&amp;component=java-17-openjdk&amp;version=36">
         </property>
-        <property name="sun.java.command" value="clojure.main -i /tmp/form-init17613124255198483727.clj">
+        <property name="sun.java.command" value="clojure.main -i /tmp/form-init10056199515339445522.clj">
         </property>
         <property name="user.name" value="rc">
         </property>
