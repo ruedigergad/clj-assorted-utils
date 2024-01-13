@@ -9,8 +9,8 @@
   :test2junit-output-dir "docs/test-results"
   :test2junit-run-ant true
   :aot [clj-assorted-utils.JavaUtils]
-  :plugins [[lein-cloverage "1.0.9"] [test2junit "1.4.2"] [lein-html5-docs "3.0.3"]]
-  :profiles  {:repl  {:dependencies  [[jonase/eastwood "1.2.4" :exclusions  [org.clojure/clojure]]]}}
+  :plugins [[lein-cloverage "1.2.4"] [test2junit "1.4.2"] [lein-html5-docs "3.0.3"]]
+  :profiles  {:repl  {:dependencies  [[jonase/eastwood "1.4.2" :exclusions  [org.clojure/clojure]]]}}
   :license {:name "Eclipse Public License (EPL) - v 1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"
             :distribution :repo
