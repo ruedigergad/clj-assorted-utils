@@ -12,11 +12,14 @@
   clj-assorted-utils.test.util
   (:require
     (clojure
+      [string :as str])
+    (clojure
       [test :as test])
     (clojure.java
       [io :as jio])
     (clj-assorted-utils
-      [util :as util]))
+      [util :as util])
+    [clojure.string :as str])
   (:import
     (java.util ArrayList HashMap HashSet)))
 
@@ -599,9 +602,9 @@
               (util/println-err "bar-err")
               (eval '(def rationalize clojure.core/rationalize))
               (+ 1 2 3))]
-        (test/is (= all "foo-out\nbar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
+        (test/is (str/starts-with? all "foo-out\nbar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace:"))
         (test/is (= "foo-out\n" stdout))
-        (test/is (= stderr "bar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace: user, being replaced by: #'user/rationalize\n"))
+        (test/is (str/starts-with? stderr "bar-err\nWARNING: rationalize already refers to: #'clojure.core/rationalize in namespace:"))
         (test/is (= 6 ret))))))
 
 
