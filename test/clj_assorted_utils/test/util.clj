@@ -12,14 +12,12 @@
   clj-assorted-utils.test.util
   (:require
     (clojure
-      [string :as str])
-    (clojure
+      [string :as str]
       [test :as test])
     (clojure.java
       [io :as jio])
     (clj-assorted-utils
-      [util :as util])
-    [clojure.string :as str])
+      [util :as util]))
   (:import
     (java.util ArrayList HashMap HashSet)))
 
